@@ -1,0 +1,32 @@
+name: ✨ Feature request
+description: Propose a new feature or an improvement
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What need does this cover? Who is it for?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Acceptance criteria
+      description: How will we know it's done?
+      placeholder: |
+        - [ ] …
+        - [ ] …
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options: [frontend, backend, database, ai, i18n, infra]
