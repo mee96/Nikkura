@@ -7,3 +7,4 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 
 ### Added
 - Project scaffold from `mee96/project-template`.
+- Design direction for the four roles (Moe Magical, Haku Sama, Senpai and visitor): home and anime page mockups for desktop and mobile in `docs/DESIGN.md`.
