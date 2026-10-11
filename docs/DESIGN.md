@@ -31,6 +31,17 @@ The palette is applied with CSS custom properties switched by a `data-role` attr
 - **Mobile:** bottom navigation with four tabs (Inici, Explorar, Temporada, Kura). The profile and settings open from the avatar in the header.
 - **Login and sign-up** have no app navigation, only a link back to exploring.
 
+## Languages (i18n)
+
+Nikkura is fully trilingual: **Catalan, Spanish and English**. Every piece of UI text is a translation key, never a hard-coded string, from the first component.
+
+- The first visit uses the browser language (Catalan, Spanish or English, with English as fallback). Once chosen, the language is saved in the user's profile; visitors keep it in the browser.
+- **Desktop:** CA · ES · EN switch at the bottom of the sidebar. **Login and sign-up:** switch in the header. **Mobile:** language button in the login and sign-up header, and in Configuració inside the app.
+- The `<html lang>` attribute changes with the language, and each option is labelled in its own language (Català, Castellano, English).
+- "Kura" is a name and is never translated. Genre names come from Jikan in English and are translated with our own table.
+- Catalan and Spanish texts are usually 20–30% longer than English, so buttons and chips grow with their content and never use fixed widths.
+- The mockups are drawn in Catalan.
+
 ## Breakpoints
 
 | Name | Width | Layout |
