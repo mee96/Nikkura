@@ -25,11 +25,28 @@ The palette is applied with CSS custom properties switched by a `data-role` attr
 - Scores show the Nikkura community average next to the MyAnimeList score.
 - The live chat keeps the last 50 messages of each anime room.
 
+## Navigation
+
+- **Desktop:** fixed sidebar with Inici, Explorar, Temporada, El meu Kura and Configuració, plus the user card at the bottom.
+- **Mobile:** bottom navigation with four tabs (Inici, Explorar, Temporada, Kura). The profile and settings open from the avatar in the header.
+- **Login and sign-up** have no app navigation, only a link back to exploring.
+
+## Breakpoints
+
+| Name | Width | Layout |
+| :--- | :--- | :--- |
+| Mobile | < 768 px | Bottom navigation, one column, 2-column cover grids, filters in a bottom sheet |
+| Tablet | 768–1199 px | Sidebar collapsed to an icon rail, filters in a sheet, 3–4 column grids |
+| Desktop | ≥ 1200 px | Full 248 px sidebar, filters panel next to the results, 5–6 column grids |
+
+The mockups are drawn at 390 px (mobile) and 1440 px (desktop).
+
 ## Accessibility
 
-- Text contrast checked against WCAG AA on every theme, including the dark one.
+- Text contrast checked against WCAG AA on every theme, including the dark one. Placeholders use the full muted colour, never a lower opacity.
 - Touch targets of at least 44 px on mobile.
 - Real `<button>`, `<a>`, `<input>` and `<label>` elements; icon-only buttons have an `aria-label`.
+- Filter chips are toggle buttons (`aria-pressed`), the role picker is a radio group inside a `<fieldset>`, and folders in the Kura are tabs.
 
 ## Screens
 
@@ -55,5 +72,41 @@ The palette is applied with CSS custom properties switched by a `data-role` attr
 | :--- | :---: | :---: | :---: | :---: |
 | Home | ![](screenshots/design/home-mobile-moe-magical.png) | ![](screenshots/design/home-mobile-haku-sama.png) | ![](screenshots/design/home-mobile-senpai.png) | ![](screenshots/design/home-mobile-visitor.png) |
 | Anime page | ![](screenshots/design/detail-mobile-moe-magical.png) | ![](screenshots/design/detail-mobile-haku-sama.png) | ![](screenshots/design/detail-mobile-senpai.png) | ![](screenshots/design/detail-mobile-visitor.png) |
+
+### Search and filters
+
+Text search plus filters by type, genre, theme, demographic and minimum score. Active filters show as removable chips above the results, and a note reminds that explicit content is never shown. On mobile the filters open in a bottom sheet. Shown in Moe Magical and Haku Sama, as these screens only change theme tokens.
+
+| Desktop · Moe Magical | Desktop · Haku Sama |
+| :---: | :---: |
+| ![Search, Moe Magical](screenshots/design/search-desktop-moe-magical.png) | ![Search, Haku Sama](screenshots/design/search-desktop-haku-sama.png) |
+
+| Mobile · Moe Magical | Mobile · Haku Sama | Filter sheet |
+| :---: | :---: | :---: |
+| ![](screenshots/design/search-mobile-moe-magical.png) | ![](screenshots/design/search-mobile-haku-sama.png) | ![](screenshots/design/search-filters-mobile-moe-magical.png) |
+
+### Kura
+
+The personal library. Folders sit on top as tabs; each one shows how many anime it holds and who can see it (only me, followers or everyone). The two default folders, Preferits and Per veure, are marked and cannot be deleted. Every saved anime shows the user's own score and a lock when it has a private note.
+
+| Desktop · Moe Magical | Desktop · Haku Sama |
+| :---: | :---: |
+| ![Kura, Moe Magical](screenshots/design/kura-desktop-moe-magical.png) | ![Kura, Haku Sama](screenshots/design/kura-desktop-haku-sama.png) |
+
+| Mobile · Moe Magical | Mobile · Haku Sama |
+| :---: | :---: |
+| ![](screenshots/design/kura-mobile-moe-magical.png) | ![](screenshots/design/kura-mobile-haku-sama.png) |
+
+### Login and sign-up
+
+Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. The 18+ option is off by default and explains that hentai is never shown.
+
+| Login · desktop | Sign-up · desktop |
+| :---: | :---: |
+| ![Login](screenshots/design/login-desktop-visitor.png) | ![Sign-up](screenshots/design/signup-desktop-visitor.png) |
+
+| Login · mobile | Sign-up, step 2 · mobile |
+| :---: | :---: |
+| ![](screenshots/design/login-mobile-visitor.png) | ![](screenshots/design/signup-mobile-visitor.png) |
 
 > Anime titles, covers and comments in the mockups are placeholders. Real data comes from the Jikan API and from Nikkura users.
