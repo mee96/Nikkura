@@ -21,3 +21,9 @@ dist/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Tools
+.ruff_cache/
+
+# Database certificates
+*.pem
