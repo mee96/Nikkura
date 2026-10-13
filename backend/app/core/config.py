@@ -10,7 +10,10 @@ Role = Literal["moe_magical", "haku_sama", "senpai"]
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    # Empty values in .env (like `DB_PORT=`) fall back to the defaults below.
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", env_ignore_empty=True, extra="ignore"
+    )
 
     environment: Literal["local", "production"] = "local"
 

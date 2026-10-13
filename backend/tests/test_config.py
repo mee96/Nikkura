@@ -15,3 +15,9 @@ def test_every_role_has_recommended_genres() -> None:
 def test_hentai_is_excluded_even_for_adults() -> None:
     assert CONTENT_RULES["default"]["sfw"] is True
     assert "Hentai" in CONTENT_RULES["adult"]["genres_exclude"]
+
+
+def test_empty_env_values_fall_back_to_defaults(monkeypatch) -> None:
+    monkeypatch.setenv("DB_PORT", "")
+
+    assert Settings().db_port == 3306
