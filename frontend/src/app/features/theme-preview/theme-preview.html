@@ -1,0 +1,105 @@
+<main class="preview">
+  <header class="preview__header">
+    <div>
+      <p class="preview__kicker">Design tokens · src/styles/variables.css</p>
+      <h1 class="preview__title">Nikkura</h1>
+    </div>
+
+    <div class="switcher" role="group" aria-label="Theme">
+      @for (role of roles; track role.id) {
+        <button
+          type="button"
+          class="switcher__button"
+          [attr.aria-pressed]="theme.role() === role.id"
+          (click)="theme.setRole(role.id)"
+        >
+          {{ role.name }}
+        </button>
+      }
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero__kicker">Featured for you</p>
+    <h2 id="hero-title" class="hero__title">Promesa a la Lluna</h2>
+    <p class="hero__text">A banner with the hero tokens: background, text, motif and button.</p>
+    <div class="hero__actions">
+      <button type="button" class="hero__button">See the anime</button>
+      <button type="button" class="hero__ghost">Save</button>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="colours-title">
+    <h2 id="colours-title" class="block__title">Colours</h2>
+    <ul class="swatches">
+      @for (name of colours; track name) {
+        <li class="swatch">
+          <span class="swatch__chip" [style.background]="'var(--color-' + name + ')'"></span>
+          <code class="swatch__name">--color-{{ name }}</code>
+        </li>
+      }
+    </ul>
+    <ul class="covers" aria-label="Cover placeholders">
+      @for (n of covers; track n) {
+        <li class="cover" [style.background]="'var(--color-cover-' + n + ')'">
+          <span class="cover__label">cover-{{ n }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="type-title">
+    <h2 id="type-title" class="block__title">Typography</h2>
+    <p class="font-sample font-sample--display">--font-display · Recomanats per al teu rol</p>
+    <p class="font-sample font-sample--ui">--font-ui · Cerca, filtra i guarda al teu Kura</p>
+    <p class="font-sample font-sample--world-title">--font-world-title · Fitxa de l'anime</p>
+    <p class="font-sample font-sample--world-text">--font-world-text · Sinopsi i comentaris</p>
+    <ul class="scale">
+      @for (size of typeScale; track size) {
+        <li class="scale__row">
+          <code class="scale__name">--text-{{ size }}</code>
+          <span class="scale__sample" [style.font-size]="'var(--text-' + size + ')'">Nikkura</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="shape-title">
+    <h2 id="shape-title" class="block__title">Spacing, radius and shadows</h2>
+    <ul class="spaces">
+      @for (n of spaces; track n) {
+        <li class="space">
+          <span class="space__bar" [style.width]="'var(--space-' + n + ')'"></span>
+          <code>--space-{{ n }}</code>
+        </li>
+      }
+    </ul>
+    <ul class="shapes">
+      @for (r of radii; track r) {
+        <li class="shape" [style.border-radius]="'var(--radius-' + r + ')'">
+          <code>--radius-{{ r }}</code>
+        </li>
+      }
+      @for (s of shadows; track s) {
+        <li class="shape" [style.box-shadow]="'var(--shadow-' + s + ')'">
+          <code>--shadow-{{ s }}</code>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="components-title">
+    <h2 id="components-title" class="block__title">Components</h2>
+    <div class="row">
+      <button type="button" class="button button--primary">Primary</button>
+      <button type="button" class="button">Secondary</button>
+      <span class="chip">Shoujo</span>
+      <span class="chip">Romance</span>
+      <a href="#components-title">A link</a>
+    </div>
+    <label class="field">
+      <span class="field__label">Search an anime</span>
+      <input class="field__input" type="search" placeholder="Search by title" />
+    </label>
+  </section>
+</main>
