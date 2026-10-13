@@ -22,8 +22,8 @@
      4. Radius, borders and shadows (defaults)
      5. Motion and layers
      6. Role: Moe Magical  (data-role="moe")
-     7. Role: Haku Sama    (data-role="haku")
-     8. Role: Senpai       (data-role="senpai")
+     7. Role: Haku Sama    (data-role="haku")    blue and violet
+     8. Role: Senpai       (data-role="senpai")  black and orange, dark
      9. Visitor            (data-role="guest")
    ========================================================================== */
 
@@ -158,8 +158,46 @@
   --color-focus: #c83e7a;
 }
 
-/* 7. Haku Sama · black and orange (dark), isekai status window ------------- */
+/* 7. Haku Sama · indigo, violet and cyan, video rental store ------------- */
 [data-role='haku'] {
+  color-scheme: light;
+
+  --font-display: 'M PLUS Rounded 1c', var(--font-ui);
+  --font-world-title: 'Monoton', 'Zen Dots', var(--font-ui);
+  --font-world-text: 'Zen Dots', var(--font-ui);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+
+  --color-bg: #eff0fa;
+  --color-sidebar: #e5e7f7;
+  --color-surface: #fff;
+  --color-soft: #e1e3f8;
+  --color-border: #d5d8f0;
+  --color-border-strong: #a7abe2;
+  --color-text: #23244d;
+  --color-muted: #5d608c;
+  --color-primary: #5149c4;
+  --color-on-primary: #fff;
+  --color-primary-text: #4a42b8;
+  --color-hero: #5149c4;
+  --color-on-hero: #fff;
+  --color-hero-motif: #7e9eea;
+  --color-hero-button: #fff;
+  --color-on-hero-button: #2e2880;
+  --color-cover-1: #c9d2f5;
+  --color-cover-2: #d6ccf4;
+  --color-cover-3: #bfd8f2;
+  --color-cover-4: #dcd3f6;
+  --color-cover-5: #c3ccf0;
+  --color-cover-stripe: rgb(255 255 255 / 45%);
+  --color-scrim: rgb(35 36 77 / 45%);
+  --color-focus: #5149c4;
+}
+
+/* 8. Senpai · black and orange (dark), status window --------------------- */
+[data-role='senpai'] {
   color-scheme: dark;
 
   --font-display: 'Dela Gothic One', var(--font-ui);
@@ -199,44 +237,6 @@
   --color-cover-stripe: rgb(255 122 31 / 25%);
   --color-scrim: rgb(0 0 0 / 60%);
   --color-focus: #ffb874;
-}
-
-/* 8. Senpai · indigo, violet and cyan, video rental store ------------------ */
-[data-role='senpai'] {
-  color-scheme: light;
-
-  --font-display: 'M PLUS Rounded 1c', var(--font-ui);
-  --font-world-title: 'Monoton', 'Zen Dots', var(--font-ui);
-  --font-world-text: 'Zen Dots', var(--font-ui);
-
-  --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
-
-  --color-bg: #eff0fa;
-  --color-sidebar: #e5e7f7;
-  --color-surface: #fff;
-  --color-soft: #e1e3f8;
-  --color-border: #d5d8f0;
-  --color-border-strong: #a7abe2;
-  --color-text: #23244d;
-  --color-muted: #5d608c;
-  --color-primary: #5149c4;
-  --color-on-primary: #fff;
-  --color-primary-text: #4a42b8;
-  --color-hero: #5149c4;
-  --color-on-hero: #fff;
-  --color-hero-motif: #7e9eea;
-  --color-hero-button: #fff;
-  --color-on-hero-button: #2e2880;
-  --color-cover-1: #c9d2f5;
-  --color-cover-2: #d6ccf4;
-  --color-cover-3: #bfd8f2;
-  --color-cover-4: #dcd3f6;
-  --color-cover-5: #c3ccf0;
-  --color-cover-stripe: rgb(255 255 255 / 45%);
-  --color-scrim: rgb(35 36 77 / 45%);
-  --color-focus: #5149c4;
 }
 
 /* 9. Visitor · greens, slice-of-life notebook, read-only ------------------ */
