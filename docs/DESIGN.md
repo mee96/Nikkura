@@ -12,8 +12,8 @@ Two rules shape every screen:
 | Role | Recommendations (Jikan genres) | Palette | Anime page concept | Typefaces |
 | :--- | :--- | :--- | :--- | :--- |
 | 🌸 **Moe Magical** | Shoujo · Mahou Shoujo · Romance | `#FFF2F7` `#C83E7A` `#E9DDFB` `#4A2541` | Y2K desktop: every section is a retro window (`SINOPSI.TXT`, `COMUNITAT.EXE`, `XAT_EN_DIRECTE.EXE`) | Mochiy Pop One · DotGothic16 · M PLUS Rounded 1c |
-| 🔥 **Haku Sama** | Shoujo · Isekai | `#120C09` `#FF7A1F` `#FFB874` `#F6EADB` | Isekai status window: stat bars, guild channel, private grimoire, rune rating | Dela Gothic One · Chakra Petch · Zen Kaku Gothic New |
-| **Senpai** | Seinen · Slice of Life (+ Ecchi if 18+) | `#16153A` `#5149C4` `#7FE3FF` `#FF9BD2` | Video rental store: the anime is a VHS box, the user holds a member card, the chat plays on a CRT TV | Monoton · Zen Dots · M PLUS Rounded 1c |
+| 📼 **Haku Sama** | Shoujo · Isekai | `#16153A` `#5149C4` `#7FE3FF` `#FF9BD2` | Video rental store: the anime is a VHS box, the user holds a member card, the chat plays on a CRT TV | Monoton · Zen Dots · M PLUS Rounded 1c |
+| 🔥 **Senpai** | Seinen · Slice of Life (+ Ecchi if 18+) | `#120C09` `#FF7A1F` `#FFB874` `#F6EADB` | Status window (dark): stat bars, guild channel, private grimoire, rune rating | Dela Gothic One · Chakra Petch · Zen Kaku Gothic New |
 | **Visitor** (no account) | Current season, all genres | `#EEF1E3` `#4E7A3E` `#E7C78E` `#2C3824` | Slice-of-life notebook: polaroid cover, hanko stamps for scores, sticky notes. Read-only, with invitations to sign up | Kiwi Maru · Klee One · Zen Kaku Gothic New |
 
 The palette is applied with CSS custom properties switched by a `data-role` attribute on `<body>` (`moe`, `haku`, `senpai`, `guest`). Components only use tokens, never raw colours.
