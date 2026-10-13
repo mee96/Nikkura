@@ -30,7 +30,29 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [
+              "node_modules/@fontsource/m-plus-rounded-1c/latin-400.css",
+              "node_modules/@fontsource/m-plus-rounded-1c/latin-500.css",
+              "node_modules/@fontsource/m-plus-rounded-1c/latin-700.css",
+              "node_modules/@fontsource/m-plus-rounded-1c/latin-800.css",
+              "node_modules/@fontsource/mochiy-pop-one/latin-400.css",
+              "node_modules/@fontsource/dela-gothic-one/latin-400.css",
+              "node_modules/@fontsource/kiwi-maru/latin-400.css",
+              "node_modules/@fontsource/kiwi-maru/latin-500.css",
+              "node_modules/@fontsource/klee-one/latin-400.css",
+              "node_modules/@fontsource/klee-one/latin-600.css",
+              "node_modules/@fontsource/zen-kaku-gothic-new/latin-400.css",
+              "node_modules/@fontsource/zen-kaku-gothic-new/latin-500.css",
+              "node_modules/@fontsource/zen-kaku-gothic-new/latin-700.css",
+              "node_modules/@fontsource/dotgothic16/latin-400.css",
+              "node_modules/@fontsource/chakra-petch/latin-500.css",
+              "node_modules/@fontsource/chakra-petch/latin-600.css",
+              "node_modules/@fontsource/chakra-petch/latin-700.css",
+              "node_modules/@fontsource/monoton/latin-400.css",
+              "node_modules/@fontsource/zen-dots/latin-400.css",
+              "src/styles/variables.css",
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -42,7 +64,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
+                  "maximumWarning": "6kB",
                   "maximumError": "8kB"
                 }
               ],

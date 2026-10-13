@@ -18,6 +18,8 @@ Two rules shape every screen:
 
 The palette is applied with CSS custom properties switched by a `data-role` attribute on `<body>` (`moe`, `haku`, `senpai`, `guest`). Components only use tokens, never raw colours.
 
+All tokens (colours, fonts, type scale, spacing, radius, shadows and motion) live in one file: [`frontend/src/styles/variables.css`](../frontend/src/styles/variables.css). The `ThemeService` sets `data-role`, and Stylelint fails the build if a component writes a raw colour. Fonts are self-hosted with Fontsource (Latin subset), so no request goes to Google Fonts.
+
 ## Content rules shown in the UI
 
 - Visitors can read everything (scores, comments, chat) but every action asks them to sign in.

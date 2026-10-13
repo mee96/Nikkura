@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "color-no-hex": [true, { "message": "Use a colour token from src/styles/variables.css" }],
+    "color-named": ["never", { "message": "Use a colour token from src/styles/variables.css" }],
+    "function-disallowed-list": [
+      ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch"],
+      { "message": "Use a colour token from src/styles/variables.css" }
+    ],
+    "selector-class-pattern": null
+  }
+}
