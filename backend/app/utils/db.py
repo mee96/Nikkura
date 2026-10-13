@@ -1,5 +1,6 @@
 """MySQL connection to the `nikkura` schema (Aiven in production, SSL required)."""
 
+import logging
 from collections.abc import Iterator
 from functools import lru_cache
 
@@ -7,6 +8,8 @@ from sqlalchemy import URL, Engine, create_engine, text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import get_settings
+
+logger = logging.getLogger(__name__)
 
 
 @lru_cache
@@ -42,5 +45,7 @@ def check_database() -> bool:
         with get_engine().connect() as connection:
             connection.execute(text("SELECT 1"))
         return True
-    except Exception:
+    except Exception as exc:
+        # Log the reason (never the password) so a failing /health is easy to debug.
+        logger.warning("Database check failed: %s: %s", type(exc).__name__, exc)
         return False

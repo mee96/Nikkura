@@ -46,3 +46,15 @@ def test_cors_rejects_unknown_origins(client: TestClient) -> None:
     response = client.get("/health", headers={"Origin": "https://example.com"})
 
     assert "access-control-allow-origin" not in response.headers
+
+
+def test_database_check_logs_the_reason(monkeypatch, caplog) -> None:
+    from app.utils import db
+
+    def broken_engine():
+        raise RuntimeError("connection refused")
+
+    monkeypatch.setattr(db, "get_engine", broken_engine)
+
+    assert db.check_database() is False
+    assert "Database check failed: RuntimeError: connection refused" in caplog.text
