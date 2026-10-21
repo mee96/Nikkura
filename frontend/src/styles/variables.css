@@ -1,0 +1,278 @@
+/* ==========================================================================
+   NIKKURA · DESIGN TOKENS
+   --------------------------------------------------------------------------
+   The ONLY place where colours, fonts, sizes, radii and shadows are defined.
+   Components never write a raw value: they always use var(--token).
+
+   How it works
+   - :root holds the shared tokens (spacing, type scale, fonts, motion).
+   - Each [data-role="..."] block holds the theme of one role. The
+     ThemeService puts data-role on <body>, so changing the role changes
+     the whole app at once.
+   - Every role defines the SAME colour tokens, so a component looks right
+     in all four themes without knowing which one is active.
+
+   To change something, edit it here and it updates everywhere.
+   Palettes come from docs/DESIGN.md and are checked against WCAG AA.
+
+   Index
+     1. Fonts
+     2. Type scale
+     3. Spacing
+     4. Radius, borders and shadows (defaults)
+     5. Motion and layers
+     6. Role: Moe Magical  (data-role="moe")
+     7. Role: Haku Sama    (data-role="haku")    blue and violet
+     8. Role: Senpai       (data-role="senpai")  black and orange, dark
+     9. Visitor            (data-role="guest")
+   ========================================================================== */
+
+:root {
+  /* 1. Fonts ---------------------------------------------------------------
+     --font-ui       body text of the app (same for every role)
+     --font-display  headings of the app (changes with the role)
+     --font-world-*  the anime page, where each role has its own world   */
+  --font-ui: 'M PLUS Rounded 1c', system-ui, sans-serif;
+  --font-display: var(--font-ui);
+  --font-world-title: var(--font-display);
+  --font-world-text: var(--font-ui);
+  --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  /* 2. Type scale (px values from the mockups, in rem) -------------------- */
+  --text-xs: 0.75rem; /* 12 */
+  --text-sm: 0.8125rem; /* 13 */
+  --text-base: 0.9375rem; /* 15, body */
+  --text-md: 1rem; /* 16 */
+  --text-lg: 1.25rem; /* 20, card titles */
+  --text-xl: 1.5rem; /* 24, section titles */
+  --text-2xl: 2rem; /* 32, page titles */
+  --text-3xl: 2.875rem; /* 46, hero */
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+
+  /* 3. Spacing (4 px grid) ------------------------------------------------- */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.25rem; /* 20 */
+  --space-6: 1.5rem; /* 24 */
+  --space-7: 1.75rem; /* 28 */
+  --space-8: 2rem; /* 32 */
+  --space-10: 2.5rem; /* 40 */
+  --space-12: 3rem; /* 48 */
+
+  --touch-target: 44px; /* minimum size of anything you can tap */
+  --sidebar-width: 248px;
+  --aside-width: 320px;
+
+  /* 4. Radius, borders and shadows (defaults, a role can override) -------- */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --border-width: 1px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 6%);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 8%);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 12%);
+
+  /* 5. Motion and layers --------------------------------------------------- */
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --easing: cubic-bezier(0.2, 0, 0, 1);
+
+  --z-header: 10;
+  --z-overlay: 100;
+  --z-modal: 110;
+  --z-toast: 120;
+}
+
+/* --------------------------------------------------------------------------
+   Colour tokens, the same names in every role
+     --color-bg              page background
+     --color-sidebar         sidebar / navigation background
+     --color-surface         cards, inputs, panels
+     --color-soft            chips, selected items, soft highlights
+     --color-border          light borders
+     --color-border-strong   dashed borders, sliders, emphasised borders
+     --color-text            main text
+     --color-muted           secondary text (still WCAG AA on bg and surface)
+     --color-primary         main buttons and active navigation
+     --color-on-primary      text on top of --color-primary
+     --color-primary-text    links and accents written on bg / surface / soft
+     --color-hero            featured banner background
+     --color-on-hero         text on the featured banner
+     --color-hero-motif      decorations inside the banner
+     --color-hero-button     button on the banner
+     --color-on-hero-button  text of that button
+     --color-cover-1..5      placeholder backgrounds for covers
+     --color-cover-stripe    stripes over placeholder covers
+     --color-scrim           dark layer behind sheets and dialogs
+     --color-focus           keyboard focus ring
+   -------------------------------------------------------------------------- */
+
+/* 6. Moe Magical · pink and lilac, Y2K windows on the anime page ---------- */
+[data-role='moe'] {
+  color-scheme: light;
+
+  --font-display: 'Mochiy Pop One', var(--font-ui);
+  --font-world-title: 'Mochiy Pop One', var(--font-ui);
+  --font-world-text: 'DotGothic16', var(--font-ui);
+
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+
+  --color-bg: #fff2f7;
+  --color-sidebar: #ffe6f0;
+  --color-surface: #fff;
+  --color-soft: #fbe0ec;
+  --color-border: #f4cfe0;
+  --color-border-strong: #e7a9c5;
+  --color-text: #4a2541;
+  --color-muted: #835877;
+  --color-primary: #c83e7a;
+  --color-on-primary: #fff;
+  --color-primary-text: #b23469;
+  --color-hero: #e9ddfb;
+  --color-on-hero: #3e2066;
+  --color-hero-motif: #f7b6d2;
+  --color-hero-button: #3e2066;
+  --color-on-hero-button: #fff;
+  --color-cover-1: #f7c6da;
+  --color-cover-2: #d9c8f5;
+  --color-cover-3: #fbd9c4;
+  --color-cover-4: #c9e2f7;
+  --color-cover-5: #f3b6cf;
+  --color-cover-stripe: rgb(255 255 255 / 45%);
+  --color-scrim: rgb(74 37 65 / 45%);
+  --color-focus: #c83e7a;
+}
+
+/* 7. Haku Sama · indigo, violet and cyan, video rental store ------------- */
+[data-role='haku'] {
+  color-scheme: light;
+
+  --font-display: 'M PLUS Rounded 1c', var(--font-ui);
+  --font-world-title: 'Monoton', 'Zen Dots', var(--font-ui);
+  --font-world-text: 'Zen Dots', var(--font-ui);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+
+  --color-bg: #eff0fa;
+  --color-sidebar: #e5e7f7;
+  --color-surface: #fff;
+  --color-soft: #e1e3f8;
+  --color-border: #d5d8f0;
+  --color-border-strong: #a7abe2;
+  --color-text: #23244d;
+  --color-muted: #5d608c;
+  --color-primary: #5149c4;
+  --color-on-primary: #fff;
+  --color-primary-text: #4a42b8;
+  --color-hero: #5149c4;
+  --color-on-hero: #fff;
+  --color-hero-motif: #7e9eea;
+  --color-hero-button: #fff;
+  --color-on-hero-button: #2e2880;
+  --color-cover-1: #c9d2f5;
+  --color-cover-2: #d6ccf4;
+  --color-cover-3: #bfd8f2;
+  --color-cover-4: #dcd3f6;
+  --color-cover-5: #c3ccf0;
+  --color-cover-stripe: rgb(255 255 255 / 45%);
+  --color-scrim: rgb(35 36 77 / 45%);
+  --color-focus: #5149c4;
+}
+
+/* 8. Senpai · black and orange (dark), status window --------------------- */
+[data-role='senpai'] {
+  color-scheme: dark;
+
+  --font-display: 'Dela Gothic One', var(--font-ui);
+  --font-world-title: 'Dela Gothic One', var(--font-ui);
+  --font-world-text: 'Chakra Petch', 'Zen Kaku Gothic New', var(--font-ui);
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* On a dark background shadows barely show, so they are stronger. */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 50%);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 60%);
+
+  --color-bg: #16110e;
+  --color-sidebar: #110d0b;
+  --color-surface: #211915;
+  --color-soft: #3a2416;
+  --color-border: #33261e;
+  --color-border-strong: #6b4a33;
+  --color-text: #f6eadb;
+  --color-muted: #b7a290;
+  --color-primary: #ff7a1f;
+  --color-on-primary: #1a0d04;
+  --color-primary-text: #ff9a4d;
+  --color-hero: #ff7a1f;
+  --color-on-hero: #1a0d04;
+  --color-hero-motif: #16110e;
+  --color-hero-button: #1a0d04;
+  --color-on-hero-button: #ffb874;
+  --color-cover-1: #3b2416;
+  --color-cover-2: #4a2a14;
+  --color-cover-3: #2b201b;
+  --color-cover-4: #5a3216;
+  --color-cover-5: #33221a;
+  --color-cover-stripe: rgb(255 122 31 / 25%);
+  --color-scrim: rgb(0 0 0 / 60%);
+  --color-focus: #ffb874;
+}
+
+/* 9. Visitor · greens, slice-of-life notebook, read-only ------------------ */
+[data-role='guest'] {
+  color-scheme: light;
+
+  --font-display: 'Kiwi Maru', serif;
+  --font-world-title: 'Klee One', 'Kiwi Maru', serif;
+  --font-world-text: 'Zen Kaku Gothic New', var(--font-ui);
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+
+  --color-bg: #eef1e3;
+  --color-sidebar: #e4ead3;
+  --color-surface: #fbfcf5;
+  --color-soft: #dce7c8;
+  --color-border: #d3dcbf;
+  --color-border-strong: #9db283;
+  --color-text: #2c3824;
+  --color-muted: #5d6a50;
+  --color-primary: #4e7a3e;
+  --color-on-primary: #fff;
+  --color-primary-text: #43692f;
+  --color-hero: #2f4a2a;
+  --color-on-hero: #f3f1e2;
+  --color-hero-motif: #7fa05e;
+  --color-hero-button: #e7c78e;
+  --color-on-hero-button: #2c2414;
+  --color-cover-1: #b9cc9a;
+  --color-cover-2: #d9c49c;
+  --color-cover-3: #a9c2a8;
+  --color-cover-4: #cfddb3;
+  --color-cover-5: #c4b08a;
+  --color-cover-stripe: rgb(255 255 255 / 35%);
+  --color-scrim: rgb(44 56 36 / 45%);
+  --color-focus: #2f4a2a;
+}
