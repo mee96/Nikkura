@@ -36,7 +36,7 @@ jobs:
       - if: steps.check.outputs.exists == 'true'
         run: npm run build
       - if: steps.check.outputs.exists == 'true'
-        run: npm test --if-present -- --watch=false --browsers=ChromeHeadless
+        run: npm test --if-present -- --watch=false
 
   backend:
     name: Backend (FastAPI)
@@ -56,13 +56,16 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: backend/requirements.txt
+          cache-dependency-path: backend/requirements*.txt
       - if: steps.check.outputs.exists == 'true'
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
+      - name: Lint
+        if: steps.check.outputs.exists == 'true'
+        run: ruff check . && ruff format --check .
       - name: Check that every module compiles
         if: steps.check.outputs.exists == 'true'
         run: python -m compileall -q .
       - name: Run tests
         if: steps.check.outputs.exists == 'true'
         run: |
-          if [ -d tests ]; then pip install pytest && pytest -q; else echo "No tests/ folder yet"; fi
+          if [ -d tests ]; then pytest -q; else echo "No tests/ folder yet"; fi
