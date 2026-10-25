@@ -1,36 +1,39 @@
 <main class="preview">
   <header class="preview__header">
     <div>
-      <p class="preview__kicker">Design tokens · src/styles/variables.css</p>
+      <p class="preview__kicker">{{ 'preview.kicker' | transloco }}</p>
       <h1 class="preview__title">Nikkura</h1>
     </div>
 
-    <div class="switcher" role="group" aria-label="Theme">
-      @for (role of roles; track role.id) {
-        <button
-          type="button"
-          class="switcher__button"
-          [attr.aria-pressed]="theme.role() === role.id"
-          (click)="theme.setRole(role.id)"
-        >
-          {{ role.name }}
-        </button>
-      }
+    <div class="preview__controls">
+      <app-language-switch />
+      <div class="switcher" role="group" [attr.aria-label]="'preview.theme' | transloco">
+        @for (role of roles; track role) {
+          <button
+            type="button"
+            class="switcher__button"
+            [attr.aria-pressed]="theme.role() === role"
+            (click)="theme.setRole(role)"
+          >
+            {{ 'roles.' + role | transloco }}
+          </button>
+        }
+      </div>
     </div>
   </header>
 
   <section class="hero" aria-labelledby="hero-title">
-    <p class="hero__kicker">Featured for you</p>
+    <p class="hero__kicker">{{ 'preview.heroKicker' | transloco }}</p>
     <h2 id="hero-title" class="hero__title">Promesa a la Lluna</h2>
-    <p class="hero__text">A banner with the hero tokens: background, text, motif and button.</p>
+    <p class="hero__text">{{ 'preview.heroText' | transloco }}</p>
     <div class="hero__actions">
-      <button type="button" class="hero__button">See the anime</button>
-      <button type="button" class="hero__ghost">Save</button>
+      <button type="button" class="hero__button">{{ 'preview.seeAnime' | transloco }}</button>
+      <button type="button" class="hero__ghost">{{ 'preview.save' | transloco }}</button>
     </div>
   </section>
 
   <section class="block" aria-labelledby="colours-title">
-    <h2 id="colours-title" class="block__title">Colours</h2>
+    <h2 id="colours-title" class="block__title">{{ 'preview.colours' | transloco }}</h2>
     <ul class="swatches">
       @for (name of colours; track name) {
         <li class="swatch">
@@ -39,7 +42,7 @@
         </li>
       }
     </ul>
-    <ul class="covers" aria-label="Cover placeholders">
+    <ul class="covers" [attr.aria-label]="'preview.covers' | transloco">
       @for (n of covers; track n) {
         <li class="cover" [style.background]="'var(--color-cover-' + n + ')'">
           <span class="cover__label">cover-{{ n }}</span>
@@ -49,11 +52,17 @@
   </section>
 
   <section class="block" aria-labelledby="type-title">
-    <h2 id="type-title" class="block__title">Typography</h2>
-    <p class="font-sample font-sample--display">--font-display · Recomanats per al teu rol</p>
-    <p class="font-sample font-sample--ui">--font-ui · Cerca, filtra i guarda al teu Kura</p>
-    <p class="font-sample font-sample--world-title">--font-world-title · Fitxa de l'anime</p>
-    <p class="font-sample font-sample--world-text">--font-world-text · Sinopsi i comentaris</p>
+    <h2 id="type-title" class="block__title">{{ 'preview.typography' | transloco }}</h2>
+    <p class="font-sample font-sample--display">
+      --font-display · {{ 'preview.sampleDisplay' | transloco }}
+    </p>
+    <p class="font-sample font-sample--ui">--font-ui · {{ 'preview.sampleUi' | transloco }}</p>
+    <p class="font-sample font-sample--world-title">
+      --font-world-title · {{ 'preview.sampleWorldTitle' | transloco }}
+    </p>
+    <p class="font-sample font-sample--world-text">
+      --font-world-text · {{ 'preview.sampleWorldText' | transloco }}
+    </p>
     <ul class="scale">
       @for (size of typeScale; track size) {
         <li class="scale__row">
@@ -65,7 +74,7 @@
   </section>
 
   <section class="block" aria-labelledby="shape-title">
-    <h2 id="shape-title" class="block__title">Spacing, radius and shadows</h2>
+    <h2 id="shape-title" class="block__title">{{ 'preview.shapes' | transloco }}</h2>
     <ul class="spaces">
       @for (n of spaces; track n) {
         <li class="space">
@@ -89,17 +98,24 @@
   </section>
 
   <section class="block" aria-labelledby="components-title">
-    <h2 id="components-title" class="block__title">Components</h2>
+    <h2 id="components-title" class="block__title">{{ 'preview.components' | transloco }}</h2>
     <div class="row">
-      <button type="button" class="button button--primary">Primary</button>
-      <button type="button" class="button">Secondary</button>
-      <span class="chip">Shoujo</span>
-      <span class="chip">Romance</span>
-      <a href="#components-title">A link</a>
+      <button type="button" class="button button--primary">
+        {{ 'preview.primary' | transloco }}
+      </button>
+      <button type="button" class="button">{{ 'preview.secondary' | transloco }}</button>
+      @for (genre of sampleGenres; track genre) {
+        <span class="chip">{{ genreKey(genre) | transloco }}</span>
+      }
+      <a href="#components-title">{{ 'preview.link' | transloco }}</a>
     </div>
     <label class="field">
-      <span class="field__label">Search an anime</span>
-      <input class="field__input" type="search" placeholder="Search by title" />
+      <span class="field__label">{{ 'preview.searchLabel' | transloco }}</span>
+      <input
+        class="field__input"
+        type="search"
+        [placeholder]="'preview.searchPlaceholder' | transloco"
+      />
     </label>
   </section>
 </main>
