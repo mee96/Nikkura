@@ -30,6 +30,45 @@
     "searchLabel": "Cerca un anime",
     "searchPlaceholder": "Cerca pel títol"
   },
+  "nav": {
+    "label": "Navegació principal",
+    "home": "Inici",
+    "explore": "Explorar",
+    "season": "Temporada",
+    "kura": "El meu Kura",
+    "kuraShort": "Kura",
+    "settings": "Configuració",
+    "settingsShort": "Ajustos"
+  },
+  "shell": {
+    "skipToContent": "Salta al contingut",
+    "guestTagline": "Explora sense compte",
+    "roleTagline": "Rol: {{role}}",
+    "account": "Compte",
+    "signUp": "Crear un compte",
+    "logIn": "Entrar",
+    "backToExplore": "Torna a explorar",
+    "signUpShort": "Registre"
+  },
+  "search": {
+    "label": "Cerca un anime",
+    "placeholder": "Cerca un anime pel títol",
+    "filters": "Filtres"
+  },
+  "pages": {
+    "design": "Tokens de disseny",
+    "comingSoon": "Aviat",
+    "comingSoonText": "Aquesta pantalla arriba en una propera versió."
+  },
+  "settings": {
+    "languageText": "Tria l'idioma de Nikkura. Es guarda en aquest navegador."
+  },
+  "home": {
+    "inviteTitle": "Guarda, puntua i comenta",
+    "inviteText": "Amb un compte tens carpetes pròpies i recomanacions segons el rol que triïs.",
+    "inviteRoles": "Rols",
+    "inviteButton": "Tria el teu rol"
+  },
   "genres": {
     "action": "Acció",
     "adventure": "Aventura",

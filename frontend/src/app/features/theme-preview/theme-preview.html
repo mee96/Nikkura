@@ -1,4 +1,4 @@
-<main class="preview">
+<div class="preview">
   <header class="preview__header">
     <div>
       <p class="preview__kicker">{{ 'preview.kicker' | transloco }}</p>
@@ -6,7 +6,6 @@
     </div>
 
     <div class="preview__controls">
-      <app-language-switch />
       <div class="switcher" role="group" [attr.aria-label]="'preview.theme' | transloco">
         @for (role of roles; track role) {
           <button
@@ -118,4 +117,4 @@
       />
     </label>
   </section>
-</main>
+</div>

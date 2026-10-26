@@ -3,7 +3,6 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 import { genreKey } from '../../core/i18n/genre-key';
 import { ROLES, ThemeService } from '../../core/services/theme.service';
-import { LanguageSwitch } from '../../shared/language-switch/language-switch';
 
 /**
  * Temporary page to check the design tokens of the four themes.
@@ -11,7 +10,7 @@ import { LanguageSwitch } from '../../shared/language-switch/language-switch';
  */
 @Component({
   selector: 'app-theme-preview',
-  imports: [TranslocoPipe, LanguageSwitch],
+  imports: [TranslocoPipe],
   templateUrl: './theme-preview.html',
   styleUrl: './theme-preview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
