@@ -69,6 +69,11 @@
     "inviteRoles": "Roles",
     "inviteButton": "Pick your role"
   },
+  "content": {
+    "mature": "+18",
+    "matureLabel": "For ages 18 and over",
+    "matureNote": "For ages 18 and over: contains ecchi (suggestive content, no explicit sex)."
+  },
   "genres": {
     "action": "Action",
     "adventure": "Adventure",
@@ -88,6 +93,7 @@
     "sports": "Sports",
     "supernatural": "Supernatural",
     "suspense": "Suspense",
+    "ecchi": "Ecchi",
     "adult-cast": "Adult Cast",
     "anthropomorphic": "Anthropomorphic",
     "cgdct": "CGDCT",

@@ -69,6 +69,11 @@
     "inviteRoles": "Rols",
     "inviteButton": "Tria el teu rol"
   },
+  "content": {
+    "mature": "+18",
+    "matureLabel": "Per a majors de 18 anys",
+    "matureNote": "Per a majors de 18 anys: conté ecchi (contingut suggeridor, sense sexe explícit)."
+  },
   "genres": {
     "action": "Acció",
     "adventure": "Aventura",
@@ -88,6 +93,7 @@
     "sports": "Esports",
     "supernatural": "Sobrenatural",
     "suspense": "Suspens",
+    "ecchi": "Ecchi",
     "adult-cast": "Repartiment adult",
     "anthropomorphic": "Antropomòrfic",
     "cgdct": "Noies fent coses boniques",
