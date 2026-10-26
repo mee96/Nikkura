@@ -43,8 +43,12 @@ describe('translation files', () => {
     }
   });
 
-  it('has no adult genres, which are never shown', () => {
-    for (const name of ['Hentai', 'Erotica', 'Ecchi']) {
+  it('translates Ecchi, which is shown with a +18 mark', () => {
+    expect(valueAt(en, genreKey('Ecchi'))).toBeTruthy();
+  });
+
+  it('has no hentai or erotica, which are never shown', () => {
+    for (const name of ['Hentai', 'Erotica']) {
       expect(valueAt(en, genreKey(name)), name).toBeUndefined();
     }
   });

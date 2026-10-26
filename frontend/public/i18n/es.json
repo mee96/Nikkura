@@ -30,6 +30,11 @@
     "searchLabel": "Busca un anime",
     "searchPlaceholder": "Busca por título"
   },
+  "content": {
+    "mature": "+18",
+    "matureLabel": "Para mayores de 18 años",
+    "matureNote": "Para mayores de 18 años: contiene ecchi (contenido sugerente, sin sexo explícito)."
+  },
   "genres": {
     "action": "Acción",
     "adventure": "Aventura",
@@ -49,6 +54,7 @@
     "sports": "Deportes",
     "supernatural": "Sobrenatural",
     "suspense": "Suspense",
+    "ecchi": "Ecchi",
     "adult-cast": "Reparto adulto",
     "anthropomorphic": "Antropomórfico",
     "cgdct": "Chicas haciendo cosas monas",
