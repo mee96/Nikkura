@@ -54,7 +54,7 @@ Construida como **monorepo**: un frontend en **Angular 21** que lee los datos de
 * <img src="https://api.iconify.design/ph/chats-circle-fill.svg?color=%232FB5AE&height=18" height="16"> **Comunidad:** puntuación media y comentarios públicos en cada anime. *(previsto · M4)*
 * <img src="https://api.iconify.design/ph/users-three-fill.svg?color=%23E0A63B&height=18" height="16"> **Seguir y compartir:** sigue a personas y sus carpetas, y recomienda anime a tus amistades. *(previsto · M5)*
 * <img src="https://api.iconify.design/ph/lightning-fill.svg?color=%23FF6FA8&height=18" height="16"> **Chat en directo:** una sala por WebSocket en cada anime y chat privado entre amistades. *(previsto · M6)*
-* <img src="https://api.iconify.design/ph/shield-check-fill.svg?color=%235B9BD5&height=18" height="16"> **Contenido seguro:** SFW por defecto; los adultos pueden activar más contenido, y el hentai no se muestra nunca.
+* <img src="https://api.iconify.design/ph/shield-check-fill.svg?color=%235B9BD5&height=18" height="16"> **Contenido seguro:** sin contenido para adultos para nadie: el hentai, el erotica y el ecchi no se piden ni se muestran nunca.
 * <img src="https://api.iconify.design/ph/translate-fill.svg?color=%232FB5AE&height=18" height="16"> **Multilingüe:** catalán, castellano e inglés. *(previsto · M1)*
 
 <br/>

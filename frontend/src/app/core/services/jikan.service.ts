@@ -20,6 +20,7 @@ import {
   JikanItem,
   JikanList,
   JikanPage,
+  SeasonParams,
 } from '../models/jikan.model';
 
 /**
@@ -43,6 +44,7 @@ interface CacheEntry {
 
 /**
  * The only place that talks to Jikan (https://docs.api.jikan.moe).
+ * Screens don't use it directly: they go through AnimeService, which adds the content rules.
  *
  * - Requests go through a queue that spaces them out.
  * - A 429 is retried with exponential backoff; any other error is passed on.
@@ -70,8 +72,8 @@ export class JikanService {
     return this.getCached<JikanList<Genre>>('/genres/anime').pipe(map((response) => response.data));
   }
 
-  getCurrentSeason(page = 1): Observable<JikanPage<Anime>> {
-    return this.getCached<JikanPage<Anime>>('/seasons/now', { page });
+  getCurrentSeason(page = 1, params: SeasonParams = {}): Observable<JikanPage<Anime>> {
+    return this.getCached<JikanPage<Anime>>('/seasons/now', { ...params, page });
   }
 
   private get<T>(path: string, params: object = {}): Observable<T> {
