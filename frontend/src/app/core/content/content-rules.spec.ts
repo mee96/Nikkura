@@ -1,10 +1,11 @@
 import { makeAnime, tag } from '../../../testing/anime';
 import { Anime } from '../models/jikan.model';
-import { EXCLUDED_GENRES, isAllowedAnime } from './content-rules';
+import { EXCLUDED_GENRES, MATURE_GENRES, isAllowedAnime, isMatureAnime } from './content-rules';
 
 describe('content rules', () => {
-  it('never shows the explicit genres', () => {
-    expect([...EXCLUDED_GENRES]).toEqual(['Hentai', 'Erotica', 'Ecchi']);
+  it('never shows hentai or erotica, and marks ecchi as +18', () => {
+    expect([...EXCLUDED_GENRES]).toEqual(['Hentai', 'Erotica']);
+    expect([...MATURE_GENRES]).toEqual(['Ecchi']);
   });
 
   it('allows ordinary anime, R-rated included', () => {
@@ -17,11 +18,23 @@ describe('content rules', () => {
     expect(isAllowedAnime(makeAnime({ rating: 'Rx - Hentai' }))).toBe(false);
   });
 
-  it('hides anime Jikan marks with an explicit genre', () => {
-    expect(isAllowedAnime(makeAnime({ explicit_genres: [tag('Ecchi', 9)] }))).toBe(false);
+  it.each(['Hentai', 'Erotica'])('hides anime with %s among its explicit genres', (name) => {
+    expect(isAllowedAnime(makeAnime({ explicit_genres: [tag(name)] }))).toBe(false);
   });
 
-  it.each(['Hentai', 'erotica', 'ECCHI'])('hides anime tagged %s in any list', (name) => {
+  it('shows ecchi, with the +18 mark', () => {
+    const ecchi = makeAnime({ explicit_genres: [tag('Ecchi', 9)] });
+
+    expect(isAllowedAnime(ecchi)).toBe(true);
+    expect(isMatureAnime(ecchi)).toBe(true);
+    expect(isMatureAnime(makeAnime({ genres: [tag('ecchi')] }))).toBe(true);
+  });
+
+  it('does not mark ordinary anime', () => {
+    expect(isMatureAnime(makeAnime())).toBe(false);
+  });
+
+  it.each(['Hentai', 'erotica', 'HENTAI'])('hides anime tagged %s in any list', (name) => {
     expect(isAllowedAnime(makeAnime({ genres: [tag('Comedy'), tag(name)] }))).toBe(false);
     expect(isAllowedAnime(makeAnime({ themes: [tag(name)] }))).toBe(false);
   });

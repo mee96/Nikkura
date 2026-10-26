@@ -14,11 +14,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 - FastAPI backend in `backend/`: `GET /health` with a database check, MySQL connection to Aiven over SSL, CORS from `CORS_ORIGINS`, role genres and content rules in the config, pytest and Ruff.
 - Design tokens for the four themes in `frontend/src/styles/variables.css`, switched with `data-role` on `<body>` by the `ThemeService`, self-hosted fonts, and a temporary theme preview page.
 - `GenreService`: looks up Jikan genre, theme and demographic ids by name (case and spaces ignored), logs unknown names and keeps working if the list can't be loaded.
-- Content rules: `AnimeService` adds `sfw=true` and excludes Hentai, Erotica and Ecchi (ids looked up by name) on every Jikan request, filters every result again and refuses blocked anime by id.
+- Content rules: `AnimeService` adds `sfw=true` and excludes Hentai and Erotica (ids looked up by name) on every Jikan request, filters every result again and refuses blocked anime by id. Ecchi is shown with a +18 mark (`isMatureAnime`).
 - READMEs in English, Spanish and Catalan: meaning of the name, concept, features with their milestone, stack, structure, endpoints, how to run it locally and environment variables.
 
 ### Changed
-- No adult content for anyone: the 18+ option and the adult rules are removed from the backend config, the READMEs and `docs/DESIGN.md`.
+- No sexual content for anyone, and no age option: the 18+ option and the adult rules are removed from the backend config, the READMEs and `docs/DESIGN.md`; ecchi is shown with a +18 mark.
 - CI runs the frontend tests with Vitest instead of Karma.
 - CI installs the backend dev requirements and runs Ruff before the tests.
 - `npm run lint` also runs Stylelint, which rejects raw colours in components.

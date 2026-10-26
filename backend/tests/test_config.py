@@ -1,4 +1,4 @@
-from app.core.config import EXCLUDED_GENRES, ROLE_GENRES, Settings
+from app.core.config import EXCLUDED_GENRES, MATURE_GENRES, ROLE_GENRES, Settings
 
 
 def test_cors_origins_are_read_as_a_comma_separated_list() -> None:
@@ -12,8 +12,13 @@ def test_every_role_has_recommended_genres() -> None:
     assert all(ROLE_GENRES.values())
 
 
-def test_explicit_genres_are_excluded_for_everyone() -> None:
-    assert set(EXCLUDED_GENRES) == {"Hentai", "Erotica", "Ecchi"}
+def test_hentai_and_erotica_are_excluded_for_everyone() -> None:
+    assert set(EXCLUDED_GENRES) == {"Hentai", "Erotica"}
+
+
+def test_ecchi_is_shown_with_a_mature_mark() -> None:
+    assert MATURE_GENRES == ("Ecchi",)
+    assert set(MATURE_GENRES).isdisjoint(EXCLUDED_GENRES)
 
 
 def test_no_role_is_recommended_an_excluded_genre() -> None:

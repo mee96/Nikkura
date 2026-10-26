@@ -70,7 +70,7 @@ export interface Anime {
   season: string | null;
   year: number | null;
   genres: AnimeTag[];
-  /** Ecchi, Erotica or Hentai. Never shown on Nikkura (see core/content). */
+  /** Ecchi, Erotica or Hentai. Hentai and erotica are never shown; ecchi gets a +18 mark (see core/content). */
   explicit_genres: AnimeTag[];
   themes: AnimeTag[];
   demographics: AnimeTag[];
