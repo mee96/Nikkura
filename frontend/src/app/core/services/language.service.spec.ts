@@ -53,6 +53,30 @@ describe('LanguageService', () => {
     expect(create().lang()).toBe('ca');
   });
 
+  it('applies the detected language without saving it', () => {
+    browserLanguages = ['es-ES'];
+    create();
+
+    expect(TestBed.inject(TranslocoService).getActiveLang()).toBe('es');
+    expect(TestBed.inject(DOCUMENT).documentElement.lang).toBe('es');
+    expect(localStorage.getItem(LANG_STORAGE_KEY)).toBeNull();
+  });
+
+  it('keeps working when the browser blocks storage', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    browserLanguages = ['ca'];
+    const service = create();
+
+    expect(service.lang()).toBe('ca');
+    expect(() => service.setLang('es')).not.toThrow();
+    expect(service.lang()).toBe('es');
+  });
+
   it('applies a new language to Transloco, <html lang> and the saved choice', () => {
     const service = create();
 

@@ -5,8 +5,8 @@ import { genreKey } from '../../core/i18n/genre-key';
 import { ROLES, ThemeService } from '../../core/services/theme.service';
 
 /**
- * Temporary page to check the design tokens of the four themes.
- * It will be replaced by the real home when the layout (#10) is built.
+ * Page to check the design tokens of the four themes, at `/design`.
+ * Not in the navigation; it goes away once the real screens cover every token.
  */
 @Component({
   selector: 'app-theme-preview',

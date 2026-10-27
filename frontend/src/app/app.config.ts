@@ -6,10 +6,11 @@ import {
   withComponentInputBinding,
   withInMemoryScrolling,
 } from '@angular/router';
-import { provideTransloco } from '@jsverse/transloco';
+import { provideTransloco, provideTranslocoMissingHandler } from '@jsverse/transloco';
 
 import { routes } from './app.routes';
 import { FALLBACK_LANG, LANG_CODES } from './core/i18n/languages';
+import { FallbackTextMissingHandler } from './core/i18n/missing-handler';
 import { TranslatedTitleStrategy } from './core/i18n/translated-title.strategy';
 import { TranslocoHttpLoader } from './core/i18n/transloco-loader';
 
@@ -34,5 +35,6 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    provideTranslocoMissingHandler(FallbackTextMissingHandler),
   ],
 };

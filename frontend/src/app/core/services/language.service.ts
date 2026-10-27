@@ -7,8 +7,9 @@ import { FALLBACK_LANG, LANG_STORAGE_KEY, Lang, isLang } from '../i18n/languages
  * Chooses and applies the interface language.
  *
  * Order of preference: the visitor's saved choice, then the first browser
- * language we support, then English. Every change updates Transloco,
- * `<html lang>` and the saved choice.
+ * language we support, then English. Every change updates Transloco and
+ * `<html lang>`. Only a language the visitor picks is saved: a detected one
+ * is not, so the page keeps following the browser until they choose.
  */
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
@@ -24,12 +25,13 @@ export class LanguageService {
       const lang = this.activeLang();
       this.transloco.setActiveLang(lang);
       this.document.documentElement.lang = lang;
-      this.save(lang);
     });
   }
 
+  /** Applies and remembers the visitor's choice. */
   setLang(lang: Lang): void {
     this.activeLang.set(lang);
+    this.save(lang);
   }
 
   private initialLang(): Lang {
