@@ -30,6 +30,45 @@
     "searchLabel": "Search an anime",
     "searchPlaceholder": "Search by title"
   },
+  "nav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "explore": "Explore",
+    "season": "Season",
+    "kura": "My Kura",
+    "kuraShort": "Kura",
+    "settings": "Settings",
+    "settingsShort": "Settings"
+  },
+  "shell": {
+    "skipToContent": "Skip to content",
+    "guestTagline": "Explore without an account",
+    "roleTagline": "Role: {{role}}",
+    "account": "Account",
+    "signUp": "Create an account",
+    "logIn": "Log in",
+    "backToExplore": "Back to exploring",
+    "signUpShort": "Sign up"
+  },
+  "search": {
+    "label": "Search an anime",
+    "placeholder": "Search an anime by title",
+    "filters": "Filters"
+  },
+  "pages": {
+    "design": "Design tokens",
+    "comingSoon": "Coming soon",
+    "comingSoonText": "This screen arrives in an upcoming release."
+  },
+  "settings": {
+    "languageText": "Choose the language of Nikkura. It is saved in this browser."
+  },
+  "home": {
+    "inviteTitle": "Save, rate and comment",
+    "inviteText": "With an account you get your own folders and recommendations based on the role you pick.",
+    "inviteRoles": "Roles",
+    "inviteButton": "Pick your role"
+  },
   "content": {
     "mature": "+18",
     "matureLabel": "For ages 18 and over",

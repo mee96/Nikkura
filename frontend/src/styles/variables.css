@@ -20,7 +20,7 @@
      2. Type scale
      3. Spacing
      4. Radius, borders and shadows (defaults)
-     5. Motion and layers
+     5. Motion and layers (5b. layout sizes)
      6. Role: Moe Magical  (data-role="moe")
      7. Role: Haku Sama    (data-role="haku")    blue and violet
      8. Role: Senpai       (data-role="senpai")  black and orange, dark
@@ -94,6 +94,16 @@
   --z-overlay: 100;
   --z-modal: 110;
   --z-toast: 120;
+
+  /* 5b. Layout (app shell) --------------------------------------------------
+     Breakpoints can't be CSS variables (media queries don't read them), so
+     they live in src/styles/_breakpoints.scss: 768px tablet, 1200px desktop. */
+  --sidebar-width: 248px; /* full sidebar, desktop */
+  --rail-width: 88px; /* sidebar collapsed to icons, tablet */
+  --aside-width: 292px; /* side column next to the content, wide screens */
+  --content-max-width: 1280px;
+  --bottom-nav-height: 72px; /* mobile tab bar, without the safe area */
+  --icon-size: 20px;
 }
 
 /* --------------------------------------------------------------------------

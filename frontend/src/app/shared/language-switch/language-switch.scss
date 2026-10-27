@@ -1,5 +1,10 @@
+// The parent can lay the switch out with two custom properties:
+//   --language-switch-direction  row (default) or column, used by the icon rail
+//   --language-switch-width      auto (default) or 100% to fill a column
 .switch {
   display: inline-flex;
+  flex-direction: var(--language-switch-direction, row);
+  width: var(--language-switch-width, auto);
   gap: var(--space-1);
   padding: var(--space-1);
   border-radius: var(--radius-pill);
@@ -8,6 +13,7 @@
 }
 
 .switch__option {
+  flex: 1;
   min-width: var(--touch-target);
   min-height: var(--touch-target);
   padding: 0 var(--space-3);

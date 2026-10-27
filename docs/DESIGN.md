@@ -31,7 +31,10 @@ All tokens (colours, fonts, type scale, spacing, radius, shadows and motion) liv
 
 - **Desktop:** fixed sidebar with Inici, Explorar, Temporada, El meu Kura and Configuració, plus the user card at the bottom.
 - **Mobile:** bottom navigation with four tabs (Inici, Explorar, Temporada, Kura). The profile and settings open from the avatar in the header.
+- **Tablet:** the sidebar becomes an icon rail with a short label under each icon (Kura, Ajustos), the language switch stacked and the account buttons as icons.
 - **Login and sign-up** have no app navigation, only a link back to exploring.
+- **Side column:** on desktop each page can fill a column on the right (on the home: the role invitation for visitors, then the Kura folders and trends). Below 1200 px it is hidden and its content moves into the page.
+- **Skip link:** the first Tab shows "Skip to content", which moves focus to the main content.
 
 ## Languages (i18n)
 

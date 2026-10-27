@@ -1,0 +1,73 @@
+@use '../../../styles/breakpoints' as bp;
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.search__field {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+
+.search__icon {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+.search__input {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: var(--space-2) var(--space-4) var(--space-2) calc(var(--space-4) * 2 + var(--icon-size));
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+
+  &::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+  }
+}
+
+.search__filters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-5);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--color-border-strong);
+  }
+}
+
+// On mobile the filters button is just the icon (its text stays for screen readers).
+@include bp.mobile {
+  .search__filters {
+    padding: 0;
+  }
+
+  .search__filters-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

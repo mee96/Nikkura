@@ -3,15 +3,14 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 import { genreKey } from '../../core/i18n/genre-key';
 import { ROLES, ThemeService } from '../../core/services/theme.service';
-import { LanguageSwitch } from '../../shared/language-switch/language-switch';
 
 /**
- * Temporary page to check the design tokens of the four themes.
- * It will be replaced by the real home when the layout (#10) is built.
+ * Page to check the design tokens of the four themes, at `/design`.
+ * Not in the navigation; it goes away once the real screens cover every token.
  */
 @Component({
   selector: 'app-theme-preview',
-  imports: [TranslocoPipe, LanguageSwitch],
+  imports: [TranslocoPipe],
   templateUrl: './theme-preview.html',
   styleUrl: './theme-preview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
