@@ -110,6 +110,25 @@ describe('JikanService', () => {
       expect(req.request.params.get('page')).toBe('1');
       req.flush(seasonPage(1));
     });
+    it('passes the season params, like sfw', () => {
+      service.getCurrentSeason(2, { sfw: true }).subscribe();
+      tick(1);
+
+      const req = http.expectOne((r) => r.url === `${BASE}/seasons/now`);
+      expect(req.request.params.get('sfw')).toBe('true');
+      expect(req.request.params.get('page')).toBe('2');
+      req.flush(seasonPage(2));
+    });
+
+    it('sends the content params of a search comma-separated', () => {
+      service.searchAnime({ q: 'x', sfw: true, genres_exclude: [12, 49] }).subscribe();
+      tick(1);
+
+      const req = http.expectOne((r) => r.url === `${BASE}/anime`);
+      expect(req.request.params.get('sfw')).toBe('true');
+      expect(req.request.params.get('genres_exclude')).toBe('12,49');
+      req.flush({ data: [], pagination: seasonPage(1).pagination });
+    });
   });
 
   describe('cache', () => {

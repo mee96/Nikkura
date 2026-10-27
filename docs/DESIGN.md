@@ -13,7 +13,7 @@ Two rules shape every screen:
 | :--- | :--- | :--- | :--- | :--- |
 | 🌸 **Moe Magical** | Shoujo · Mahou Shoujo · Romance | `#FFF2F7` `#C83E7A` `#E9DDFB` `#4A2541` | Y2K desktop: every section is a retro window (`SINOPSI.TXT`, `COMUNITAT.EXE`, `XAT_EN_DIRECTE.EXE`) | Mochiy Pop One · DotGothic16 · M PLUS Rounded 1c |
 | 📼 **Haku Sama** | Shoujo · Isekai | `#16153A` `#5149C4` `#7FE3FF` `#FF9BD2` | Video rental store: the anime is a VHS box, the user holds a member card, the chat plays on a CRT TV | Monoton · Zen Dots · M PLUS Rounded 1c |
-| 🔥 **Senpai** | Seinen · Slice of Life (+ Ecchi if 18+) | `#120C09` `#FF7A1F` `#FFB874` `#F6EADB` | Status window (dark): stat bars, guild channel, private grimoire, rune rating | Dela Gothic One · Chakra Petch · Zen Kaku Gothic New |
+| 🔥 **Senpai** | Seinen · Slice of Life | `#120C09` `#FF7A1F` `#FFB874` `#F6EADB` | Status window (dark): stat bars, guild channel, private grimoire, rune rating | Dela Gothic One · Chakra Petch · Zen Kaku Gothic New |
 | **Visitor** (no account) | Current season, all genres | `#EEF1E3` `#4E7A3E` `#E7C78E` `#2C3824` | Slice-of-life notebook: polaroid cover, hanko stamps for scores, sticky notes. Read-only, with invitations to sign up | Kiwi Maru · Klee One · Zen Kaku Gothic New |
 
 The palette is applied with CSS custom properties switched by a `data-role` attribute on `<body>` (`moe`, `haku`, `senpai`, `guest`). Components only use tokens, never raw colours.
@@ -21,6 +21,9 @@ The palette is applied with CSS custom properties switched by a `data-role` attr
 All tokens (colours, fonts, type scale, spacing, radius, shadows and motion) live in one file: [`frontend/src/styles/variables.css`](../frontend/src/styles/variables.css). The `ThemeService` sets `data-role`, and Stylelint fails the build if a component writes a raw colour. Fonts are self-hosted with Fontsource (Latin subset), so no request goes to Google Fonts.
 
 ## Content rules shown in the UI
+
+- **No sexual content, for anyone.** Every Jikan list request carries `sfw=true` and excludes Hentai and Erotica, and every result is filtered again in the app. An anime page for one of them is not shown.
+- **Ecchi is shown with a +18 mark.** Jikan lists it as explicit, but it is suggestive content without sex. The mark is a small "+18" badge on the cover and the anime page, with a text that explains it.
 
 - Visitors can read everything (scores, comments, chat) but every action asks them to sign in.
 - Private notes are only visible to their author and are marked with a lock.
@@ -115,7 +118,7 @@ The personal library. Folders sit on top as tabs; each one shows how many anime 
 
 ### Login and sign-up
 
-Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. The 18+ option is off by default and explains that hentai is never shown.
+Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. There is no age option: hentai and erotica are never shown to anyone, and ecchi carries a +18 mark. (The "18 or older" note in the sign-up mockup is out of date and goes away when the screen is built in M2.)
 
 | Login · desktop | Sign-up · desktop |
 | :---: | :---: |

@@ -54,7 +54,7 @@ Built as a **monorepo**: an **Angular 21** frontend that reads anime data straig
 * <img src="https://api.iconify.design/ph/chats-circle-fill.svg?color=%232FB5AE&height=18" height="16"> **Community:** public average score and comments on every anime. *(planned · M4)*
 * <img src="https://api.iconify.design/ph/users-three-fill.svg?color=%23E0A63B&height=18" height="16"> **Follow and share:** follow people and their folders, and recommend anime to friends. *(planned · M5)*
 * <img src="https://api.iconify.design/ph/lightning-fill.svg?color=%23FF6FA8&height=18" height="16"> **Live chat:** a WebSocket room on each anime and private chat between friends. *(planned · M6)*
-* <img src="https://api.iconify.design/ph/shield-check-fill.svg?color=%235B9BD5&height=18" height="16"> **Safe content:** SFW by default; adults can opt in to more, and hentai is never shown.
+* <img src="https://api.iconify.design/ph/shield-check-fill.svg?color=%235B9BD5&height=18" height="16"> **Safe content:** no sexual content for anyone: hentai and erotica are never shown, and ecchi carries a +18 mark.
 * <img src="https://api.iconify.design/ph/translate-fill.svg?color=%232FB5AE&height=18" height="16"> **Multilingual:** Catalan, Spanish and English. *(planned · M1)*
 
 <br/>

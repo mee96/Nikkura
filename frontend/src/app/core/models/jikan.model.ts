@@ -70,6 +70,8 @@ export interface Anime {
   season: string | null;
   year: number | null;
   genres: AnimeTag[];
+  /** Ecchi, Erotica or Hentai. Hentai and erotica are never shown; ecchi gets a +18 mark (see core/content). */
+  explicit_genres: AnimeTag[];
   themes: AnimeTag[];
   demographics: AnimeTag[];
 }
@@ -85,4 +87,12 @@ export interface AnimeSearchParams {
   genres?: number[];
   order_by?: string;
   sort?: 'asc' | 'desc';
+  /** Content rules (#8): set by AnimeService, never by screens. */
+  sfw?: boolean;
+  genres_exclude?: number[];
+}
+
+/** Query params accepted by `GET /seasons/now`. */
+export interface SeasonParams {
+  sfw?: boolean;
 }
