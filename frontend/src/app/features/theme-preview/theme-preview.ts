@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 
-import { Role, ThemeService } from '../../core/services/theme.service';
+import { genreKey } from '../../core/i18n/genre-key';
+import { ROLES, ThemeService } from '../../core/services/theme.service';
+import { LanguageSwitch } from '../../shared/language-switch/language-switch';
 
 /**
  * Temporary page to check the design tokens of the four themes.
@@ -8,6 +11,7 @@ import { Role, ThemeService } from '../../core/services/theme.service';
  */
 @Component({
   selector: 'app-theme-preview',
+  imports: [TranslocoPipe, LanguageSwitch],
   templateUrl: './theme-preview.html',
   styleUrl: './theme-preview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,12 +19,12 @@ import { Role, ThemeService } from '../../core/services/theme.service';
 export class ThemePreview {
   protected readonly theme = inject(ThemeService);
 
-  protected readonly roles: { id: Role; name: string }[] = [
-    { id: 'moe', name: 'Moe Magical' },
-    { id: 'haku', name: 'Haku Sama' },
-    { id: 'senpai', name: 'Senpai' },
-    { id: 'guest', name: 'Visitor' },
-  ];
+  protected readonly roles = ROLES;
+
+  /** Names as Jikan returns them, translated through the genres table. */
+  protected readonly sampleGenres = ['Shoujo', 'Romance', 'Slice of Life', 'Fantasy'];
+
+  protected readonly genreKey = genreKey;
 
   protected readonly colours = [
     'bg',
