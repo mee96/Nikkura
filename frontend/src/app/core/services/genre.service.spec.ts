@@ -1,6 +1,9 @@
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Observable, firstValueFrom, of, throwError } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { Genre } from '../models/jikan.model';
 import { GenreService, normalizeGenreName } from './genre.service';
 import { JikanService } from './jikan.service';
@@ -81,5 +84,28 @@ describe('GenreService', () => {
 describe('normalizeGenreName', () => {
   it('lowercases and collapses spaces', () => {
     expect(normalizeGenreName('  Award   Winning ')).toBe('award winning');
+  });
+});
+
+describe('GenreService with the real JikanService', () => {
+  it('asks Jikan for the genre list only once for many lookups', () => {
+    vi.useFakeTimers();
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+    const service = TestBed.inject(GenreService);
+    const http = TestBed.inject(HttpTestingController);
+
+    const results: number[][] = [];
+    service.idsOf(['Shoujo']).subscribe((ids) => results.push(ids));
+    service.idsOf(['Slice of Life']).subscribe((ids) => results.push(ids));
+    service.idOf('Hentai').subscribe((id) => results.push([id ?? -1]));
+    vi.advanceTimersByTime(1000);
+
+    http.expectOne(`${environment.jikanUrl}/genres/anime`).flush({ data: GENRES });
+
+    expect(results).toEqual([[202], [101], [404]]);
+    http.verify();
+    vi.useRealTimers();
   });
 });
