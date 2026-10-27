@@ -105,7 +105,7 @@
       </button>
       <button type="button" class="button">{{ 'preview.secondary' | transloco }}</button>
       @for (genre of sampleGenres; track genre) {
-        <span class="chip">{{ genreKey(genre) | transloco }}</span>
+        <span class="chip">{{ genreKey(genre) | transloco: { fallback: genre } }}</span>
       }
       <a href="#components-title">{{ 'preview.link' | transloco }}</a>
     </div>

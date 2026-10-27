@@ -1,10 +1,11 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideTransloco } from '@jsverse/transloco';
+import { provideTransloco, provideTranslocoMissingHandler } from '@jsverse/transloco';
 
 import { routes } from './app.routes';
 import { FALLBACK_LANG, LANG_CODES } from './core/i18n/languages';
+import { FallbackTextMissingHandler } from './core/i18n/missing-handler';
 import { TranslocoHttpLoader } from './core/i18n/transloco-loader';
 
 export const appConfig: ApplicationConfig = {
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    provideTranslocoMissingHandler(FallbackTextMissingHandler),
   ],
 };
