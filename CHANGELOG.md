@@ -13,10 +13,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 - Angular 21 frontend in `frontend/`: standalone app without SSR, SCSS, Vitest and ESLint, with `core/`, `shared/` and `features/` folders and typed environment files for local and production.
 - FastAPI backend in `backend/`: `GET /health` with a database check, MySQL connection to Aiven over SSL, CORS from `CORS_ORIGINS`, role genres and content rules in the config, pytest and Ruff.
 - Design tokens for the four themes in `frontend/src/styles/variables.css`, switched with `data-role` on `<body>` by the `ThemeService`, self-hosted fonts, and a temporary theme preview page.
+- i18n with Transloco for Catalan, Spanish and English: language from the saved choice or the browser with English as fallback, `<html lang>` kept in sync, a language switch, genre names translated, and a test that fails when a key is missing in any language.
+- App layout: sidebar on desktop, icon rail on tablet, header and bottom navigation on mobile, search bar, side column, skip link, translated tab titles, a settings page with the language and a separate frame for login and sign-up. Screens that are not built yet show a coming-soon page.
 - `GenreService`: looks up Jikan genre, theme and demographic ids by name (case and spaces ignored), logs unknown names and keeps working if the list can't be loaded.
 - READMEs in English, Spanish and Catalan: meaning of the name, concept, features with their milestone, stack, structure, endpoints, how to run it locally and environment variables.
 
 ### Changed
+- The theme preview moves to `/design` and the home is now inside the app layout.
 - CI runs the frontend tests with Vitest instead of Karma.
 - CI installs the backend dev requirements and runs Ruff before the tests.
 - `npm run lint` also runs Stylelint, which rejects raw colours in components.
