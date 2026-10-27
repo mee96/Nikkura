@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { firstValueFrom, of, throwError } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 import { makeAnime } from '../../../testing/anime';
 import { BlockedContentError } from '../content/content-rules';
 import { Anime, Genre, JikanPage } from '../models/jikan.model';
 import { AnimeService } from './anime.service';
-import { ContentRulesService } from './content-rules.service';
 import { JikanService } from './jikan.service';
 
 const GENRES: Genre[] = [
@@ -32,7 +31,7 @@ const hentai = makeAnime({ mal_id: 2, rating: 'Rx - Hentai' });
 const erotica = makeAnime({ mal_id: 3, explicit_genres: [{ mal_id: 49, name: 'Erotica' }] });
 const ecchi = makeAnime({ mal_id: 4, explicit_genres: [{ mal_id: 9, name: 'Ecchi' }] });
 
-describe('content rules for requests', () => {
+describe('AnimeService', () => {
   let jikan: {
     getGenres: ReturnType<typeof vi.fn>;
     searchAnime: ReturnType<typeof vi.fn>;
@@ -52,25 +51,7 @@ describe('content rules for requests', () => {
     TestBed.configureTestingModule({ providers: [{ provide: JikanService, useValue: jikan }] });
   });
 
-  describe('ContentRulesService', () => {
-    it('asks for sfw and excludes hentai and erotica, resolved by name', async () => {
-      const params = await firstValueFrom(TestBed.inject(ContentRulesService).params());
-
-      expect(params).toEqual({ sfw: true, genres_exclude: [12, 49] });
-    });
-
-    it('keeps sfw when the genre list cannot be loaded', async () => {
-      vi.spyOn(console, 'error').mockImplementation(() => undefined);
-      jikan.getGenres.mockReturnValue(throwError(() => new Error('offline')));
-
-      const params = await firstValueFrom(TestBed.inject(ContentRulesService).params());
-
-      expect(params).toEqual({ sfw: true, genres_exclude: [] });
-      vi.restoreAllMocks();
-    });
-  });
-
-  describe('AnimeService', () => {
+  describe('content rules', () => {
     it('adds the content params to every search and the caller cannot override them', async () => {
       const service = TestBed.inject(AnimeService);
       const unsafe = { q: 'x', genres: [22], sfw: false } as unknown as Parameters<
