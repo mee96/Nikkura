@@ -101,6 +101,7 @@
   --sidebar-width: 248px; /* full sidebar, desktop */
   --rail-width: 88px; /* sidebar collapsed to icons, tablet */
   --aside-width: 292px; /* side column next to the content, wide screens */
+  --filters-width: 280px; /* filters panel next to the results, desktop */
   --content-max-width: 1280px;
   --bottom-nav-height: 72px; /* mobile tab bar, without the safe area */
   --icon-size: 20px;

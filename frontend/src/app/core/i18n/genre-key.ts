@@ -6,9 +6,13 @@
  * `{{ genreKey(genre.name) | transloco: { fallback: genre.name } }}`.
  */
 export function genreKey(name: string): string {
-  const slug = name
+  return `genres.${genreSlug(name)}`;
+}
+
+/** URL-friendly form of a Jikan name: "Slice of Life" → `slice-of-life`. Also used in `?genres=`. */
+export function genreSlug(name: string): string {
+  return name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-  return `genres.${slug}`;
 }

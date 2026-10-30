@@ -24,6 +24,16 @@ export interface ContentParams {
 const excludedNames = new Set<string>(EXCLUDED_GENRES.map(normalizeGenreName));
 const matureNames = new Set<string>(MATURE_GENRES.map(normalizeGenreName));
 
+/** True for a genre that is never shown (hentai, erotica). */
+export function isExcludedGenreName(name: string): boolean {
+  return excludedNames.has(normalizeGenreName(name));
+}
+
+/** True for a genre shown with the +18 mark (ecchi). */
+export function isMatureGenreName(name: string): boolean {
+  return matureNames.has(normalizeGenreName(name));
+}
+
 function allTags(anime: Anime): AnimeTag[] {
   return [
     ...(anime.genres ?? []),

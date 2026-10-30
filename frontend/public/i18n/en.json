@@ -53,12 +53,14 @@
   "search": {
     "label": "Search an anime",
     "placeholder": "Search an anime by title",
-    "filters": "Filters"
+    "filters": "Filters",
+    "clear": "Clear the search"
   },
   "pages": {
     "design": "Design tokens",
     "comingSoon": "Coming soon",
-    "comingSoonText": "This screen arrives in an upcoming release."
+    "comingSoonText": "This screen arrives in an upcoming release.",
+    "anime": "Anime page"
   },
   "settings": {
     "languageText": "Choose the language of Nikkura. It is saved in this browser."
@@ -73,6 +75,64 @@
     "mature": "+18",
     "matureLabel": "For ages 18 and over",
     "matureNote": "For ages 18 and over: contains ecchi (suggestive content, no explicit sex)."
+  },
+  "explore": {
+    "title": "Explore",
+    "countOne": "1 result",
+    "countMany": "{{count}} results",
+    "queryOne": "1 result for “{{q}}”",
+    "queryMany": "{{count}} results for “{{q}}”",
+    "filtersCount": "Filters · {{count}}",
+    "clearAll": "Clear all",
+    "clear": "Clear",
+    "showResults": "Show results",
+    "close": "Close the filters",
+    "type": "Type",
+    "genres": "Genres",
+    "themes": "Themes",
+    "demographics": "Demographics",
+    "minScore": "Minimum score",
+    "anyScore": "Any",
+    "scoreChip": "Score {{score}}+",
+    "showMore": "Show {{count}} more",
+    "showLess": "Show less",
+    "sortBy": "Sort by",
+    "activeFilters": "Active filters",
+    "removeFilter": "Remove filter: {{name}}",
+    "contentNote": "For everyone: hentai and erotica are never shown, and ecchi carries a +18 mark.",
+    "loading": "Loading the results…",
+    "emptyTitle": "No results",
+    "emptyText": "Try fewer filters or another word.",
+    "errorTitle": "Couldn't load the results",
+    "errorText": "Jikan isn't answering right now. Try again in a moment.",
+    "retry": "Try again",
+    "groupsError": "Couldn't load the genres.",
+    "sort": {
+      "popularity": "Popularity",
+      "score": "Score",
+      "newest": "Newest",
+      "title": "Title"
+    }
+  },
+  "types": {
+    "tv": "TV",
+    "movie": "Movie",
+    "ova": "OVA",
+    "ona": "ONA",
+    "special": "Special",
+    "tv-special": "TV special",
+    "music": "Music"
+  },
+  "anime": {
+    "scoreLabel": "Score",
+    "episodesOne": "1 episode",
+    "episodesMany": "{{count}} episodes"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {{page}}"
   },
   "genres": {
     "action": "Action",

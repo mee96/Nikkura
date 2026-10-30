@@ -1,0 +1,223 @@
+@use '../../../styles/breakpoints' as bp;
+
+.explore {
+  display: block;
+
+  &--desktop {
+    display: grid;
+    grid-template-columns: var(--filters-width) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.explore__panel {
+  position: sticky;
+  top: var(--space-6);
+  max-height: calc(100dvh - var(--space-12));
+  padding: var(--space-6);
+  overflow-y: auto;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.results__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.results__title {
+  font-size: var(--text-xl);
+
+  @include bp.tablet-up {
+    font-size: var(--text-2xl);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.sort__select {
+  min-height: var(--touch-target);
+  padding: 0 var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+}
+
+// Mobile: the filters button and the active chips scroll sideways in one row.
+.active {
+  display: flex;
+  gap: var(--space-2);
+  margin-inline: calc(var(--space-5) * -1);
+  padding-inline: var(--space-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  @include bp.tablet-up {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+}
+
+.active__list {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include bp.tablet-up {
+    flex-wrap: wrap;
+  }
+}
+
+.active__open,
+.active__chip {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.active__open {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.active__chip {
+  --icon-size: 14px;
+
+  background: var(--color-soft);
+  color: var(--color-primary-text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include bp.tablet-up {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeleton__cover,
+.skeleton__line {
+  display: block;
+  border-radius: var(--radius-md);
+  background: var(--color-soft);
+  animation: pulse 1.4s var(--easing) infinite;
+}
+
+.skeleton__cover {
+  aspect-ratio: 3 / 4;
+}
+
+.skeleton__line {
+  height: var(--space-4);
+  border-radius: var(--radius-sm);
+
+  &--short {
+    width: 60%;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.message__title {
+  font-size: var(--text-lg);
+}
+
+.message__text {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.message__button {
+  min-height: var(--touch-target);
+  padding: 0 var(--space-5);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.results__pagination {
+  margin-top: var(--space-4);
+}
+
+// Bottom sheet (mobile and tablet).
+.sheet {
+  width: 100%;
+  max-width: 40rem;
+  max-height: 88dvh;
+  margin: auto auto 0;
+  padding: var(--space-6) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom));
+  border: 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+
+  &::backdrop {
+    background: var(--color-scrim);
+  }
+}

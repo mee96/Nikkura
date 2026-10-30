@@ -1,0 +1,117 @@
+<div class="filters" [class.filters--sheet]="mode() === 'sheet'">
+  <div class="filters__header">
+    <h2 id="filters-title" class="filters__title">{{ 'search.filters' | transloco }}</h2>
+    @if (mode() === 'panel') {
+      <button type="button" class="filters__clear" (click)="cleared.emit()">
+        {{ 'explore.clearAll' | transloco }}
+      </button>
+    } @else {
+      <button
+        type="button"
+        class="filters__close"
+        [attr.aria-label]="'explore.close' | transloco"
+        (click)="closed.emit()"
+      >
+        <app-icon name="close" />
+      </button>
+    }
+  </div>
+
+  <fieldset class="group">
+    <legend class="group__title">{{ 'explore.type' | transloco }}</legend>
+    <div class="chips">
+      @for (type of types; track type) {
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="state().type === type"
+          (click)="toggleType(type)"
+        >
+          {{ 'types.' + type | transloco }}
+        </button>
+      }
+    </div>
+  </fieldset>
+
+  @if (groupsFailed()) {
+    <p class="filters__error" role="status">{{ 'explore.groupsError' | transloco }}</p>
+  }
+
+  @for (key of groupsFailed() ? [] : groupKeys; track key) {
+    <fieldset class="group" [attr.aria-busy]="groups() === null">
+      <legend class="group__title">{{ 'explore.' + key | transloco }}</legend>
+      <div class="chips">
+        @for (option of visible()[key].shown; track option.slug) {
+          <button
+            type="button"
+            class="chip"
+            [attr.aria-pressed]="selected().has(option.slug)"
+            (click)="toggleGenre(option.slug)"
+          >
+            {{ genreKey(option.name) | transloco: { fallback: option.name } }}
+            @if (option.mature) {
+              <span class="chip__mature" [attr.title]="'content.matureLabel' | transloco">{{
+                'content.mature' | transloco
+              }}</span>
+            }
+          </button>
+        }
+        @if (visible()[key].hidden > 0) {
+          <button
+            type="button"
+            class="chip chip--more"
+            [attr.aria-label]="'explore.showMore' | transloco: { count: visible()[key].hidden }"
+            (click)="toggleGroup(key)"
+          >
+            + {{ visible()[key].hidden }}
+          </button>
+        } @else if (isExpanded(key)) {
+          <button type="button" class="chip chip--more" (click)="toggleGroup(key)">
+            {{ 'explore.showLess' | transloco }}
+          </button>
+        }
+      </div>
+    </fieldset>
+  }
+
+  <fieldset class="group">
+    <legend class="group__title">{{ 'explore.minScore' | transloco }}</legend>
+    <div class="chips">
+      <button
+        type="button"
+        class="chip"
+        [attr.aria-pressed]="state().minScore === null"
+        (click)="setMinScore(null)"
+      >
+        {{ 'explore.anyScore' | transloco }}
+      </button>
+      @for (score of scores; track score) {
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="state().minScore === score"
+          [attr.aria-label]="'explore.scoreChip' | transloco: { score }"
+          (click)="setMinScore(score)"
+        >
+          {{ score }}+
+        </button>
+      }
+    </div>
+  </fieldset>
+
+  <p class="filters__note">
+    <app-icon name="shield" />
+    <span>{{ 'explore.contentNote' | transloco }}</span>
+  </p>
+
+  @if (mode() === 'sheet') {
+    <div class="filters__footer">
+      <button type="button" class="button" (click)="cleared.emit()">
+        {{ 'explore.clear' | transloco }}
+      </button>
+      <button type="button" class="button button--primary" (click)="closed.emit()">
+        {{ 'explore.showResults' | transloco }}
+      </button>
+    </div>
+  }
+</div>

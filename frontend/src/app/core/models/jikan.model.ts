@@ -38,6 +38,9 @@ export interface AnimeTag {
   name: string;
 }
 
+/** Groups accepted by the `filter` param of `/genres/anime`. */
+export type GenreFilter = 'genres' | 'explicit_genres' | 'themes' | 'demographics';
+
 /** Entry of `/genres/anime`. Jikan returns genres, themes and demographics together. */
 export interface Genre extends AnimeTag {
   count: number;

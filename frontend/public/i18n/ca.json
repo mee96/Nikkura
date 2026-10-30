@@ -53,12 +53,14 @@
   "search": {
     "label": "Cerca un anime",
     "placeholder": "Cerca un anime pel títol",
-    "filters": "Filtres"
+    "filters": "Filtres",
+    "clear": "Esborra la cerca"
   },
   "pages": {
     "design": "Tokens de disseny",
     "comingSoon": "Aviat",
-    "comingSoonText": "Aquesta pantalla arriba en una propera versió."
+    "comingSoonText": "Aquesta pantalla arriba en una propera versió.",
+    "anime": "Fitxa de l'anime"
   },
   "settings": {
     "languageText": "Tria l'idioma de Nikkura. Es guarda en aquest navegador."
@@ -73,6 +75,64 @@
     "mature": "+18",
     "matureLabel": "Per a majors de 18 anys",
     "matureNote": "Per a majors de 18 anys: conté ecchi (contingut suggeridor, sense sexe explícit)."
+  },
+  "explore": {
+    "title": "Explorar",
+    "countOne": "1 resultat",
+    "countMany": "{{count}} resultats",
+    "queryOne": "1 resultat per a «{{q}}»",
+    "queryMany": "{{count}} resultats per a «{{q}}»",
+    "filtersCount": "Filtres · {{count}}",
+    "clearAll": "Esborrar tot",
+    "clear": "Esborrar",
+    "showResults": "Veure els resultats",
+    "close": "Tancar els filtres",
+    "type": "Tipus",
+    "genres": "Gèneres",
+    "themes": "Temes",
+    "demographics": "Demografia",
+    "minScore": "Puntuació mínima",
+    "anyScore": "Qualsevol",
+    "scoreChip": "Nota {{score}}+",
+    "showMore": "Mostra {{count}} més",
+    "showLess": "Mostra'n menys",
+    "sortBy": "Ordenar per",
+    "activeFilters": "Filtres actius",
+    "removeFilter": "Treu el filtre: {{name}}",
+    "contentNote": "Per a tothom: l'hentai i l'erotica no es mostren mai, i l'ecchi porta la marca +18.",
+    "loading": "Carregant els resultats…",
+    "emptyTitle": "Cap resultat",
+    "emptyText": "Prova amb menys filtres o amb una altra paraula.",
+    "errorTitle": "No s'han pogut carregar els resultats",
+    "errorText": "Jikan no respon ara mateix. Torna-ho a provar d'aquí a una estona.",
+    "retry": "Torna-ho a provar",
+    "groupsError": "No s'han pogut carregar els gèneres.",
+    "sort": {
+      "popularity": "Popularitat",
+      "score": "Puntuació",
+      "newest": "Més recents",
+      "title": "Títol"
+    }
+  },
+  "types": {
+    "tv": "TV",
+    "movie": "Pel·lícula",
+    "ova": "OVA",
+    "ona": "ONA",
+    "special": "Especial",
+    "tv-special": "Especial de TV",
+    "music": "Música"
+  },
+  "anime": {
+    "scoreLabel": "Puntuació",
+    "episodesOne": "1 episodi",
+    "episodesMany": "{{count}} episodis"
+  },
+  "pagination": {
+    "label": "Paginació",
+    "previous": "Pàgina anterior",
+    "next": "Pàgina següent",
+    "page": "Pàgina {{page}}"
   },
   "genres": {
     "action": "Acció",

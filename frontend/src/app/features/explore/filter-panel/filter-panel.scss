@@ -1,0 +1,144 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.filters__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.filters__title {
+  font-size: var(--text-xl);
+}
+
+.filters__clear {
+  min-height: var(--touch-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary-text);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.filters__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-soft);
+  color: var(--color-primary-text);
+  font-size: var(--text-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.filters__error {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.group__title {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-4);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+
+  &[aria-pressed='true'] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+
+    // The tick is decoration: aria-pressed already says the chip is on.
+    &::before {
+      content: '✓' / '';
+    }
+  }
+
+  &--more {
+    border-style: dashed;
+  }
+}
+
+.chip__mature {
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  background: var(--color-soft);
+  color: var(--color-primary-text);
+  font-size: var(--text-xs);
+}
+
+.filters__note {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-soft);
+  color: var(--color-text); // muted on soft is below AA in the visitor theme
+  font-size: var(--text-sm);
+}
+
+.filters__footer {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3) 0 var(--space-1);
+  background: var(--color-surface);
+}
+
+.button {
+  min-height: var(--touch-target);
+  padding: 0 var(--space-6);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+
+  &--primary {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+}

@@ -1,0 +1,157 @@
+<div class="explore" [class.explore--desktop]="viewport.isDesktop()">
+  @if (viewport.isDesktop()) {
+    <aside class="explore__panel" aria-labelledby="filters-title">
+      <app-filter-panel
+        [state]="state()"
+        [groups]="loadedGroups()"
+        [groupsFailed]="groups().status === 'error'"
+        (changed)="update($event)"
+        (cleared)="clearFilters()"
+      />
+    </aside>
+  }
+
+  <section class="results" aria-labelledby="results-title">
+    <div class="results__header">
+      <h1 #heading id="results-title" class="results__title" tabindex="-1">
+        @switch (results().status) {
+          @case ('ready') {
+            @if (state().q) {
+              {{
+                (total() === 1 ? 'explore.queryOne' : 'explore.queryMany')
+                  | transloco: { count: total(), q: state().q }
+              }}
+            } @else {
+              {{
+                (total() === 1 ? 'explore.countOne' : 'explore.countMany')
+                  | transloco: { count: total() }
+              }}
+            }
+          }
+          @default {
+            {{ 'explore.title' | transloco }}
+          }
+        }
+      </h1>
+
+      <label class="sort">
+        <span class="sort__label">{{ 'explore.sortBy' | transloco }}</span>
+        <select
+          class="sort__select"
+          [value]="state().sort"
+          (change)="setSort($any($event.target).value)"
+        >
+          @for (key of sortKeys; track key) {
+            <option [value]="key" [selected]="state().sort === key">
+              {{ 'explore.sort.' + key | transloco }}
+            </option>
+          }
+        </select>
+      </label>
+    </div>
+
+    @if (!viewport.isDesktop() || activeFilters().length > 0) {
+      <div class="active">
+        @if (!viewport.isDesktop()) {
+          <button
+            type="button"
+            class="active__open"
+            aria-haspopup="dialog"
+            [attr.aria-pressed]="null"
+            (click)="openSheet()"
+          >
+            <app-icon name="filters" />
+            @if (filterCount() > 0) {
+              {{ 'explore.filtersCount' | transloco: { count: filterCount() } }}
+            } @else {
+              {{ 'search.filters' | transloco }}
+            }
+          </button>
+        }
+        @if (activeFilters().length > 0) {
+          <ul class="active__list" [attr.aria-label]="'explore.activeFilters' | transloco">
+            @for (chip of activeFilters(); track chip.label) {
+              <li>
+                <button
+                  type="button"
+                  class="active__chip"
+                  [attr.aria-label]="
+                    'explore.removeFilter'
+                      | transloco: { name: (chip.label | transloco: chip.params) }
+                  "
+                  (click)="update(chip.remove)"
+                >
+                  {{ chip.label | transloco: chip.params }}
+                  <app-icon name="close" />
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    }
+
+    @switch (results().status) {
+      @case ('loading') {
+        <ul class="grid" aria-busy="true" [attr.aria-label]="'explore.loading' | transloco">
+          @for (item of skeletons; track item) {
+            <li class="skeleton" aria-hidden="true">
+              <span class="skeleton__cover"></span>
+              <span class="skeleton__line"></span>
+              <span class="skeleton__line skeleton__line--short"></span>
+            </li>
+          }
+        </ul>
+      }
+      @case ('error') {
+        <div class="message" role="alert">
+          <h2 class="message__title">{{ 'explore.errorTitle' | transloco }}</h2>
+          <p class="message__text">{{ 'explore.errorText' | transloco }}</p>
+          <button type="button" class="message__button" (click)="retry()">
+            {{ 'explore.retry' | transloco }}
+          </button>
+        </div>
+      }
+      @case ('ready') {
+        @if (items().length > 0) {
+          <ul class="grid">
+            @for (anime of items(); track anime.mal_id) {
+              <li><app-anime-card [anime]="anime" /></li>
+            }
+          </ul>
+          <app-pagination
+            class="results__pagination"
+            [current]="state().page"
+            [total]="totalPages()"
+          />
+        } @else {
+          <div class="message">
+            <h2 class="message__title">{{ 'explore.emptyTitle' | transloco }}</h2>
+            <p class="message__text">{{ 'explore.emptyText' | transloco }}</p>
+            @if (filterCount() > 0) {
+              <button type="button" class="message__button" (click)="clearFilters()">
+                {{ 'explore.clearAll' | transloco }}
+              </button>
+            }
+          </div>
+        }
+      }
+    }
+  </section>
+</div>
+
+@if (!viewport.isDesktop()) {
+  <!-- Clicking the dark backdrop closes the sheet; keyboard users close it with Esc (native to dialog). -->
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+  <dialog #sheet class="sheet" aria-labelledby="filters-title" (click)="onSheetClick($event)">
+    <app-filter-panel
+      mode="sheet"
+      [state]="state()"
+      [groups]="loadedGroups()"
+      [groupsFailed]="groups().status === 'error'"
+      (changed)="update($event)"
+      (cleared)="clearFilters()"
+      (closed)="closeSheet()"
+    />
+  </dialog>
+}
