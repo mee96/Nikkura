@@ -63,8 +63,14 @@ export const routes: Routes = [
       {
         path: 'explore',
         title: 'nav.explore',
+        loadComponent: () => import('./features/explore/explore').then((m) => m.Explore),
+      },
+      {
+        // Anime page (#12).
+        path: 'anime/:id',
+        title: 'pages.anime',
         loadComponent: comingSoon,
-        data: { titleKey: 'nav.explore' },
+        data: { titleKey: 'pages.anime' },
       },
       {
         path: 'season',

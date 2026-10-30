@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, defer, map, of } from 'rxjs';
 
-import { Genre } from '../models/jikan.model';
+import { Genre, GenreFilter } from '../models/jikan.model';
 import { JikanService } from './jikan.service';
 
 /** Genre names are compared without case or extra spaces: "slice of life" finds "Slice of Life". */
@@ -21,20 +21,20 @@ export function normalizeGenreName(name: string): string {
 export class GenreService {
   private readonly jikan = inject(JikanService);
 
-  /** Normalised name → genre. */
-  private readonly index$: Observable<ReadonlyMap<string, Genre>> = defer(() =>
-    this.jikan.getGenres(),
-  ).pipe(
-    map((genres) => new Map(genres.map((genre) => [normalizeGenreName(genre.name), genre]))),
-    catchError((error: unknown) => {
-      console.error('[GenreService] Could not load the Jikan genres', error);
-      return of(new Map<string, Genre>());
-    }),
-  );
+  /** Normalised name → genre, for every genre or for one group. */
+  private index(filter?: GenreFilter): Observable<ReadonlyMap<string, Genre>> {
+    return defer(() => this.jikan.getGenres(filter)).pipe(
+      map((genres) => new Map(genres.map((genre) => [normalizeGenreName(genre.name), genre]))),
+      catchError((error: unknown) => {
+        console.error('[GenreService] Could not load the Jikan genres', error);
+        return of(new Map<string, Genre>());
+      }),
+    );
+  }
 
   /** Every genre, theme and demographic Jikan knows. */
   all(): Observable<Genre[]> {
-    return this.index$.pipe(map((index) => [...index.values()]));
+    return this.index().pipe(map((index) => [...index.values()]));
   }
 
   /** Id of one name, or `undefined` (and a warning) when Jikan has no such name. */
@@ -44,10 +44,11 @@ export class GenreService {
 
   /**
    * Ids of several names, in the same order, without repeats.
-   * Unknown names are logged together and left out.
+   * Unknown names are logged together and left out. Pass `filter` to look in
+   * one group only, which reuses a request other screens already made.
    */
-  idsOf(names: readonly string[]): Observable<number[]> {
-    return this.index$.pipe(
+  idsOf(names: readonly string[], filter?: GenreFilter): Observable<number[]> {
+    return this.index(filter).pipe(
       map((index) => {
         const ids: number[] = [];
         const missing: string[] = [];

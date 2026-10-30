@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
@@ -16,6 +18,9 @@ describe('app routes', () => {
     TestBed.configureTestingModule({
       imports: [provideTranslocoTesting()],
       providers: [
+        // Explore asks Jikan; the testing backend keeps those requests local.
+        provideHttpClient(),
+        provideHttpClientTesting(),
         provideRouter(routes, withComponentInputBinding()),
         { provide: TitleStrategy, useExisting: TranslatedTitleStrategy },
       ],
@@ -25,8 +30,6 @@ describe('app routes', () => {
   });
 
   afterEach(() => localStorage.clear());
-
-  const element = () => harness.routeNativeElement as HTMLElement;
 
   it('shows the home inside the shell, with the side column', async () => {
     await harness.navigateByUrl('/');
@@ -39,7 +42,7 @@ describe('app routes', () => {
   it('has no side column on pages that do not fill it', async () => {
     await harness.navigateByUrl('/explore');
 
-    expect(element().querySelector('h1')?.textContent).toContain('Explore');
+    expect(document.querySelector('app-explore h1')?.textContent).toContain('Explore');
     expect(document.querySelector('app-home-aside')).toBeNull();
     expect(document.querySelector('.shell')?.classList).not.toContain('shell--with-aside');
   });

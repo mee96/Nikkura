@@ -17,6 +17,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 - App layout: sidebar on desktop, icon rail on tablet, header and bottom navigation on mobile, search bar, side column, skip link, translated tab titles, a settings page with the language and a separate frame for login and sign-up. Screens that are not built yet show a coming-soon page.
 - `GenreService`: looks up Jikan genre, theme and demographic ids by name (case and spaces ignored), logs unknown names and keeps working if the list can't be loaded.
 - Content rules: `AnimeService` adds `sfw=true` and excludes Hentai and Erotica (ids looked up by name) on every Jikan request, filters every result again and refuses blocked anime by id. Ecchi is shown with a +18 mark (`isMatureAnime`).
+- Explore: search while typing, filters by type, genre, theme, demographic and minimum score, sort, pagination, and loading, empty and error states. Everything lives in the URL; filters are a side panel on desktop and a bottom sheet below it. Anime cards with score and the +18 mark.
 - READMEs in English, Spanish and Catalan: meaning of the name, concept, features with their milestone, stack, structure, endpoints, how to run it locally and environment variables.
 
 ### Changed
