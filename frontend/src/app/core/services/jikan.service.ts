@@ -17,6 +17,7 @@ import {
   Anime,
   AnimeSearchParams,
   Genre,
+  GenreFilter,
   JikanItem,
   JikanList,
   JikanPage,
@@ -68,8 +69,11 @@ export class JikanService {
     return this.get<JikanItem<Anime>>(`/anime/${id}`).pipe(map((response) => response.data));
   }
 
-  getGenres(): Observable<Genre[]> {
-    return this.getCached<JikanList<Genre>>('/genres/anime').pipe(map((response) => response.data));
+  /** Every genre, theme and demographic, or only one group with `filter`. */
+  getGenres(filter?: GenreFilter): Observable<Genre[]> {
+    return this.getCached<JikanList<Genre>>('/genres/anime', { filter }).pipe(
+      map((response) => response.data),
+    );
   }
 
   getCurrentSeason(page = 1, params: SeasonParams = {}): Observable<JikanPage<Anime>> {

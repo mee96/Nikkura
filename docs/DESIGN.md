@@ -94,7 +94,9 @@ The mockups are drawn at 390 px (mobile) and 1440 px (desktop).
 
 ### Search and filters
 
-Text search plus filters by type, genre, theme, demographic and minimum score. Active filters show as removable chips above the results, and a note reminds that explicit content is never shown. On mobile the filters open in a bottom sheet. Shown in Moe Magical and Haku Sama, as these screens only change theme tokens.
+Text search plus filters by type, genre, theme, demographic and minimum score. Active filters show as removable chips above the results, and a note reminds that explicit content is never shown. On mobile and tablet the filters open in a bottom sheet.
+
+As built: the search box in the top bar searches while typing on Explore; every filter lives in the URL (`/explore?q=luna&type=tv&genres=romance,shoujo&min_score=7&sort=score&page=2`), so a search can be shared and the back button works. Genres are written by name, never by id. The minimum score uses chips (Any, 6+, 7+, 8+) on every size instead of the desktop slider, and ecchi shows its +18 mark on the chip and on the cover. Shown in Moe Magical and Haku Sama, as these screens only change theme tokens.
 
 | Desktop · Moe Magical | Desktop · Haku Sama |
 | :---: | :---: |

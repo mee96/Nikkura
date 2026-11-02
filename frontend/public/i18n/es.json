@@ -53,12 +53,14 @@
   "search": {
     "label": "Busca un anime",
     "placeholder": "Busca un anime por título",
-    "filters": "Filtros"
+    "filters": "Filtros",
+    "clear": "Borrar la búsqueda"
   },
   "pages": {
     "design": "Tokens de diseño",
     "comingSoon": "Próximamente",
-    "comingSoonText": "Esta pantalla llega en una próxima versión."
+    "comingSoonText": "Esta pantalla llega en una próxima versión.",
+    "anime": "Ficha del anime"
   },
   "settings": {
     "languageText": "Elige el idioma de Nikkura. Se guarda en este navegador."
@@ -73,6 +75,64 @@
     "mature": "+18",
     "matureLabel": "Para mayores de 18 años",
     "matureNote": "Para mayores de 18 años: contiene ecchi (contenido sugerente, sin sexo explícito)."
+  },
+  "explore": {
+    "title": "Explorar",
+    "countOne": "1 resultado",
+    "countMany": "{{count}} resultados",
+    "queryOne": "1 resultado para «{{q}}»",
+    "queryMany": "{{count}} resultados para «{{q}}»",
+    "filtersCount": "Filtros · {{count}}",
+    "clearAll": "Borrar todo",
+    "clear": "Borrar",
+    "showResults": "Ver los resultados",
+    "close": "Cerrar los filtros",
+    "type": "Tipo",
+    "genres": "Géneros",
+    "themes": "Temáticas",
+    "demographics": "Demografía",
+    "minScore": "Puntuación mínima",
+    "anyScore": "Cualquiera",
+    "scoreChip": "Nota {{score}}+",
+    "showMore": "Mostrar {{count}} más",
+    "showLess": "Mostrar menos",
+    "sortBy": "Ordenar por",
+    "activeFilters": "Filtros activos",
+    "removeFilter": "Quitar el filtro: {{name}}",
+    "contentNote": "Para todos: el hentai y el erotica no se muestran nunca, y el ecchi lleva la marca +18.",
+    "loading": "Cargando los resultados…",
+    "emptyTitle": "Ningún resultado",
+    "emptyText": "Prueba con menos filtros o con otra palabra.",
+    "errorTitle": "No se han podido cargar los resultados",
+    "errorText": "Jikan no responde ahora mismo. Vuelve a intentarlo en un rato.",
+    "retry": "Reintentar",
+    "groupsError": "No se han podido cargar los géneros.",
+    "sort": {
+      "popularity": "Popularidad",
+      "score": "Puntuación",
+      "newest": "Más recientes",
+      "title": "Título"
+    }
+  },
+  "types": {
+    "tv": "TV",
+    "movie": "Película",
+    "ova": "OVA",
+    "ona": "ONA",
+    "special": "Especial",
+    "tv-special": "Especial de TV",
+    "music": "Música"
+  },
+  "anime": {
+    "scoreLabel": "Puntuación",
+    "episodesOne": "1 episodio",
+    "episodesMany": "{{count}} episodios"
+  },
+  "pagination": {
+    "label": "Paginación",
+    "previous": "Página anterior",
+    "next": "Página siguiente",
+    "page": "Página {{page}}"
   },
   "genres": {
     "action": "Acción",

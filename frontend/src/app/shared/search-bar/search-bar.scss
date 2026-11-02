@@ -24,7 +24,8 @@
 .search__input {
   width: 100%;
   min-height: var(--touch-target);
-  padding: var(--space-2) var(--space-4) var(--space-2) calc(var(--space-4) * 2 + var(--icon-size));
+  padding: var(--space-2) var(--touch-target) var(--space-2)
+    calc(var(--space-4) * 2 + var(--icon-size));
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-pill);
   background: var(--color-surface);
@@ -32,6 +33,32 @@
   &::placeholder {
     color: var(--color-muted);
     opacity: 1;
+  }
+
+  // We draw our own clear button.
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+.search__clear {
+  --icon-size: 16px;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  margin-left: calc(var(--touch-target) * -1 - var(--space-3));
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-primary-text);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-soft);
   }
 }
 
