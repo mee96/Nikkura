@@ -26,6 +26,13 @@ class Settings(BaseSettings):
     # production this points to the ca.pem downloaded from the Aiven console.
     db_ssl_ca: str = ""
 
+    # Firebase project whose ID tokens the API accepts. Tokens are checked against
+    # Google's public keys, so the project ID is all that is needed (it is public).
+    firebase_project_id: str = ""
+    # Optional: the JSON of a service account, for features that need admin rights.
+    # Leave it empty to only verify tokens. Never commit it: set it as an env variable.
+    firebase_credentials_json: str = ""
+
     # Comma-separated list of frontend origins allowed to call the API.
     cors_origins: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: ["http://localhost:4200"]
