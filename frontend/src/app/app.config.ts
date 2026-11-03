@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from '@angular/core';
 import {
   TitleStrategy,
@@ -9,6 +9,7 @@ import {
 import { provideTransloco, provideTranslocoMissingHandler } from '@jsverse/transloco';
 
 import { routes } from './app.routes';
+import { authInterceptor } from './core/auth/auth.interceptor';
 import { FALLBACK_LANG, LANG_CODES } from './core/i18n/languages';
 import { FallbackTextMissingHandler } from './core/i18n/missing-handler';
 import { TranslatedTitleStrategy } from './core/i18n/translated-title.strategy';
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
     { provide: TitleStrategy, useExisting: TranslatedTitleStrategy },
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideTransloco({
       config: {
         availableLangs: LANG_CODES,
