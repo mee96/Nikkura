@@ -87,4 +87,17 @@ describe('AnimeCard', () => {
     expect(image?.getAttribute('alt')).toBe('');
     expect(image?.getAttribute('loading')).toBe('lazy');
   });
+
+  it('draws the score as ten segments, hidden from screen readers (the badge has the score)', async () => {
+    const element = await render(makeAnime({ score: 8.4 }));
+    const bar = element.querySelector('.card__stat');
+
+    expect(bar?.getAttribute('aria-hidden')).toBe('true');
+    expect(bar?.querySelectorAll('.card__stat-segment').length).toBe(10);
+    expect(bar?.querySelectorAll('.card__stat-segment--on').length).toBe(8);
+  });
+
+  it('has no stat bar for an unscored anime', async () => {
+    expect((await render(makeAnime({ score: null }))).querySelector('.card__stat')).toBeNull();
+  });
 });

@@ -7,7 +7,10 @@ import { genreKey, genreSlug } from '../../core/i18n/genre-key';
 import { Anime } from '../../core/models/jikan.model';
 import { LanguageService } from '../../core/services/language.service';
 
-/** Cover, score, +18 mark, title and "type · year · demographic". Links to the anime page. */
+/**
+ * Cover, score, +18 mark, title and "type · year · demographic". Links to the anime page.
+ * Each role dresses it differently through tokens (see anime-card.scss), e.g. a VHS spine.
+ */
 @Component({
   selector: 'app-anime-card',
   imports: [RouterLink, TranslocoPipe],
@@ -35,6 +38,17 @@ import { LanguageService } from '../../core/services/language.service';
         }
       </span>
       <span class="card__title">{{ anime().title }}</span>
+      @if (statSegments(); as segments) {
+        <span class="card__stat" aria-hidden="true">
+          @for (on of segments; track $index) {
+            <span
+              class="card__stat-segment"
+              [class.card__stat-segment--on]="on"
+              [style.--i]="$index"
+            ></span>
+          }
+        </span>
+      }
       <span class="card__meta">
         @if (typeKey(); as key) {
           <span>{{ key | transloco: { fallback: anime().type } }}</span>
@@ -73,6 +87,15 @@ export class AnimeCard {
       minimumFractionDigits: 1,
       maximumFractionDigits: 2,
     }).format(score);
+  });
+
+  /** The score as ten segments, filled up to the rounded score. `null` without a score. */
+  protected readonly statSegments = computed(() => {
+    const score = this.anime().score;
+    if (score === null || score === undefined) {
+      return null;
+    }
+    return Array.from({ length: 10 }, (_, index) => index < Math.round(score));
   });
 
   protected readonly mature = computed(() => isMatureAnime(this.anime()));

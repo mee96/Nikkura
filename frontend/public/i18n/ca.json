@@ -69,7 +69,22 @@
     "inviteTitle": "Guarda, puntua i comenta",
     "inviteText": "Amb un compte tens carpetes pròpies i recomanacions segons el rol que triïs.",
     "inviteRoles": "Rols",
-    "inviteButton": "Tria el teu rol"
+    "inviteButton": "Tria el teu rol",
+    "heroForYou": "Destacat per a tu",
+    "heroSeason": "Destacat de la temporada",
+    "seeAnime": "Veure la fitxa",
+    "save": "Guardar",
+    "saved": "Guardat",
+    "logInToSave": "Inicia la sessió per guardar",
+    "recommendedTitle": "Recomanats per al teu rol",
+    "seasonTitle": "Aquesta temporada",
+    "genres": "Gèneres del teu rol",
+    "seeAll": "Veure'ls tots",
+    "loading": "Carregant les recomanacions…",
+    "emptyTitle": "Encara no hi ha res per recomanar",
+    "emptyText": "Torna-ho a provar d'aquí una estona o explora tot el catàleg.",
+    "errorTitle": "No s'han pogut carregar les recomanacions",
+    "errorText": "Jikan no respon ara mateix. Torna-ho a provar d'aquí un moment."
   },
   "content": {
     "mature": "+18",
