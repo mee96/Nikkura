@@ -65,8 +65,9 @@ export class JikanService {
     return this.get<JikanPage<Anime>>('/anime', params);
   }
 
+  /** The full record (`/full`): studios and trailer come with it. */
   getAnimeById(id: number): Observable<Anime> {
-    return this.get<JikanItem<Anime>>(`/anime/${id}`).pipe(map((response) => response.data));
+    return this.get<JikanItem<Anime>>(`/anime/${id}/full`).pipe(map((response) => response.data));
   }
 
   /** Every genre, theme and demographic, or only one group with `filter`. */

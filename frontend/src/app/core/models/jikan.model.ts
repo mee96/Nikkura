@@ -77,6 +77,15 @@ export interface Anime {
   explicit_genres: AnimeTag[];
   themes: AnimeTag[];
   demographics: AnimeTag[];
+  /** Only in `/anime/{id}/full` (and the list endpoints), so optional. */
+  studios?: AnimeTag[];
+  trailer?: AnimeTrailer | null;
+}
+
+/** Trailer of an anime. Only `youtube_id` is used: the link is built from it. */
+export interface AnimeTrailer {
+  youtube_id: string | null;
+  url: string | null;
 }
 
 /** Query params accepted by `GET /anime`. Arrays are sent comma-separated. */

@@ -1,0 +1,197 @@
+<div class="detail">
+  <a class="detail__back" routerLink="/explore">
+    <span aria-hidden="true">←</span> {{ 'anime.back' | transloco }}
+  </a>
+
+  @switch (state().status) {
+    @case ('loading') {
+      <div class="loading" role="status" aria-live="polite">
+        <span class="visually-hidden">{{ 'anime.loading' | transloco }}</span>
+        <div class="loading__cover" aria-hidden="true"></div>
+        <div class="loading__lines" aria-hidden="true">
+          <span class="loading__line loading__line--title"></span>
+          <span class="loading__line"></span>
+          <span class="loading__line"></span>
+        </div>
+      </div>
+    }
+
+    @case ('error') {
+      <section class="notice" role="alert" aria-labelledby="notice-title">
+        <h1 id="notice-title" class="notice__title">{{ 'anime.errorTitle' | transloco }}</h1>
+        <p class="notice__text">{{ 'anime.errorText' | transloco }}</p>
+        <button type="button" class="button" (click)="retry()">
+          {{ 'anime.retry' | transloco }}
+        </button>
+      </section>
+    }
+
+    @case ('notFound') {
+      <section class="notice" aria-labelledby="notice-title">
+        <h1 id="notice-title" class="notice__title">{{ 'anime.notFoundTitle' | transloco }}</h1>
+        <p class="notice__text">{{ 'anime.notFoundText' | transloco }}</p>
+        <a class="button" routerLink="/explore">{{ 'anime.back' | transloco }}</a>
+      </section>
+    }
+
+    @case ('blocked') {
+      <section class="notice" aria-labelledby="notice-title">
+        <h1 id="notice-title" class="notice__title">{{ 'anime.blockedTitle' | transloco }}</h1>
+        <p class="notice__text">{{ 'anime.blockedText' | transloco }}</p>
+        <a class="button" routerLink="/explore">{{ 'anime.back' | transloco }}</a>
+      </section>
+    }
+
+    @case ('ready') {
+      @if (anime(); as anime) {
+        <article class="anime" aria-labelledby="anime-title">
+          <header class="anime__hero">
+            <div class="anime__cover">
+              @if (cover(); as src) {
+                <img class="anime__image" [src]="src" alt="" width="225" height="318" />
+              }
+              @if (mature()) {
+                <span class="mark" [attr.title]="'content.matureNote' | transloco">
+                  <span aria-hidden="true">{{ 'content.mature' | transloco }}</span>
+                  <span class="visually-hidden">{{ 'content.matureLabel' | transloco }}</span>
+                </span>
+              }
+            </div>
+
+            <div class="anime__summary">
+              <h1 id="anime-title" class="anime__title">{{ anime.title }}</h1>
+              @if (altTitle(); as alt) {
+                <p class="anime__alt" lang="en">{{ alt }}</p>
+              }
+
+              @if (chips().length > 0) {
+                <ul class="chips" [attr.aria-label]="'anime.genresLabel' | transloco">
+                  @for (chip of chips(); track chip.slug) {
+                    <li>
+                      <a class="chip" routerLink="/explore" [queryParams]="{ genres: chip.slug }">
+                        {{ genreKey(chip.name) | transloco: { fallback: chip.name } }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+
+              <dl class="facts">
+                <div class="fact fact--score">
+                  <dt>{{ 'anime.scoreMal' | transloco }}</dt>
+                  <dd>
+                    @if (score(); as value) {
+                      <span class="fact__score">★ {{ value }}</span>
+                      @if (votes(); as count) {
+                        <span class="fact__sub">
+                          {{ 'anime.scoredBy' | transloco: { count: count } }}
+                        </span>
+                      }
+                    } @else {
+                      <span class="fact__sub">{{ 'anime.noScore' | transloco }}</span>
+                    }
+                  </dd>
+                </div>
+
+                @if (typeKey(); as key) {
+                  <div class="fact">
+                    <dt>{{ 'anime.typeLabel' | transloco }}</dt>
+                    <dd>{{ key | transloco: { fallback: anime.type } }}</dd>
+                  </div>
+                }
+
+                <div class="fact">
+                  <dt>{{ 'anime.episodesLabel' | transloco }}</dt>
+                  <dd>
+                    @if (anime.episodes === null) {
+                      {{ 'anime.episodesUnknown' | transloco }}
+                    } @else {
+                      {{
+                        (anime.episodes === 1 ? 'anime.episodesOne' : 'anime.episodesMany')
+                          | transloco: { count: anime.episodes }
+                      }}
+                    }
+                  </dd>
+                </div>
+
+                @if (anime.status) {
+                  <div class="fact">
+                    <dt>{{ 'anime.statusLabel' | transloco }}</dt>
+                    <dd>
+                      @if (statusKey(); as key) {
+                        {{ key | transloco: { fallback: anime.status } }}
+                      } @else {
+                        {{ anime.status }}
+                      }
+                    </dd>
+                  </div>
+                }
+
+                @if (season(); as s) {
+                  <div class="fact">
+                    <dt>{{ 'anime.seasonLabel' | transloco }}</dt>
+                    <dd>
+                      {{
+                        'anime.seasonYear'
+                          | transloco: { season: (s.key | transloco), year: s.year }
+                      }}
+                    </dd>
+                  </div>
+                }
+
+                @if (studios().length > 0) {
+                  <div class="fact">
+                    <dt>{{ 'anime.studiosLabel' | transloco }}</dt>
+                    <dd>{{ studios().join(', ') }}</dd>
+                  </div>
+                }
+              </dl>
+
+              @if (mature()) {
+                <p class="anime__note">{{ 'content.matureNote' | transloco }}</p>
+              }
+
+              @if (trailerUrl(); as url) {
+                <a
+                  class="button"
+                  [href]="url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="'anime.trailerLabel' | transloco"
+                >
+                  <span aria-hidden="true">▶</span> {{ 'anime.trailer' | transloco }}
+                </a>
+              }
+            </div>
+          </header>
+
+          <section class="synopsis" aria-labelledby="synopsis-title">
+            <h2 id="synopsis-title" class="section-title">
+              {{ 'anime.synopsisTitle' | transloco }}
+            </h2>
+            @if (anime.synopsis) {
+              <p class="synopsis__text">{{ anime.synopsis }}</p>
+            } @else {
+              <p class="synopsis__text synopsis__text--empty">
+                {{ 'anime.noSynopsis' | transloco }}
+              </p>
+            }
+          </section>
+
+          <!-- Space kept for what accounts bring: Kura (#25), ratings (M4) and comments (#36). -->
+          <div class="slots">
+            @for (slot of ['save', 'rate', 'comments']; track slot) {
+              <section class="slot" [attr.aria-labelledby]="'slot-' + slot">
+                <h2 [id]="'slot-' + slot" class="slot__title">
+                  {{ 'anime.' + slot + 'Title' | transloco }}
+                </h2>
+                <p class="slot__text">{{ 'anime.' + slot + 'Text' | transloco }}</p>
+                <p class="slot__badge">{{ 'pages.comingSoon' | transloco }}</p>
+              </section>
+            }
+          </div>
+        </article>
+      }
+    }
+  }
+</div>

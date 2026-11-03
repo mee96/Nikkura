@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 import { isMatureAnime } from '../../core/content/content-rules';
+import { formatScore } from '../../core/i18n/format-score';
 import { genreKey, genreSlug } from '../../core/i18n/genre-key';
 import { Anime } from '../../core/models/jikan.model';
 import { LanguageService } from '../../core/services/language.service';
@@ -63,17 +64,7 @@ export class AnimeCard {
     return webp.large_image_url ?? jpg.large_image_url ?? webp.image_url ?? jpg.image_url;
   });
 
-  /** "8,7" in Catalan and Spanish, "8.7" in English. */
-  protected readonly score = computed(() => {
-    const score = this.anime().score;
-    if (score === null || score === undefined) {
-      return null;
-    }
-    return new Intl.NumberFormat(this.language.lang(), {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 2,
-    }).format(score);
-  });
+  protected readonly score = computed(() => formatScore(this.anime().score, this.language.lang()));
 
   protected readonly mature = computed(() => isMatureAnime(this.anime()));
 
