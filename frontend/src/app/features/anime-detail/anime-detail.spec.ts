@@ -166,6 +166,26 @@ describe('AnimeDetail', () => {
     expect(text('.chips')).toContain('Ecchi');
   });
 
+  it('shows the +18 mark for erotica, with a chip that links to Explore', async () => {
+    byId.mockReturnValue(of(full({ explicit_genres: [tag('Erotica', 49)] })));
+    await open('/anime/7');
+    const links = [...element().querySelectorAll<HTMLAnchorElement>('.chip')].map((a) =>
+      a.getAttribute('href'),
+    );
+
+    expect(text('.mark')).toContain('+18');
+    expect(text('.anime__note')).toContain('erotica');
+    expect(links).toContain('/explore?genres=erotica');
+  });
+
+  it('never shows a Hentai chip', async () => {
+    byId.mockReturnValue(of(full({ explicit_genres: [tag('Ecchi', 9), tag('Hentai', 12)] })));
+    await open('/anime/7');
+
+    expect(text('.chips')).toContain('Ecchi');
+    expect(text('.chips')).not.toContain('Hentai');
+  });
+
   it('shows no +18 mark for everyday anime', async () => {
     await open('/anime/7');
     expect(element().querySelector('.mark')).toBeNull();

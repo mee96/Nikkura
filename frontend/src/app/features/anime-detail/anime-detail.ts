@@ -137,7 +137,7 @@ export class AnimeDetail {
 
   protected readonly studios = computed(() => this.names(this.anime()?.studios));
 
-  /** Genres, then themes and demographics, without repeats. Ecchi is the only explicit one shown. */
+  /** Genres, then themes and demographics, without repeats. Ecchi and Erotica are the only explicit ones shown. */
   protected readonly chips = computed<Chip[]>(() => {
     const anime = this.anime();
     if (!anime) {
