@@ -65,11 +65,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/explore/explore').then((m) => m.Explore),
       },
       {
-        // Anime page (#12).
         path: 'anime/:id',
         title: 'pages.anime',
-        loadComponent: comingSoon,
-        data: { titleKey: 'pages.anime' },
+        loadComponent: () =>
+          import('./features/anime-detail/anime-detail').then((m) => m.AnimeDetail),
       },
       {
         path: 'season',

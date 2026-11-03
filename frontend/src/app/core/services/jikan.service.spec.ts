@@ -87,7 +87,7 @@ describe('JikanService', () => {
       tick(1);
 
       const anime = { mal_id: 5114, title: 'Fullmetal Alchemist: Brotherhood' } as Anime;
-      http.expectOne(`${BASE}/anime/5114`).flush({ data: anime });
+      http.expectOne(`${BASE}/anime/5114/full`).flush({ data: anime });
 
       expect(result).toEqual(anime);
     });
@@ -191,11 +191,11 @@ describe('JikanService', () => {
     it('does not cache searches or single anime', () => {
       service.getAnimeById(1).subscribe();
       tick(1);
-      http.expectOne(`${BASE}/anime/1`).flush({ data: {} });
+      http.expectOne(`${BASE}/anime/1/full`).flush({ data: {} });
 
       service.getAnimeById(1).subscribe();
       tick(JIKAN_REQUEST_INTERVAL_MS * 2);
-      http.expectOne(`${BASE}/anime/1`).flush({ data: {} });
+      http.expectOne(`${BASE}/anime/1/full`).flush({ data: {} });
     });
   });
 
@@ -261,11 +261,11 @@ describe('JikanService', () => {
       service.getAnimeById(1).subscribe({ error: (error) => (status = error.status) });
       tick(1);
 
-      http.expectOne(`${BASE}/anime/1`).flush(null, SERVER_ERROR);
+      http.expectOne(`${BASE}/anime/1/full`).flush(null, SERVER_ERROR);
       expect(status).toBe(500);
 
       tick(60_000);
-      http.expectNone(`${BASE}/anime/1`);
+      http.expectNone(`${BASE}/anime/1/full`);
     });
 
     it('does not retry a 404', () => {
@@ -273,11 +273,13 @@ describe('JikanService', () => {
       service.getAnimeById(999999).subscribe({ error: (error) => (status = error.status) });
       tick(1);
 
-      http.expectOne(`${BASE}/anime/999999`).flush(null, { status: 404, statusText: 'Not Found' });
+      http
+        .expectOne(`${BASE}/anime/999999/full`)
+        .flush(null, { status: 404, statusText: 'Not Found' });
       expect(status).toBe(404);
 
       tick(60_000);
-      http.expectNone(`${BASE}/anime/999999`);
+      http.expectNone(`${BASE}/anime/999999/full`);
     });
   });
 
@@ -336,9 +338,9 @@ describe('JikanService', () => {
 
       expect(sent).toHaveLength(4);
       expect(sent.map((r) => r.request.url)).toEqual([
-        `${BASE}/anime/1`,
-        `${BASE}/anime/2`,
-        `${BASE}/anime/3`,
+        `${BASE}/anime/1/full`,
+        `${BASE}/anime/2/full`,
+        `${BASE}/anime/3/full`,
         `${BASE}/genres/anime`,
       ]);
       sent.forEach((r) => r.flush({ data: genres }));

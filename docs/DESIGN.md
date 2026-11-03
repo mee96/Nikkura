@@ -97,6 +97,10 @@ Rules for every effect:
 | **Senpai** | **Visitor** |
 | ![Home, Senpai](screenshots/design/home-desktop-senpai.png) | ![Home, visitor](screenshots/design/home-desktop-visitor.png) |
 
+### Anime page · as built
+
+One layout for every theme, built only with tokens, so each role already gets its own colours, radii and fonts (`--font-world-title`, `--font-world-text`). Cover with the +18 mark, title, genre chips that open Explore filtered by them, score and facts, trailer link (it opens YouTube in a new tab, nothing is embedded), synopsis, and three reserved cards for save to Kura, score and comments. The role-specific worlds of the mockups (Y2K windows, VHS box, status window, notebook) arrive with the roles in M2 and the community in M4.
+
 ### Anime page · desktop
 
 | Moe Magical | Haku Sama |
