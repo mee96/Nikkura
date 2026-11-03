@@ -64,8 +64,28 @@ The mockups are drawn at 390 px (mobile) and 1440 px (desktop).
 
 - Text contrast checked against WCAG AA on every theme, including the dark one. Placeholders use the full muted colour, never a lower opacity.
 - Touch targets of at least 44 px on mobile.
+- Borders of controls and chips (`--color-border-strong`) reach 3:1 against the surface they sit on (WCAG 1.4.11), on every theme.
 - Real `<button>`, `<a>`, `<input>` and `<label>` elements; icon-only buttons have an `aria-label`.
 - Filter chips are toggle buttons (`aria-pressed`), the role picker is a radio group inside a `<fieldset>`, and folders in the Kura are tabs.
+
+## Motion and role touches
+
+The structure is the same for every role; the personality shows in how the interface answers. Everything lives in tokens (section 5c of `variables.css`) or in a decorative component, so a screen never checks the role:
+
+| | Moe Magical | Haku Sama | Senpai |
+| :--- | :--- | :--- | :--- |
+| Banner motif | Moon and sparkles | CRT television with scanlines on its own screen | Network of nodes joined by paths |
+| Cover | Round motif, lifts 6 px | VHS spine and shelf lip, comes off the shelf (14 px, 2° tilt) | Diamond motif, ring on hover or focus |
+| Under the title | Nothing | Nothing | Score as ten segments that fill in |
+| Entering | Rises 8 px with a small scale | Slides in from the right | Bars fill in; covers stay put |
+| Saving | Four sparks, once | One ring around the button, once | One ring around the button, once |
+
+Rules for every effect:
+
+- It runs once and stops. Nothing loops, and backgrounds never compete with reading or filtering.
+- Scanlines and tracking lines exist on the CRT screen only, never over text.
+- `prefers-reduced-motion`: animations end at their final state straight away, and covers no longer lift, tilt or slide in. The ring or shadow of hover and focus stays, so the state is still visible without movement.
+- Keyboard focus triggers the same reaction as hover.
 
 ## Screens
 

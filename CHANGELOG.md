@@ -18,6 +18,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 - `GenreService`: looks up Jikan genre, theme and demographic ids by name (case and spaces ignored), logs unknown names and keeps working if the list can't be loaded.
 - Content rules: `AnimeService` adds `sfw=true` and excludes Hentai and Erotica (ids looked up by name) on every Jikan request, filters every result again and refuses blocked anime by id. Ecchi is shown with a +18 mark (`isMatureAnime`).
 - Explore: search while typing, filters by type, genre, theme, demographic and minimum score, sort, pagination, and loading, empty and error states. Everything lives in the URL; filters are a side panel on desktop and a bottom sheet below it. Anime cards with score and the +18 mark.
+- Home: a featured anime and a shelf of recommendations (the best rated of the genres of each role, or the current season for visitors) with loading, empty and error states, in Catalan, Spanish and English. Each role has its own banner motif (moon, CRT television, network of nodes) and reacts differently to hover, focus and saving, with no looping animation and reduced motion respected (`docs/DESIGN.md`, Motion and role touches).
 - READMEs in English, Spanish and Catalan: meaning of the name, concept, features with their milestone, stack, structure, endpoints, how to run it locally and environment variables.
 
 ### Changed
@@ -26,6 +27,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 - CI runs the frontend tests with Vitest instead of Karma.
 - CI installs the backend dev requirements and runs Ruff before the tests.
 - `npm run lint` also runs Stylelint, which rejects raw colours in components.
+- `--color-border-strong` is darker in Moe Magical, Haku Sama and Senpai so borders of controls reach 3:1 contrast, and `variables.css` gains the ink and accent tokens and the role flourish tokens (section 5c).
+- The anime card draws a VHS spine, a corner motif and a score bar when the role asks for them through tokens; the bookmark and arrow icons join the icon set.
 
 ### Fixed
 - Search placeholder contrast in the home mockups.
