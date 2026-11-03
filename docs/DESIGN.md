@@ -22,8 +22,8 @@ All tokens (colours, fonts, type scale, spacing, radius, shadows and motion) liv
 
 ## Content rules shown in the UI
 
-- **No sexual content, for anyone.** Every Jikan list request carries `sfw=true` and excludes Hentai and Erotica, and every result is filtered again in the app. An anime page for one of them is not shown.
-- **Ecchi is shown with a +18 mark.** Jikan lists it as explicit, but it is suggestive content without sex. The mark is a small "+18" badge on the cover and the anime page, with a text that explains it.
+- **Hentai is never shown, to anyone.** Every Jikan search excludes the Hentai genre (found by name), and every result is filtered again in the app: anything tagged Hentai or rated Rx is hidden. An anime page for one of them is not shown. Nikkura does not use Jikan's `sfw` filter.
+- **Ecchi and erotica are shown with a +18 mark.** Jikan lists them as explicit, but they are not hentai. The mark is a small "+18" badge on the cover and the anime page, with a text that explains it.
 
 - Visitors can read everything (scores, comments, chat) but every action asks them to sign in.
 - Private notes are only visible to their author and are marked with a lock.
@@ -120,7 +120,7 @@ The personal library. Folders sit on top as tabs; each one shows how many anime 
 
 ### Login and sign-up
 
-Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. There is no age option: hentai and erotica are never shown to anyone, and ecchi carries a +18 mark. (The "18 or older" note in the sign-up mockup is out of date and goes away when the screen is built in M2.)
+Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. There is no age option: hentai is never shown to anyone, and ecchi and erotica carry a +18 mark. (The "18 or older" note in the sign-up mockup is out of date and goes away when the screen is built in M2.)
 
 | Login · desktop | Sign-up · desktop |
 | :---: | :---: |

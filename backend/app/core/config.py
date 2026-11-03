@@ -52,10 +52,10 @@ ROLE_GENRES: dict[Role, list[str]] = {
     "senpai": ["Seinen", "Slice of Life"],
 }
 
-# Nikkura shows no sexual content, to anyone (decisions of 22 and 26 Oct 2026).
-# Excluded genres are never requested or shown, for visitors and users alike.
-# Mature genres are shown with a +18 mark: ecchi is suggestive, without sex.
-# The frontend applies the same lists in src/app/core/content/content-rules.ts,
-# together with `sfw=true` on every query.
-EXCLUDED_GENRES: tuple[str, ...] = ("Hentai", "Erotica")
-MATURE_GENRES: tuple[str, ...] = ("Ecchi",)
+# The only thing Nikkura never shows is hentai, to anyone (decisions of 22 Oct,
+# 26 Oct and 3 Nov 2026). Excluded genres are never requested or shown, for
+# visitors and users alike. Mature genres are shown with a +18 mark: ecchi and
+# erotica are not hentai. The frontend applies the same lists in
+# src/app/core/content/content-rules.ts and does not use Jikan's `sfw` filter.
+EXCLUDED_GENRES: tuple[str, ...] = ("Hentai",)
+MATURE_GENRES: tuple[str, ...] = ("Ecchi", "Erotica")

@@ -7,12 +7,12 @@ import { ContentRulesService } from './content-rules.service';
 import { JikanService } from './jikan.service';
 
 /** Content-related params are set here, never by the caller. */
-export type AnimeQuery = Omit<AnimeSearchParams, 'sfw' | 'genres_exclude'>;
+export type AnimeQuery = Omit<AnimeSearchParams, 'genres_exclude'>;
 
 /**
  * What screens use to get anime. It applies the content rules to every call,
  * so no screen can forget them:
- * - list requests carry `sfw` and the excluded genres (#8),
+ * - searches exclude the hentai genre (#8),
  * - every result is filtered again on our side,
  * - an anime that is not allowed fails with `BlockedContentError`.
  *
@@ -30,9 +30,9 @@ export class AnimeService {
     );
   }
 
-  /** `/seasons/now` accepts `sfw` but not `genres_exclude`, so the filter does the rest. */
+  /** `/seasons/now` takes no `genres_exclude`, so the filter on our side does it all. */
   currentSeason(page = 1): Observable<JikanPage<Anime>> {
-    return this.jikan.getCurrentSeason(page, { sfw: true }).pipe(map(onlyAllowed));
+    return this.jikan.getCurrentSeason(page).pipe(map(onlyAllowed));
   }
 
   byId(id: number): Observable<Anime> {

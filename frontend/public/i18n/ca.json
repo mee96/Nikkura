@@ -74,7 +74,7 @@
   "content": {
     "mature": "+18",
     "matureLabel": "Per a majors de 18 anys",
-    "matureNote": "Per a majors de 18 anys: conté ecchi (contingut suggeridor, sense sexe explícit)."
+    "matureNote": "Per a majors de 18 anys: conté ecchi o eròtica (contingut suggeridor, sense sexe explícit)."
   },
   "explore": {
     "title": "Explorar",
@@ -99,7 +99,7 @@
     "sortBy": "Ordenar per",
     "activeFilters": "Filtres actius",
     "removeFilter": "Treu el filtre: {{name}}",
-    "contentNote": "Per a tothom: l'hentai i l'erotica no es mostren mai, i l'ecchi porta la marca +18.",
+    "contentNote": "Per a tothom: l'hentai no es mostra mai, i l'ecchi i l'eròtica porten la marca +18.",
     "loading": "Carregant els resultats…",
     "emptyTitle": "Cap resultat",
     "emptyText": "Prova amb menys filtres o amb una altra paraula.",
@@ -154,6 +154,7 @@
     "supernatural": "Sobrenatural",
     "suspense": "Suspens",
     "ecchi": "Ecchi",
+    "erotica": "Eròtica",
     "adult-cast": "Repartiment adult",
     "anthropomorphic": "Antropomòrfic",
     "cgdct": "Noies fent coses boniques",

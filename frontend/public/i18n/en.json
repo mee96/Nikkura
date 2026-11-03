@@ -74,7 +74,7 @@
   "content": {
     "mature": "+18",
     "matureLabel": "For ages 18 and over",
-    "matureNote": "For ages 18 and over: contains ecchi (suggestive content, no explicit sex)."
+    "matureNote": "For ages 18 and over: contains ecchi or erotica (suggestive content, no explicit sex)."
   },
   "explore": {
     "title": "Explore",
@@ -99,7 +99,7 @@
     "sortBy": "Sort by",
     "activeFilters": "Active filters",
     "removeFilter": "Remove filter: {{name}}",
-    "contentNote": "For everyone: hentai and erotica are never shown, and ecchi carries a +18 mark.",
+    "contentNote": "For everyone: hentai is never shown, and ecchi and erotica carry a +18 mark.",
     "loading": "Loading the results…",
     "emptyTitle": "No results",
     "emptyText": "Try fewer filters or another word.",
@@ -154,6 +154,7 @@
     "supernatural": "Supernatural",
     "suspense": "Suspense",
     "ecchi": "Ecchi",
+    "erotica": "Erotica",
     "adult-cast": "Adult Cast",
     "anthropomorphic": "Anthropomorphic",
     "cgdct": "CGDCT",

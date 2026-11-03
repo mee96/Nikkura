@@ -42,12 +42,13 @@ describe('FilterOptionsService', () => {
     expect(groups.demographics.map((o) => o.name)).toEqual(['Shounen', 'Shoujo']);
   });
 
-  it('never offers hentai or erotica, and adds ecchi to the genres with the +18 mark', async () => {
+  it('never offers hentai, and adds ecchi and erotica to the genres with the +18 mark', async () => {
     const groups = await firstValueFrom(TestBed.inject(FilterOptionsService).groups());
     const genres = groups.genres.map((o) => o.name);
 
-    expect(genres).toEqual(['Action', 'Ecchi', 'Slice of Life', 'Romance']);
+    expect(genres).toEqual(['Action', 'Ecchi', 'Slice of Life', 'Romance', 'Erotica']);
     expect(groups.genres.find((o) => o.name === 'Ecchi')?.mature).toBe(true);
+    expect(groups.genres.find((o) => o.name === 'Erotica')?.mature).toBe(true);
     expect(groups.genres.find((o) => o.name === 'Action')?.mature).toBe(false);
   });
 
@@ -58,6 +59,7 @@ describe('FilterOptionsService', () => {
     expect(ids.get('slice-of-life')).toBe(36);
     expect(ids.get('mahou-shoujo')).toBe(66);
     expect(ids.get('shoujo')).toBe(25);
+    expect(ids.get('erotica')).toBe(49);
     expect(ids.has('hentai')).toBe(false);
   });
 });
