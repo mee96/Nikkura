@@ -14,6 +14,7 @@ import {
   switchMap,
 } from 'rxjs';
 
+import { isMatureAnime } from '../../core/content/content-rules';
 import { genreKey } from '../../core/i18n/genre-key';
 import { Anime } from '../../core/models/jikan.model';
 import { AnimeService } from '../../core/services/anime.service';
@@ -75,6 +76,12 @@ export class Home {
   protected readonly featured = computed(() => {
     const state = this.state();
     return state.status === 'ready' ? state.featured : null;
+  });
+
+  /** The featured anime gets the same +18 mark as the covers (ecchi or erotica). */
+  protected readonly featuredMature = computed(() => {
+    const anime = this.featured();
+    return anime !== null && isMatureAnime(anime);
   });
 
   protected readonly shelf = computed(() => {

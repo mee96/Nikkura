@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 
-import { makeAnime } from '../../../testing/anime';
+import { makeAnime, tag } from '../../../testing/anime';
 import { provideTranslocoTesting } from '../../../testing/transloco';
 import { Anime, JikanPage } from '../../core/models/jikan.model';
 import { AnimeService } from '../../core/services/anime.service';
@@ -79,6 +79,26 @@ describe('Home', () => {
 
     expect(text('h1')).toBe('Home');
     expect(element.querySelector('h2#hero-title')).not.toBeNull();
+  });
+
+  describe('the +18 mark on the banner', () => {
+    it('shows it when the featured anime is ecchi', async () => {
+      currentSeason.mockReturnValue(
+        of(page([makeAnime({ mal_id: 1, title: 'Ecchi', explicit_genres: [tag('Ecchi', 9)] })])),
+      );
+      const { element } = await render('guest');
+      const badge = element.querySelector('.hero__badge');
+
+      expect(badge?.textContent).toContain('+18');
+      expect(badge?.getAttribute('title')).toBeTruthy();
+    });
+
+    it('does not show it for other anime', async () => {
+      const { element } = await render('guest');
+
+      expect(element.querySelector('.hero__title')).not.toBeNull();
+      expect(element.querySelector('.hero__badge')).toBeNull();
+    });
   });
 
   describe('visitors', () => {

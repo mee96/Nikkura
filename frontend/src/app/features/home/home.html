@@ -37,6 +37,12 @@
           <div class="hero__copy">
             <p class="hero__eyebrow">
               {{ (isGuest() ? 'home.heroSeason' : 'home.heroForYou') | transloco }}
+              @if (featuredMature()) {
+                <span class="hero__badge" [attr.title]="'content.matureNote' | transloco">
+                  <span aria-hidden="true">{{ 'content.mature' | transloco }}</span>
+                  <span class="visually-hidden">{{ 'content.matureLabel' | transloco }}</span>
+                </span>
+              }
             </p>
             <h2 id="hero-title" class="hero__title">{{ anime.title }}</h2>
             @if (anime.synopsis) {

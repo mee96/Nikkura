@@ -42,9 +42,25 @@
 }
 
 .hero__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
   margin: 0;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
+}
+
+// Same look as the +18 mark of the covers (anime-card.scss), but in the flow of the text.
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-xs);
+  line-height: 1;
 }
 
 .hero__title {
