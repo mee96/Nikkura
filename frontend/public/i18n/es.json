@@ -69,12 +69,27 @@
     "inviteTitle": "Guarda, puntúa y comenta",
     "inviteText": "Con una cuenta tienes carpetas propias y recomendaciones según el rol que elijas.",
     "inviteRoles": "Roles",
-    "inviteButton": "Elige tu rol"
+    "inviteButton": "Elige tu rol",
+    "heroForYou": "Destacado para ti",
+    "heroSeason": "Destacado de la temporada",
+    "seeAnime": "Ver la ficha",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "logInToSave": "Inicia sesión para guardar",
+    "recommendedTitle": "Recomendados para tu rol",
+    "seasonTitle": "Esta temporada",
+    "genres": "Géneros de tu rol",
+    "seeAll": "Ver todos",
+    "loading": "Cargando las recomendaciones…",
+    "emptyTitle": "Todavía no hay nada que recomendar",
+    "emptyText": "Vuelve a intentarlo en un momento o explora todo el catálogo.",
+    "errorTitle": "No se han podido cargar las recomendaciones",
+    "errorText": "Jikan no responde ahora mismo. Vuelve a intentarlo en un momento."
   },
   "content": {
     "mature": "+18",
     "matureLabel": "Para mayores de 18 años",
-    "matureNote": "Para mayores de 18 años: contiene ecchi (contenido sugerente, sin sexo explícito)."
+    "matureNote": "Para mayores de 18 años: contiene ecchi o erótica (contenido sugerente, sin sexo explícito)."
   },
   "explore": {
     "title": "Explorar",
@@ -99,7 +114,7 @@
     "sortBy": "Ordenar por",
     "activeFilters": "Filtros activos",
     "removeFilter": "Quitar el filtro: {{name}}",
-    "contentNote": "Para todos: el hentai y el erotica no se muestran nunca, y el ecchi lleva la marca +18.",
+    "contentNote": "Para todos: el hentai no se muestra nunca, y el ecchi y la erótica llevan la marca +18.",
     "loading": "Cargando los resultados…",
     "emptyTitle": "Ningún resultado",
     "emptyText": "Prueba con menos filtros o con otra palabra.",
@@ -195,6 +210,7 @@
     "supernatural": "Sobrenatural",
     "suspense": "Suspense",
     "ecchi": "Ecchi",
+    "erotica": "Erótica",
     "adult-cast": "Reparto adulto",
     "anthropomorphic": "Antropomórfico",
     "cgdct": "Chicas haciendo cosas monas",

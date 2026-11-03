@@ -52,9 +52,9 @@ describe('AnimeService', () => {
   });
 
   describe('content rules', () => {
-    it('adds the content params to every search and the caller cannot override them', async () => {
+    it('excludes only the hentai genre in every search and the caller cannot override it', async () => {
       const service = TestBed.inject(AnimeService);
-      const unsafe = { q: 'x', genres: [22], sfw: false } as unknown as Parameters<
+      const unsafe = { q: 'x', genres: [22], genres_exclude: [] } as unknown as Parameters<
         AnimeService['search']
       >[0];
 
@@ -63,29 +63,34 @@ describe('AnimeService', () => {
       expect(jikan.searchAnime).toHaveBeenCalledWith({
         q: 'x',
         genres: [22],
-        sfw: true,
-        genres_exclude: [12, 49],
+        genres_exclude: [12],
       });
     });
 
-    it('filters hentai and erotica that slip through, and keeps ecchi', async () => {
-      const result = await firstValueFrom(TestBed.inject(AnimeService).search({ q: 'x' }));
+    it('never sends sfw', async () => {
+      await firstValueFrom(TestBed.inject(AnimeService).search({ q: 'x' }));
 
-      expect(result.data.map((anime) => anime.mal_id)).toEqual([1, 4]);
+      expect(jikan.searchAnime.mock.calls[0][0]).not.toHaveProperty('sfw');
     });
 
-    it('asks the season with sfw and filters it too', async () => {
+    it('filters the hentai that slips through, and keeps ecchi and erotica', async () => {
+      const result = await firstValueFrom(TestBed.inject(AnimeService).search({ q: 'x' }));
+
+      expect(result.data.map((anime) => anime.mal_id)).toEqual([1, 3, 4]);
+    });
+
+    it('asks the season without extra params and filters it', async () => {
       const result = await firstValueFrom(TestBed.inject(AnimeService).currentSeason(2));
 
-      expect(jikan.getCurrentSeason).toHaveBeenCalledWith(2, { sfw: true });
+      expect(jikan.getCurrentSeason).toHaveBeenCalledWith(2);
       expect(result.data.map((anime) => anime.mal_id)).toEqual([1]);
     });
 
-    it.each([1, 4])('returns allowed anime %i by id, ecchi included', async (id) => {
+    it.each([1, 3, 4])('returns allowed anime %i by id, ecchi and erotica included', async (id) => {
       expect((await firstValueFrom(TestBed.inject(AnimeService).byId(id))).mal_id).toBe(id);
     });
 
-    it.each([2, 3])('refuses anime %i by id', async (id) => {
+    it.each([2])('refuses anime %i by id', async (id) => {
       await expect(firstValueFrom(TestBed.inject(AnimeService).byId(id))).rejects.toBeInstanceOf(
         BlockedContentError,
       );

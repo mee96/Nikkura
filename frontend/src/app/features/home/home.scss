@@ -1,0 +1,335 @@
+@use '../../../styles/breakpoints' as bp;
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+// ---------------------------------------------------------------------------
+// Banner
+// ---------------------------------------------------------------------------
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: 316px;
+  padding: var(--space-6);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-hero);
+  color: var(--color-on-hero);
+
+  @include bp.tablet-up {
+    padding: var(--space-8) var(--space-10);
+  }
+
+  &--skeleton {
+    background: var(--color-soft);
+  }
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 440px;
+}
+
+.hero__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+// Same look as the +18 mark of the covers (anime-card.scss), but in the flow of the text.
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-xs);
+  line-height: 1;
+}
+
+.hero__title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: var(--text-2xl);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  @include bp.tablet-up {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+  }
+}
+
+.hero__text {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.hero__button,
+.hero__ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding: var(--space-2) var(--space-6);
+  border: 2px solid var(--color-hero-button);
+  border-radius: var(--radius-pill);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--easing),
+    color var(--duration-fast) var(--easing);
+}
+
+.hero__button {
+  background: var(--color-hero-button);
+  color: var(--color-on-hero-button);
+}
+
+.hero__ghost {
+  background: transparent;
+  color: var(--color-on-hero);
+  cursor: pointer;
+
+  // Saved: the button turns into the solid one, so the state doesn't depend on colour alone
+  // (the label changes too).
+  &--on {
+    background: var(--color-hero-button);
+    color: var(--color-on-hero-button);
+  }
+
+  // One ring spreads once from a saved button (every role except Moe Magical, which sparkles).
+  &--pulse {
+    animation: save-pulse var(--duration-slow) var(--easing) 1;
+  }
+}
+
+.hero__save {
+  position: relative;
+  display: inline-flex;
+}
+
+.hero__motif {
+  display: none;
+  flex-shrink: 0;
+
+  @include bp.tablet-up {
+    display: block;
+  }
+}
+
+// Four sparks that leave the save button once.
+.sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkles__star {
+  position: absolute;
+  width: var(--space-4);
+  height: var(--space-4);
+  background: var(--color-primary);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: sparkle var(--duration-slow) var(--easing) 1 both;
+
+  &--0 {
+    top: calc(var(--space-4) * -1);
+    left: calc(var(--space-2) * -1);
+  }
+
+  &--1 {
+    top: calc(var(--space-5) * -1);
+    left: 50%;
+    animation-delay: 60ms;
+  }
+
+  &--2 {
+    top: calc(var(--space-3) * -1);
+    right: calc(var(--space-3) * -1);
+    animation-delay: 120ms;
+  }
+
+  &--3 {
+    right: var(--space-5);
+    bottom: calc(var(--space-4) * -1);
+    animation-delay: 180ms;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Shelf of recommendations
+// ---------------------------------------------------------------------------
+
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.shelf__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}
+
+.shelf__title {
+  flex-basis: 100%;
+  font-size: var(--text-xl);
+
+  @include bp.tablet-up {
+    font-size: var(--text-2xl);
+  }
+}
+
+.shelf__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shelf__genre {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-soft);
+  color: var(--color-primary-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.shelf__all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: auto;
+  color: var(--color-primary-text);
+  font-weight: var(--font-weight-bold);
+}
+
+.shelf__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include bp.tablet-up {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  // Five covers fit the desktop row; the sixth only fills the rows of smaller screens.
+  @include bp.desktop {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    .shelf__item:nth-child(n + 6) {
+      display: none;
+    }
+  }
+}
+
+.shelf__item {
+  min-width: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Loading, empty and error
+// ---------------------------------------------------------------------------
+
+.skeleton {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  background: var(--color-soft);
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.notice__title {
+  font-size: var(--text-xl);
+}
+
+.notice__text {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.notice__button {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  padding: var(--space-2) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+// One-shot animations. Reduced motion shortens them to nothing (styles.scss).
+@keyframes sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-30deg);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.3) rotate(20deg);
+  }
+}
+
+@keyframes save-pulse {
+  from {
+    box-shadow: 0 0 0 0 var(--color-accent);
+  }
+
+  to {
+    box-shadow: 0 0 0 var(--space-4) transparent;
+  }
+}

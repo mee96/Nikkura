@@ -69,12 +69,27 @@
     "inviteTitle": "Guarda, puntua i comenta",
     "inviteText": "Amb un compte tens carpetes pròpies i recomanacions segons el rol que triïs.",
     "inviteRoles": "Rols",
-    "inviteButton": "Tria el teu rol"
+    "inviteButton": "Tria el teu rol",
+    "heroForYou": "Destacat per a tu",
+    "heroSeason": "Destacat de la temporada",
+    "seeAnime": "Veure la fitxa",
+    "save": "Guardar",
+    "saved": "Guardat",
+    "logInToSave": "Inicia la sessió per guardar",
+    "recommendedTitle": "Recomanats per al teu rol",
+    "seasonTitle": "Aquesta temporada",
+    "genres": "Gèneres del teu rol",
+    "seeAll": "Veure'ls tots",
+    "loading": "Carregant les recomanacions…",
+    "emptyTitle": "Encara no hi ha res per recomanar",
+    "emptyText": "Torna-ho a provar d'aquí una estona o explora tot el catàleg.",
+    "errorTitle": "No s'han pogut carregar les recomanacions",
+    "errorText": "Jikan no respon ara mateix. Torna-ho a provar d'aquí un moment."
   },
   "content": {
     "mature": "+18",
     "matureLabel": "Per a majors de 18 anys",
-    "matureNote": "Per a majors de 18 anys: conté ecchi (contingut suggeridor, sense sexe explícit)."
+    "matureNote": "Per a majors de 18 anys: conté ecchi o eròtica (contingut suggeridor, sense sexe explícit)."
   },
   "explore": {
     "title": "Explorar",
@@ -99,7 +114,7 @@
     "sortBy": "Ordenar per",
     "activeFilters": "Filtres actius",
     "removeFilter": "Treu el filtre: {{name}}",
-    "contentNote": "Per a tothom: l'hentai i l'erotica no es mostren mai, i l'ecchi porta la marca +18.",
+    "contentNote": "Per a tothom: l'hentai no es mostra mai, i l'ecchi i l'eròtica porten la marca +18.",
     "loading": "Carregant els resultats…",
     "emptyTitle": "Cap resultat",
     "emptyText": "Prova amb menys filtres o amb una altra paraula.",
@@ -195,6 +210,7 @@
     "supernatural": "Sobrenatural",
     "suspense": "Suspens",
     "ecchi": "Ecchi",
+    "erotica": "Eròtica",
     "adult-cast": "Repartiment adult",
     "anthropomorphic": "Antropomòrfic",
     "cgdct": "Noies fent coses boniques",

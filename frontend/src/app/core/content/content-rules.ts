@@ -2,34 +2,38 @@ import { Anime, AnimeTag } from '../models/jikan.model';
 import { normalizeGenreName } from '../services/genre.service';
 
 /**
- * Nikkura shows no sexual content, to anyone (decisions of 22 and 26 Oct 2026).
- * Names only: the ids are looked up at runtime (#9).
+ * The only thing Nikkura never shows is hentai, to anyone (decisions of 22 Oct,
+ * 26 Oct and 3 Nov 2026). Names only: the ids are looked up at runtime (#9).
  *
- * - Excluded: hentai and erotica are never requested and never shown.
- * - Mature: ecchi is shown, with a +18 mark. Jikan lists it as explicit too,
- *   but it is suggestive content without sex.
+ * - Excluded: hentai is never requested and never shown, whether it is tagged
+ *   Hentai or rated Rx.
+ * - Mature: ecchi and erotica are shown, with a +18 mark. Jikan lists them as
+ *   explicit too, but they are not hentai.
  */
-export const EXCLUDED_GENRES = ['Hentai', 'Erotica'] as const;
-export const MATURE_GENRES = ['Ecchi'] as const;
+export const EXCLUDED_GENRES = ['Hentai'] as const;
+export const MATURE_GENRES = ['Ecchi', 'Erotica'] as const;
 
 /** MyAnimeList rating of hentai ("Rx - Hentai"). */
 const BLOCKED_RATING = 'rx';
 
-/** Params added to every Jikan list request. The same for visitors and every user. */
+/**
+ * Params added to every Jikan search. The same for visitors and every user.
+ * Jikan's own `sfw` filter is not used: the rule is only about hentai, which
+ * we exclude by genre and check again on our side.
+ */
 export interface ContentParams {
-  sfw: true;
   genres_exclude: number[];
 }
 
 const excludedNames = new Set<string>(EXCLUDED_GENRES.map(normalizeGenreName));
 const matureNames = new Set<string>(MATURE_GENRES.map(normalizeGenreName));
 
-/** True for a genre that is never shown (hentai, erotica). */
+/** True for a genre that is never shown (hentai). */
 export function isExcludedGenreName(name: string): boolean {
   return excludedNames.has(normalizeGenreName(name));
 }
 
-/** True for a genre shown with the +18 mark (ecchi). */
+/** True for a genre shown with the +18 mark (ecchi, erotica). */
 export function isMatureGenreName(name: string): boolean {
   return matureNames.has(normalizeGenreName(name));
 }
@@ -59,7 +63,7 @@ export function isAllowedAnime(anime: Anime): boolean {
   return !hasTagIn(anime, excludedNames);
 }
 
-/** True when the anime is shown with the +18 mark (it has a mature genre: ecchi). */
+/** True when the anime is shown with the +18 mark (it has a mature genre: ecchi or erotica). */
 export function isMatureAnime(anime: Anime): boolean {
   return hasTagIn(anime, matureNames);
 }

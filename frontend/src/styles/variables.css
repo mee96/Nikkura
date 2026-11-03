@@ -88,6 +88,7 @@
   /* 5. Motion and layers --------------------------------------------------- */
   --duration-fast: 120ms;
   --duration-normal: 200ms;
+  --duration-slow: 400ms; /* one-shot reactions: a pulse, a bar filling, a card entering */
   --easing: cubic-bezier(0.2, 0, 0, 1);
 
   --z-header: 10;
@@ -105,6 +106,25 @@
   --content-max-width: 1280px;
   --bottom-nav-height: 72px; /* mobile tab bar, without the safe area */
   --icon-size: 20px;
+
+  /* 5c. Role flourishes -------------------------------------------------------
+     Small touches that give each role its personality without a component
+     knowing the role: a motif on the covers, a VHS spine and the shelf lip under it, how a
+     cover reacts to hover or focus, the stat bar under a card and how items enter. Every role
+     sets all of them (neutral values here). Nothing loops: each effect runs once,
+     and prefers-reduced-motion switches off the movement (see the end of the file). */
+  --cover-motif-color: var(--color-surface);
+  --cover-motif-opacity: 0;
+  --cover-motif-size: 0px;
+  --cover-motif-radius: 0;
+  --cover-motif-rotate: 0deg;
+  --cover-spine-width: 0px;
+  --cover-lip: 0px;
+  --cover-hover-shift: 0px;
+  --cover-hover-tilt: 0deg;
+  --cover-hover-shadow: none;
+  --card-stat-display: none;
+  --reveal-from: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -129,6 +149,12 @@
      --color-cover-stripe    stripes over placeholder covers
      --color-scrim           dark layer behind sheets and dialogs
      --color-focus           keyboard focus ring
+     --color-ink             deep surface for spines, CRT screens and status panels
+     --color-ink-soft        bezels and panels on top of --color-ink
+     --color-ink-line        borders and lines on top of --color-ink
+     --color-ink-text        text on --color-ink
+     --color-accent          bright accent on --color-ink (never used for text on bg)
+     --color-accent-2        second accent, for small marks
    -------------------------------------------------------------------------- */
 
 /* 6. Moe Magical · pink and lilac, Y2K windows on the anime page ---------- */
@@ -148,7 +174,7 @@
   --color-surface: #fff;
   --color-soft: #fbe0ec;
   --color-border: #f4cfe0;
-  --color-border-strong: #e7a9c5;
+  --color-border-strong: #b0698f;
   --color-text: #4a2541;
   --color-muted: #835877;
   --color-primary: #c83e7a;
@@ -167,6 +193,26 @@
   --color-cover-stripe: rgb(255 255 255 / 45%);
   --color-scrim: rgb(74 37 65 / 45%);
   --color-focus: #c83e7a;
+
+  --color-ink: #3e2066;
+  --color-ink-soft: #4f2c80;
+  --color-ink-line: #8a5cc4;
+  --color-ink-text: #ffffff;
+  --color-accent: #f7b6d2;
+  --color-accent-2: #c9f0e1;
+
+  /* Flourishes: cover motif, hover and entrance (see section 5c) */
+  --cover-motif-color: var(--color-surface);
+  --cover-motif-opacity: 0.4;
+  --cover-motif-size: 120px;
+  --cover-motif-radius: 50%;
+  --cover-motif-rotate: 0deg;
+  --cover-spine-width: 0px;
+  --cover-hover-shift: -6px;
+  --cover-hover-tilt: 0deg;
+  --cover-hover-shadow: 0 14px 22px -8px var(--color-border-strong);
+  --card-stat-display: none;
+  --reveal-from: translateY(8px) scale(0.96);
 }
 
 /* 7. Haku Sama · indigo, violet and cyan, video rental store ------------- */
@@ -186,7 +232,7 @@
   --color-surface: #fff;
   --color-soft: #e1e3f8;
   --color-border: #d5d8f0;
-  --color-border-strong: #a7abe2;
+  --color-border-strong: #7479bd;
   --color-text: #23244d;
   --color-muted: #5d608c;
   --color-primary: #5149c4;
@@ -205,6 +251,27 @@
   --color-cover-stripe: rgb(255 255 255 / 45%);
   --color-scrim: rgb(35 36 77 / 45%);
   --color-focus: #5149c4;
+
+  --color-ink: #16153a;
+  --color-ink-soft: #201e55;
+  --color-ink-line: #6a66c4;
+  --color-ink-text: #edebff;
+  --color-accent: #7fe3ff;
+  --color-accent-2: #ff9bd2;
+
+  /* Flourishes: cover motif, hover and entrance (see section 5c) */
+  --cover-motif-color: var(--color-primary);
+  --cover-motif-opacity: 0.3;
+  --cover-motif-size: 100px;
+  --cover-motif-radius: 50%;
+  --cover-motif-rotate: 0deg;
+  --cover-spine-width: 28px;
+  --cover-lip: 10px;
+  --cover-hover-shift: -14px;
+  --cover-hover-tilt: -2deg;
+  --cover-hover-shadow: 0 16px 18px -8px var(--color-ink);
+  --card-stat-display: none;
+  --reveal-from: translateX(24px);
 }
 
 /* 8. Senpai · black and orange (dark), status window --------------------- */
@@ -229,7 +296,7 @@
   --color-surface: #211915;
   --color-soft: #3a2416;
   --color-border: #33261e;
-  --color-border-strong: #6b4a33;
+  --color-border-strong: #98704f;
   --color-text: #f6eadb;
   --color-muted: #b7a290;
   --color-primary: #ff7a1f;
@@ -248,6 +315,26 @@
   --color-cover-stripe: rgb(255 122 31 / 25%);
   --color-scrim: rgb(0 0 0 / 60%);
   --color-focus: #ffb874;
+
+  --color-ink: #0f0b09;
+  --color-ink-soft: #211915;
+  --color-ink-line: #98704f;
+  --color-ink-text: #f6eadb;
+  --color-accent: #ffb874;
+  --color-accent-2: #ff9a4d;
+
+  /* Flourishes: cover motif, hover and entrance (see section 5c) */
+  --cover-motif-color: var(--color-primary);
+  --cover-motif-opacity: 0.25;
+  --cover-motif-size: 110px;
+  --cover-motif-radius: 0;
+  --cover-motif-rotate: 45deg;
+  --cover-spine-width: 0px;
+  --cover-hover-shift: 0px;
+  --cover-hover-tilt: 0deg;
+  --cover-hover-shadow: 0 0 0 4px var(--color-soft);
+  --card-stat-display: flex;
+  --reveal-from: none;
 }
 
 /* 9. Visitor · greens, slice-of-life notebook, read-only ------------------ */
@@ -286,4 +373,35 @@
   --color-cover-stripe: rgb(255 255 255 / 35%);
   --color-scrim: rgb(44 56 36 / 45%);
   --color-focus: #2f4a2a;
+
+  --color-ink: #2f4a2a;
+  --color-ink-soft: #3b5a34;
+  --color-ink-line: #7fa05e;
+  --color-ink-text: #f3f1e2;
+  --color-accent: #e7c78e;
+  --color-accent-2: #b9cc9a;
+
+  /* Flourishes: cover motif, hover and entrance (see section 5c) */
+  --cover-motif-color: var(--color-surface);
+  --cover-motif-opacity: 0;
+  --cover-motif-size: 0px;
+  --cover-motif-radius: 0;
+  --cover-motif-rotate: 0deg;
+  --cover-spine-width: 0px;
+  --cover-hover-shift: 0px;
+  --cover-hover-tilt: 0deg;
+  --cover-hover-shadow: none;
+  --card-stat-display: none;
+  --reveal-from: translateY(6px);
+}
+
+/* Reduced motion: no covers lifting, tilting or entering. The ring or shadow of
+   --cover-hover-shadow stays, so hover and focus are still visible without movement. */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  [data-role] {
+    --cover-hover-shift: 0px;
+    --cover-hover-tilt: 0deg;
+    --reveal-from: none;
+  }
 }

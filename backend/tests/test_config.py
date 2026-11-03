@@ -12,12 +12,12 @@ def test_every_role_has_recommended_genres() -> None:
     assert all(ROLE_GENRES.values())
 
 
-def test_hentai_and_erotica_are_excluded_for_everyone() -> None:
-    assert set(EXCLUDED_GENRES) == {"Hentai", "Erotica"}
+def test_only_hentai_is_excluded_for_everyone() -> None:
+    assert EXCLUDED_GENRES == ("Hentai",)
 
 
-def test_ecchi_is_shown_with_a_mature_mark() -> None:
-    assert MATURE_GENRES == ("Ecchi",)
+def test_ecchi_and_erotica_are_shown_with_a_mature_mark() -> None:
+    assert MATURE_GENRES == ("Ecchi", "Erotica")
     assert set(MATURE_GENRES).isdisjoint(EXCLUDED_GENRES)
 
 

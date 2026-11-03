@@ -24,8 +24,8 @@ export interface FilterGroups {
 
 /**
  * The genre, theme and demographic chips of the filters, built from Jikan
- * (each group is one cached request). Hentai and erotica are left out; ecchi,
- * which Jikan lists apart as explicit, joins the genres with its +18 mark.
+ * (each group is one cached request). Hentai is left out; ecchi and erotica,
+ * which Jikan lists apart as explicit, join the genres with their +18 mark.
  * Each group is sorted by how many anime it has, so the most useful come first.
  */
 @Injectable({ providedIn: 'root' })
