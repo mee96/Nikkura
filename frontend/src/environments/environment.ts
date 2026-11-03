@@ -6,9 +6,9 @@ export const environment: Environment = {
   apiUrl: 'https://nikkura-api.onrender.com',
   jikanUrl: 'https://api.jikan.moe/v4',
   firebase: {
-    apiKey: '',
-    authDomain: '',
-    projectId: '',
-    appId: '',
+    apiKey: 'AIzaSyCPuHZW9xAThPjsW1lZdjuid8gVXMSdkK8',
+    authDomain: 'nikkura-d36d0.firebaseapp.com',
+    projectId: 'nikkura-d36d0',
+    appId: '1:1053767257090:web:f2ff37daa529875d5cab1b',
   },
 };

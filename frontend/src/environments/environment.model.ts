@@ -7,8 +7,8 @@ export interface Environment {
   jikanUrl: string;
   /**
    * Firebase web app config. These values are public by design (they identify
-   * the project, they do not grant access). Fill them in with the web app config
-   * of the Firebase project (Project settings > Your apps).
+   * the project, they do not grant access); access is controlled by the Firebase
+   * Auth settings and the backend, which checks every ID token.
    */
   firebase: {
     apiKey: string;
