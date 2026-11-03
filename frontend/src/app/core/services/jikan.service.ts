@@ -21,7 +21,6 @@ import {
   JikanItem,
   JikanList,
   JikanPage,
-  SeasonParams,
 } from '../models/jikan.model';
 
 /**
@@ -76,8 +75,8 @@ export class JikanService {
     );
   }
 
-  getCurrentSeason(page = 1, params: SeasonParams = {}): Observable<JikanPage<Anime>> {
-    return this.getCached<JikanPage<Anime>>('/seasons/now', { ...params, page });
+  getCurrentSeason(page = 1): Observable<JikanPage<Anime>> {
+    return this.getCached<JikanPage<Anime>>('/seasons/now', { page });
   }
 
   private get<T>(path: string, params: object = {}): Observable<T> {
@@ -141,7 +140,7 @@ function isRateLimited(error: unknown): boolean {
 /**
  * Turns a params object into a query for Jikan: arrays are joined with commas
  * and empty values are skipped. Keys are sorted so equal queries always give
- * the same cache key. New params (e.g. `sfw`, `genres_exclude`) need no change here.
+ * the same cache key. New params (e.g. `genres_exclude`) need no change here.
  */
 function toQuery(params: object): Record<string, string> {
   const query: Record<string, string> = {};

@@ -74,7 +74,7 @@
   "content": {
     "mature": "+18",
     "matureLabel": "Para mayores de 18 años",
-    "matureNote": "Para mayores de 18 años: contiene ecchi (contenido sugerente, sin sexo explícito)."
+    "matureNote": "Para mayores de 18 años: contiene ecchi o erótica (contenido sugerente, sin sexo explícito)."
   },
   "explore": {
     "title": "Explorar",
@@ -99,7 +99,7 @@
     "sortBy": "Ordenar por",
     "activeFilters": "Filtros activos",
     "removeFilter": "Quitar el filtro: {{name}}",
-    "contentNote": "Para todos: el hentai y el erotica no se muestran nunca, y el ecchi lleva la marca +18.",
+    "contentNote": "Para todos: el hentai no se muestra nunca, y el ecchi y la erótica llevan la marca +18.",
     "loading": "Cargando los resultados…",
     "emptyTitle": "Ningún resultado",
     "emptyText": "Prueba con menos filtros o con otra palabra.",
@@ -154,6 +154,7 @@
     "supernatural": "Sobrenatural",
     "suspense": "Suspense",
     "ecchi": "Ecchi",
+    "erotica": "Erótica",
     "adult-cast": "Reparto adulto",
     "anthropomorphic": "Antropomórfico",
     "cgdct": "Chicas haciendo cosas monas",

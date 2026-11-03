@@ -24,24 +24,31 @@ describe('ContentRulesService', () => {
 
   afterEach(() => vi.restoreAllMocks());
 
-  it('asks for sfw and excludes hentai and erotica, resolved by name', async () => {
+  it('excludes only hentai, resolved by name', async () => {
     const params = await firstValueFrom(TestBed.inject(ContentRulesService).params());
 
-    expect(params).toEqual({ sfw: true, genres_exclude: [12, 49] });
+    expect(params).toEqual({ genres_exclude: [12] });
   });
 
-  it('does not exclude ecchi, which is shown with a +18 mark', async () => {
+  it('does not exclude ecchi or erotica, which are shown with a +18 mark', async () => {
     const params = await firstValueFrom(TestBed.inject(ContentRulesService).params());
 
     expect(params.genres_exclude).not.toContain(9);
+    expect(params.genres_exclude).not.toContain(49);
   });
 
-  it('keeps sfw when the genre list cannot be loaded', async () => {
+  it('does not send sfw', async () => {
+    const params = await firstValueFrom(TestBed.inject(ContentRulesService).params());
+
+    expect(params).not.toHaveProperty('sfw');
+  });
+
+  it('sends an empty list when the genre list cannot be loaded', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     getGenres.mockReturnValue(throwError(() => new Error('offline')));
 
     const params = await firstValueFrom(TestBed.inject(ContentRulesService).params());
 
-    expect(params).toEqual({ sfw: true, genres_exclude: [] });
+    expect(params).toEqual({ genres_exclude: [] });
   });
 });

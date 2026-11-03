@@ -167,8 +167,6 @@ describe('FilterPanel', () => {
   it('tells everyone what is never shown', async () => {
     await render();
 
-    expect(element.querySelector('.filters__note')?.textContent).toContain(
-      'hentai and erotica are never shown',
-    );
+    expect(element.querySelector('.filters__note')?.textContent).toContain('hentai is never shown');
   });
 });

@@ -10,13 +10,13 @@ export class ContentRulesService {
   private readonly genres = inject(GenreService);
 
   /**
-   * `sfw=true` plus the excluded genres, resolved by name in Jikan's explicit
-   * group (the same request the filters use). If the genre list
-   * can't be loaded, `sfw` still applies and the results are filtered anyway.
+   * The excluded genres (hentai), resolved by name in Jikan's explicit group
+   * (the same request the filters use). If the genre list can't be loaded the
+   * list is empty and the results are still filtered on our side.
    */
   params(): Observable<ContentParams> {
     return this.genres
       .idsOf(EXCLUDED_GENRES, 'explicit_genres')
-      .pipe(map((ids) => ({ sfw: true, genres_exclude: ids })));
+      .pipe(map((ids) => ({ genres_exclude: ids })));
   }
 }
