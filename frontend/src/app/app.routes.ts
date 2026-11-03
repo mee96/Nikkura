@@ -50,8 +50,7 @@ export const routes: Routes = [
           {
             path: '',
             title: 'nav.home',
-            loadComponent: comingSoon,
-            data: { titleKey: 'nav.home' },
+            loadComponent: () => import('./features/home/home').then((m) => m.Home),
           },
           {
             path: '',

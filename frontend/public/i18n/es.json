@@ -69,7 +69,22 @@
     "inviteTitle": "Guarda, puntúa y comenta",
     "inviteText": "Con una cuenta tienes carpetas propias y recomendaciones según el rol que elijas.",
     "inviteRoles": "Roles",
-    "inviteButton": "Elige tu rol"
+    "inviteButton": "Elige tu rol",
+    "heroForYou": "Destacado para ti",
+    "heroSeason": "Destacado de la temporada",
+    "seeAnime": "Ver la ficha",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "logInToSave": "Inicia sesión para guardar",
+    "recommendedTitle": "Recomendados para tu rol",
+    "seasonTitle": "Esta temporada",
+    "genres": "Géneros de tu rol",
+    "seeAll": "Ver todos",
+    "loading": "Cargando las recomendaciones…",
+    "emptyTitle": "Todavía no hay nada que recomendar",
+    "emptyText": "Vuelve a intentarlo en un momento o explora todo el catálogo.",
+    "errorTitle": "No se han podido cargar las recomendaciones",
+    "errorText": "Jikan no responde ahora mismo. Vuelve a intentarlo en un momento."
   },
   "content": {
     "mature": "+18",

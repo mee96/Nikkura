@@ -69,7 +69,22 @@
     "inviteTitle": "Save, rate and comment",
     "inviteText": "With an account you get your own folders and recommendations based on the role you pick.",
     "inviteRoles": "Roles",
-    "inviteButton": "Pick your role"
+    "inviteButton": "Pick your role",
+    "heroForYou": "Featured for you",
+    "heroSeason": "Top of the season",
+    "seeAnime": "See the anime",
+    "save": "Save",
+    "saved": "Saved",
+    "logInToSave": "Log in to save",
+    "recommendedTitle": "Recommended for your role",
+    "seasonTitle": "This season",
+    "genres": "Genres of your role",
+    "seeAll": "See all",
+    "loading": "Loading the recommendations…",
+    "emptyTitle": "Nothing to recommend yet",
+    "emptyText": "Try again in a moment or explore the whole catalogue.",
+    "errorTitle": "Couldn't load the recommendations",
+    "errorText": "Jikan isn't answering right now. Try again in a moment."
   },
   "content": {
     "mature": "+18",
