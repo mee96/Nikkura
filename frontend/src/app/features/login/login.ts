@@ -56,11 +56,11 @@ export function authErrorKey(error: unknown): string | null {
         </p>
       </div>
 
-      <section class="login" aria-labelledby="login-title">
-        <h1 id="login-title" class="login__title">{{ 'shell.logIn' | transloco }}</h1>
-        <p class="login__lead">{{ 'login.lead' | transloco }}</p>
+      <section class="auth-form" aria-labelledby="login-title">
+        <h1 id="login-title" class="auth-form__title">{{ 'shell.logIn' | transloco }}</h1>
+        <p class="auth-form__lead">{{ 'login.lead' | transloco }}</p>
 
-        <form class="login__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <form class="auth-form__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
           <div class="field">
             <label class="field__label" for="login-email">{{ 'login.email' | transloco }}</label>
             <input
@@ -106,10 +106,12 @@ export function authErrorKey(error: unknown): string | null {
           </div>
 
           @if (error(); as key) {
-            <p class="login__message login__message--error" role="alert">{{ key | transloco }}</p>
+            <p class="auth-form__message auth-form__message--error" role="alert">
+              {{ key | transloco }}
+            </p>
           }
           @if (notice(); as key) {
-            <p class="login__message" role="status">{{ key | transloco }}</p>
+            <p class="auth-form__message" role="status">{{ key | transloco }}</p>
           }
 
           <button type="submit" class="button button--primary" [attr.aria-busy]="busy()">
@@ -132,7 +134,7 @@ export function authErrorKey(error: unknown): string | null {
           </button>
         </form>
 
-        <div class="login__or">
+        <div class="auth-form__or">
           <span>{{ 'login.or' | transloco }}</span>
         </div>
 
@@ -140,18 +142,18 @@ export function authErrorKey(error: unknown): string | null {
           {{ 'login.google' | transloco }}
         </button>
 
-        <p class="login__links">
+        <p class="auth-form__links">
           {{ 'login.noAccount' | transloco }}
-          <a class="login__link" routerLink="/signup">{{ 'login.createOne' | transloco }}</a>
+          <a class="auth-form__link" routerLink="/signup">{{ 'login.createOne' | transloco }}</a>
           <br />
-          <a class="login__link login__link--small" routerLink="/">
+          <a class="auth-form__link auth-form__link--small" routerLink="/">
             {{ 'login.continueAsGuest' | transloco }}
           </a>
         </p>
       </section>
     </div>
   `,
-  styleUrl: './login.scss',
+  styleUrls: ['../../layout/auth-layout/auth-form.scss', './login.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {
