@@ -48,7 +48,34 @@
     "signUp": "Crear una cuenta",
     "logIn": "Entrar",
     "backToExplore": "Volver a explorar",
-    "signUpShort": "Registro"
+    "signUpShort": "Registro",
+    "dataCredit": "Las fichas de anime vienen de MyAnimeList a través de la API de Jikan."
+  },
+  "login": {
+    "lead": "Entra para guardar, puntuar y comentar.",
+    "heroStart": "Tu libreta de anime te está",
+    "heroAccent": "esperando.",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.es",
+    "password": "Contraseña",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "forgot": "He olvidado la contraseña",
+    "submitting": "Entrando…",
+    "or": "o",
+    "google": "Continuar con Google",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "createOne": "Crea una",
+    "continueAsGuest": "Continuar sin cuenta",
+    "resetSent": "Si existe una cuenta con este correo, te hemos enviado un enlace para elegir una contraseña nueva.",
+    "errors": {
+      "missing": "Escribe el correo electrónico y la contraseña.",
+      "resetEmail": "Escribe tu correo electrónico y vuelve a pulsar «He olvidado la contraseña».",
+      "credentials": "El correo o la contraseña no son correctos.",
+      "tooMany": "Ha habido demasiados intentos. Espera un rato y vuelve a probar.",
+      "network": "No hay conexión. Revísala y vuelve a probar.",
+      "generic": "No hemos podido entrar. Vuelve a probar dentro de un momento."
+    }
   },
   "search": {
     "label": "Busca un anime",

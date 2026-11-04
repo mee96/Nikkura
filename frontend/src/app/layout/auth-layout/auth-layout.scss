@@ -1,0 +1,146 @@
+// What the page writes in, depending on what is behind it. Screens inside the frame
+// (login, sign-up) read these three instead of checking whether the video plays.
+:host {
+  --on-stage: var(--color-ink);
+  --on-stage-accent: var(--color-primary-text);
+  --on-stage-shadow: none;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: clamp(var(--space-4), 4vh, 2.75rem) clamp(var(--space-4), 4vw, 4rem);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+}
+
+:host(.auth--video) {
+  --on-stage: var(--color-on-media);
+  --on-stage-accent: var(--color-accent);
+  --on-stage-shadow: var(--media-text-shadow);
+}
+
+.auth-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--media-scrim);
+  pointer-events: none;
+  animation: bg-in 1400ms var(--easing-out) both;
+}
+
+.auth-header,
+.auth-main,
+.auth-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  animation: rise 700ms var(--easing-out) 150ms both;
+}
+
+.auth-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-target);
+  color: var(--on-stage);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  text-decoration: none;
+  text-shadow: var(--on-stage-shadow);
+}
+
+.auth-header__mark {
+  width: 40px;
+  height: 28px;
+}
+
+.auth-header__dot--moe {
+  fill: var(--mode-moe);
+}
+
+.auth-header__dot--haku {
+  fill: var(--mode-haku);
+  fill-opacity: 0.9;
+}
+
+.auth-header__dot--senpai {
+  fill: var(--mode-senpai);
+  fill-opacity: 0.9;
+}
+
+// White pill with the arrow in its own dark circle, like the call to action it stands for.
+.auth-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition: background-color var(--duration-normal) var(--easing);
+
+  &:hover {
+    background: var(--color-soft);
+  }
+}
+
+.auth-header__back-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-on-primary);
+}
+
+// On the narrowest screens only the arrow stays; the link keeps its name for screen readers.
+@media (width <= 360px) {
+  .auth-header__back {
+    padding: var(--space-1);
+  }
+
+  .auth-header__back-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.auth-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: var(--space-6) auto;
+}
+
+.auth-footer {
+  color: var(--on-stage);
+  font-size: var(--text-xs);
+  text-align: center;
+  text-shadow: var(--on-stage-shadow);
+}

@@ -48,7 +48,34 @@
     "signUp": "Create an account",
     "logIn": "Log in",
     "backToExplore": "Back to exploring",
-    "signUpShort": "Sign up"
+    "signUpShort": "Sign up",
+    "dataCredit": "Anime data comes from MyAnimeList through the Jikan API."
+  },
+  "login": {
+    "lead": "Log in to save, rate and comment.",
+    "heroStart": "Your anime notebook is",
+    "heroAccent": "waiting for you.",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "show": "Show",
+    "hide": "Hide",
+    "forgot": "I forgot my password",
+    "submitting": "Logging in…",
+    "or": "or",
+    "google": "Continue with Google",
+    "noAccount": "Don't have an account yet?",
+    "createOne": "Create one",
+    "continueAsGuest": "Continue without an account",
+    "resetSent": "If an account exists for this email, we've sent you a link to choose a new password.",
+    "errors": {
+      "missing": "Enter your email and password.",
+      "resetEmail": "Enter your email, then tap \"I forgot my password\" again.",
+      "credentials": "The email or the password is not correct.",
+      "tooMany": "Too many attempts. Wait a while and try again.",
+      "network": "No connection. Check it and try again.",
+      "generic": "We couldn't log you in. Try again in a moment."
+    }
   },
   "search": {
     "label": "Search an anime",
