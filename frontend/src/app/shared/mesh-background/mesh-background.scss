@@ -1,0 +1,105 @@
+// Only `transform` is animated, so the browser moves ready-made layers and never
+// repaints the gradients: slow, smooth and cheap, also on phones.
+// Each spot has its place (--x, --y as a share of the screen), its size, the way it
+// drifts (--dx, --dy, --grow), how long a trip takes and where in the trip it starts
+// (a negative delay), so the five never move in step.
+
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-bg);
+}
+
+.blob {
+  --size: 70vmax;
+
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--blob-color), transparent);
+  will-change: transform;
+  animation: drift var(--duration) ease-in-out var(--delay) infinite alternate;
+}
+
+.blob--moe {
+  --x: 10%;
+  --y: 16%;
+  --blob-color: var(--mesh-moe-pink);
+  --dx: 18vw;
+  --dy: 14vh;
+  --grow: 1.15;
+  --duration: var(--mesh-drift-medium);
+  --delay: -12s;
+}
+
+.blob--lilac {
+  --x: 88%;
+  --y: 8%;
+  --blob-color: var(--mesh-moe-lilac);
+  --dx: -16vw;
+  --dy: 20vh;
+  --grow: 1.2;
+  --duration: var(--mesh-drift-slow);
+  --delay: -30s;
+}
+
+.blob--haku {
+  --x: 84%;
+  --y: 88%;
+  --size: 78vmax;
+  --blob-color: var(--mesh-haku-blue);
+  --dx: -20vw;
+  --dy: -16vh;
+  --grow: 1.1;
+  --duration: var(--mesh-drift-fast);
+  --delay: -5s;
+}
+
+.blob--senpai {
+  --x: 12%;
+  --y: 90%;
+  --blob-color: var(--mesh-senpai-peach);
+  --dx: 22vw;
+  --dy: -18vh;
+  --grow: 1.2;
+  --duration: var(--mesh-drift-slow);
+  --delay: -22s;
+}
+
+.blob--mint {
+  --x: 50%;
+  --y: 46%;
+  --size: 46vmax;
+  --blob-color: var(--mesh-mint);
+  --dx: -12vw;
+  --dy: 12vh;
+  --grow: 1.25;
+  --duration: var(--mesh-drift-medium);
+  --delay: -36s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(var(--dx), var(--dy), 0) scale(var(--grow));
+  }
+}
+
+// With reduced motion the colours stay where the design puts them. `animation: none`
+// (not a short duration, which an infinite animation would turn into flicker).
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none;
+    will-change: auto;
+  }
+}

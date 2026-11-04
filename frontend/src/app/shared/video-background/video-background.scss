@@ -1,0 +1,20 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+// Fades in and settles from a slight zoom, once (`bg-in` is in styles.scss).
+.video--on {
+  animation: bg-in 1400ms var(--easing-out) both;
+}

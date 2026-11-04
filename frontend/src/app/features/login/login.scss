@@ -1,0 +1,19 @@
+// The rest of the look is shared with sign-up: layout/auth-layout/auth-form.scss.
+.login__forgot {
+  align-self: flex-end;
+  min-height: var(--touch-target);
+  margin-top: calc(var(--space-2) * -1);
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  color: var(--on-stage);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-shadow: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--on-stage-accent);
+  }
+}

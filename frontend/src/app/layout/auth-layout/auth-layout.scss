@@ -1,0 +1,97 @@
+// What the page writes in, depending on what is behind it. Screens inside the frame
+// (login, sign-up) read these (text, accent, shadow and the main button) instead of checking whether the video plays.
+:host {
+  --on-stage: var(--color-ink);
+  --on-stage-accent: var(--color-primary-text);
+  --on-stage-shadow: none;
+  --on-stage-button: var(--color-primary);
+  --on-stage-button-text: var(--color-on-primary);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: clamp(var(--space-4), 4vh, 2.75rem) clamp(var(--space-4), 4vw, 4rem);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+}
+
+:host(.auth--video) {
+  --on-stage: var(--color-on-media);
+  --on-stage-accent: var(--color-accent);
+  --on-stage-shadow: var(--media-text-shadow);
+  --on-stage-button: var(--color-accent);
+  --on-stage-button-text: var(--color-ink);
+}
+
+.auth-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--media-scrim);
+  pointer-events: none;
+  animation: bg-in 1400ms var(--easing-out) both;
+}
+
+.auth-header,
+.auth-main {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  animation: rise 700ms var(--easing-out) 150ms both;
+}
+
+.auth-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-target);
+  color: var(--on-stage);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  text-decoration: none;
+  text-shadow: var(--on-stage-shadow);
+}
+
+// The notebook with its bookmark: white cover, pink spine, the role pink on the ribbon.
+.auth-header__mark {
+  width: 40px;
+  height: 40px;
+}
+
+.auth-header__cover {
+  fill: var(--color-surface);
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+}
+
+.auth-header__spine,
+.auth-header__petal {
+  fill: var(--color-accent);
+}
+
+.auth-header__ribbon {
+  fill: var(--mode-moe);
+}
+
+.auth-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: var(--space-6) auto;
+}

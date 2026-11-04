@@ -1,0 +1,65 @@
+:host {
+  position: relative;
+  display: inline-flex;
+}
+
+// Same family as the "back" pill that used to sit here: white, dark ink.
+.menu__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing);
+
+  &:hover,
+  &[aria-expanded='true'] {
+    background: var(--color-soft);
+  }
+}
+
+.menu__list {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 10;
+  min-width: 11rem;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.menu__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-soft);
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--color-soft);
+    color: var(--color-ink);
+  }
+}

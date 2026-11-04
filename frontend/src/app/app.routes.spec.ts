@@ -7,8 +7,20 @@ import { RouterTestingHarness } from '@angular/router/testing';
 
 import { provideTranslocoTesting } from '../testing/transloco';
 import { routes } from './app.routes';
+import { AUTH_VIDEO_URL } from './core/auth/auth-media';
+import { FIREBASE_AUTH, FirebaseAuthApi } from './core/auth/firebase-auth';
 import { TranslatedTitleStrategy } from './core/i18n/translated-title.strategy';
 import { LanguageService } from './core/services/language.service';
+
+const fakeFirebase: FirebaseAuthApi = {
+  onUserChange: (listener) => listener(null),
+  currentUser: () => null,
+  logIn: () => Promise.resolve(),
+  signUp: () => Promise.resolve(),
+  logInWithGoogle: () => Promise.resolve(),
+  resetPassword: () => Promise.resolve(),
+  logOut: () => Promise.resolve(),
+};
 
 describe('app routes', () => {
   let harness: RouterTestingHarness;
@@ -23,6 +35,9 @@ describe('app routes', () => {
         provideHttpClientTesting(),
         provideRouter(routes, withComponentInputBinding()),
         { provide: TitleStrategy, useExisting: TranslatedTitleStrategy },
+        // Login talks to Firebase and the frame loads a video: neither is wanted in a test.
+        { provide: FIREBASE_AUTH, useValue: fakeFirebase },
+        { provide: AUTH_VIDEO_URL, useValue: '' },
       ],
     });
     TestBed.inject(LanguageService).setLang('en');
@@ -57,11 +72,12 @@ describe('app routes', () => {
     expect(document.querySelector('main h1')?.textContent).toContain(heading);
   });
 
-  it('shows login outside the shell, always in the visitor look', async () => {
+  it('shows the login screen outside the shell, always in its own look', async () => {
     await harness.navigateByUrl('/login');
 
     expect(document.querySelector('app-shell')).toBeNull();
-    expect(document.querySelector('app-auth-layout')?.getAttribute('data-role')).toBe('guest');
+    expect(document.querySelector('app-auth-layout')?.getAttribute('data-role')).toBe('auth');
+    expect(document.querySelector('main app-login form')).not.toBeNull();
     expect(document.querySelector('main h1')?.textContent).toContain('Log in');
   });
 
@@ -69,6 +85,8 @@ describe('app routes', () => {
     await harness.navigateByUrl('/signup');
 
     expect(document.querySelector('app-shell')).toBeNull();
+    expect(document.querySelector('app-auth-layout')?.getAttribute('data-role')).toBe('auth');
+    expect(document.querySelector('main app-signup form')).not.toBeNull();
     expect(document.querySelector('main h1')?.textContent).toContain('Create an account');
   });
 

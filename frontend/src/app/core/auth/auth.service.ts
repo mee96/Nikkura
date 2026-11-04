@@ -36,12 +36,17 @@ export class AuthService {
     await this.auth.logIn(email, password);
   }
 
-  async signUp(email: string, password: string): Promise<void> {
-    await this.auth.signUp(email, password);
+  async signUp(email: string, password: string, displayName: string): Promise<void> {
+    await this.auth.signUp(email, password, displayName);
   }
 
   async logInWithGoogle(): Promise<void> {
     await this.auth.logInWithGoogle();
+  }
+
+  /** Emails a link to choose a new password. */
+  async resetPassword(email: string): Promise<void> {
+    await this.auth.resetPassword(email);
   }
 
   async logOut(): Promise<void> {
