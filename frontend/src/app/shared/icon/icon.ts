@@ -43,6 +43,12 @@ const ICONS = {
   close: ['M18 6 6 18', 'm6 6 12 12'],
   bookmark: ['m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z'],
   arrowRight: ['M5 12h14', 'm12 5 7 7-7 7'],
+  globe: [
+    'M2 12a10 10 0 1 0 20 0a10 10 0 1 0-20 0',
+    'M2 12h20',
+    'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z',
+  ],
+  check: ['M20 6 9 17l-5-5'],
 } as const satisfies Record<string, readonly string[]>;
 
 export type IconName = keyof typeof ICONS;

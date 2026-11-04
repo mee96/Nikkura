@@ -47,9 +47,7 @@
     "account": "Compte",
     "signUp": "Crear un compte",
     "logIn": "Entrar",
-    "backToExplore": "Torna a explorar",
-    "signUpShort": "Registre",
-    "dataCredit": "Les fitxes d'anime vénen de MyAnimeList a través de l'API de Jikan."
+    "signUpShort": "Registre"
   },
   "login": {
     "lead": "Entra per guardar, puntuar i comentar.",

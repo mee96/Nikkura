@@ -47,9 +47,7 @@
     "account": "Account",
     "signUp": "Create an account",
     "logIn": "Log in",
-    "backToExplore": "Back to exploring",
-    "signUpShort": "Sign up",
-    "dataCredit": "Anime data comes from MyAnimeList through the Jikan API."
+    "signUpShort": "Sign up"
   },
   "login": {
     "lead": "Log in to save, rate and comment.",

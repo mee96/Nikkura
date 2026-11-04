@@ -47,9 +47,7 @@
     "account": "Cuenta",
     "signUp": "Crear una cuenta",
     "logIn": "Entrar",
-    "backToExplore": "Volver a explorar",
-    "signUpShort": "Registro",
-    "dataCredit": "Las fichas de anime vienen de MyAnimeList a través de la API de Jikan."
+    "signUpShort": "Registro"
   },
   "login": {
     "lead": "Entra para guardar, puntuar y comentar.",

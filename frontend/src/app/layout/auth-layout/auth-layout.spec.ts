@@ -34,21 +34,22 @@ describe('AuthLayout', () => {
     expect((await render()).getAttribute('data-role')).toBe('auth');
   });
 
-  it('has the brand, a way back to exploring and the language switch, but no app navigation', async () => {
+  it('has the brand with its notebook mark and the language menu, but no app navigation', async () => {
     const element = await render();
 
     expect(element.querySelector('a[href="/"]')?.textContent).toContain('Nikkura');
-    expect(element.querySelector('a[href="/explore"]')?.textContent).toContain('Back to exploring');
-    expect(element.querySelector('app-language-switch')).not.toBeNull();
+    expect(element.querySelector('a[href="/"] svg')).not.toBeNull();
+    expect(element.querySelector('app-language-menu button')).not.toBeNull();
     expect(element.querySelector('nav')).toBeNull();
+    expect(element.querySelector('a[href="/explore"]')).toBeNull();
     expect(element.querySelector('main#main')).not.toBeNull();
   });
 
-  it('puts the pastel mesh behind the page and credits the anime data', async () => {
+  it('puts the pastel mesh behind the page', async () => {
     const element = await render();
 
     expect(element.querySelector('app-mesh-background')).not.toBeNull();
-    expect(element.querySelector('footer')?.textContent).toContain('Jikan');
+    expect(element.querySelector('footer')).toBeNull();
   });
 
   describe('with the background video', () => {
