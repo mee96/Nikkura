@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 
 import { environment } from '../../../environments/environment';
@@ -23,7 +24,8 @@ export interface FirebaseAuthApi {
   onUserChange(listener: (user: User | null) => void): void;
   currentUser(): User | null;
   logIn(email: string, password: string): Promise<unknown>;
-  signUp(email: string, password: string): Promise<unknown>;
+  /** Creates the account and saves the username as the display name. */
+  signUp(email: string, password: string, displayName: string): Promise<unknown>;
   logInWithGoogle(): Promise<unknown>;
   /** Sends the "choose a new password" email. */
   resetPassword(email: string): Promise<void>;
@@ -39,7 +41,11 @@ export const FIREBASE_AUTH = new InjectionToken<FirebaseAuthApi>('FIREBASE_AUTH'
       onUserChange: (listener) => void onAuthStateChanged(auth, listener),
       currentUser: () => auth.currentUser,
       logIn: (email, password) => signInWithEmailAndPassword(auth, email, password),
-      signUp: (email, password) => createUserWithEmailAndPassword(auth, email, password),
+      signUp: async (email, password, displayName) => {
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(credential.user, { displayName });
+        return credential;
+      },
       logInWithGoogle: () => signInWithPopup(auth, new GoogleAuthProvider()),
       resetPassword: (email) => sendPasswordResetEmail(auth, email),
       logOut: () => signOut(auth),

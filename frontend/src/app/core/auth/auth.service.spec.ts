@@ -64,9 +64,9 @@ describe('AuthService', () => {
     expect(firebase.logIn).toHaveBeenCalledWith('a@b.com', 'secret1');
   });
 
-  it('signs up with email and password', async () => {
-    await create().signUp('a@b.com', 'secret1');
-    expect(firebase.signUp).toHaveBeenCalledWith('a@b.com', 'secret1');
+  it('signs up with email, password and username', async () => {
+    await create().signUp('a@b.com', 'secret1', 'ana');
+    expect(firebase.signUp).toHaveBeenCalledWith('a@b.com', 'secret1', 'ana');
   });
 
   it('logs in with Google', async () => {

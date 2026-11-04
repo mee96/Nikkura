@@ -75,6 +75,37 @@
       "generic": "No hemos podido entrar. Vuelve a probar dentro de un momento."
     }
   },
+  "signup": {
+    "lead": "Crea tu cuenta para guardar, puntuar y comentar.",
+    "heroStart": "Tu libreta empieza",
+    "heroAccent": "con un primer anime.",
+    "username": "Nombre de usuario",
+    "usernamePlaceholder": "tu_nombre",
+    "usernameHint": "Se verá en tus comentarios.",
+    "passwordHint": "Mínimo 8 caracteres.",
+    "roleTitle": "Elige tu rol",
+    "roleHint": "El rol decide los colores de la app y lo que te recomendamos. Puedes cambiarlo en Configuración.",
+    "roleText": {
+      "moe": "Colores pastel y ventanas retro.",
+      "haku": "Azules de videoclub y cintas VHS.",
+      "senpai": "Modo oscuro y ventana de estado."
+    },
+    "submit": "Crear mi cuenta",
+    "submitting": "Creando tu cuenta…",
+    "google": "Registrarme con Google",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "errors": {
+      "missing": "Rellena el nombre de usuario, el correo y la contraseña.",
+      "username": "El nombre de usuario debe tener entre 2 y 24 caracteres.",
+      "invalidEmail": "Ese correo no parece correcto.",
+      "shortPassword": "La contraseña debe tener al menos 8 caracteres.",
+      "emailInUse": "Ya existe una cuenta con este correo. Prueba a entrar.",
+      "weakPassword": "Elige una contraseña más fuerte.",
+      "tooMany": "Demasiados intentos. Espera un rato y vuelve a probar.",
+      "network": "Sin conexión. Revísala y vuelve a probar.",
+      "generic": "No hemos podido crear la cuenta. Vuelve a probarlo en un rato."
+    }
+  },
   "search": {
     "label": "Busca un anime",
     "placeholder": "Busca un anime por título",

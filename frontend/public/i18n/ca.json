@@ -75,6 +75,37 @@
       "generic": "No hem pogut entrar. Torna-ho a provar d'aquí un moment."
     }
   },
+  "signup": {
+    "lead": "Crea el teu compte per guardar, puntuar i comentar.",
+    "heroStart": "La teva llibreta comença",
+    "heroAccent": "amb un primer anime.",
+    "username": "Nom d'usuari",
+    "usernamePlaceholder": "el_teu_nom",
+    "usernameHint": "Es veurà als teus comentaris.",
+    "passwordHint": "Mínim 8 caràcters.",
+    "roleTitle": "Tria el teu rol",
+    "roleHint": "El rol decideix els colors de l'app i què et recomanem. El pots canviar a Configuració.",
+    "roleText": {
+      "moe": "Colors pastel i finestres retro.",
+      "haku": "Blaus de videoclub i cintes VHS.",
+      "senpai": "Mode fosc i finestra d'estat."
+    },
+    "submit": "Crear el meu compte",
+    "submitting": "Creant el teu compte…",
+    "google": "Registrar-me amb Google",
+    "haveAccount": "Ja tens compte?",
+    "errors": {
+      "missing": "Omple el nom d'usuari, el correu i la contrasenya.",
+      "username": "El nom d'usuari ha de tenir entre 2 i 24 caràcters.",
+      "invalidEmail": "Aquest correu no sembla correcte.",
+      "shortPassword": "La contrasenya ha de tenir almenys 8 caràcters.",
+      "emailInUse": "Ja hi ha un compte amb aquest correu. Prova d'entrar.",
+      "weakPassword": "Tria una contrasenya més forta.",
+      "tooMany": "Massa intents. Espera una estona i torna-ho a provar.",
+      "network": "Sense connexió. Revisa-la i torna-ho a provar.",
+      "generic": "No hem pogut crear el compte. Torna-ho a provar d'aquí una estona."
+    }
+  },
   "search": {
     "label": "Cerca un anime",
     "placeholder": "Cerca un anime pel títol",

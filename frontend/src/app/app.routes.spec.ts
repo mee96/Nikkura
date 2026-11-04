@@ -85,6 +85,8 @@ describe('app routes', () => {
     await harness.navigateByUrl('/signup');
 
     expect(document.querySelector('app-shell')).toBeNull();
+    expect(document.querySelector('app-auth-layout')?.getAttribute('data-role')).toBe('auth');
+    expect(document.querySelector('main app-signup form')).not.toBeNull();
     expect(document.querySelector('main h1')?.textContent).toContain('Create an account');
   });
 

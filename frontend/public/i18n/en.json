@@ -75,6 +75,37 @@
       "generic": "We couldn't log you in. Try again in a moment."
     }
   },
+  "signup": {
+    "lead": "Create your account to save, rate and comment.",
+    "heroStart": "Your notebook starts",
+    "heroAccent": "with a first anime.",
+    "username": "Username",
+    "usernamePlaceholder": "your_name",
+    "usernameHint": "It is shown on your comments.",
+    "passwordHint": "At least 8 characters.",
+    "roleTitle": "Choose your role",
+    "roleHint": "The role sets the colours of the app and what we recommend. You can change it in Settings.",
+    "roleText": {
+      "moe": "Pastel colours and retro windows.",
+      "haku": "Video-rental blues and VHS tapes.",
+      "senpai": "Dark mode and a status window."
+    },
+    "submit": "Create my account",
+    "submitting": "Creating your account…",
+    "google": "Sign up with Google",
+    "haveAccount": "Already have an account?",
+    "errors": {
+      "missing": "Fill in your username, email and password.",
+      "username": "Your username needs 2 to 24 characters.",
+      "invalidEmail": "That email doesn't look right.",
+      "shortPassword": "The password needs at least 8 characters.",
+      "emailInUse": "There is already an account with this email. Try logging in.",
+      "weakPassword": "Choose a stronger password.",
+      "tooMany": "Too many attempts. Wait a while and try again.",
+      "network": "No connection. Check it and try again.",
+      "generic": "We couldn't create your account. Try again in a moment."
+    }
+  },
   "search": {
     "label": "Search an anime",
     "placeholder": "Search an anime by title",

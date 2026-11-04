@@ -1,0 +1,148 @@
+// The rest of the look is shared with the login: layout/auth-layout/auth-form.scss.
+.auth-form__title {
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+}
+
+// The form is tall, so the welcome sits in the middle instead of the bottom.
+.copy {
+  align-items: center;
+}
+
+.field__hint {
+  margin: 0;
+  padding-left: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.roles {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.roles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.roles__about {
+  margin: var(--space-3) 0 0;
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+// Each role is a solid white tile, so it reads the same over the video and the mesh.
+.role {
+  --dot-a: var(--color-soft);
+  --dot-b: var(--color-border);
+  --dot-c: var(--color-ink);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 5.25rem;
+  padding: var(--space-3) var(--space-2);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  text-align: center;
+  text-shadow: none;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing);
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--on-stage-accent) 60%, transparent);
+  }
+
+  &:has(.role__input:checked) {
+    border-color: var(--on-stage-accent);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--on-stage-accent) 45%, transparent);
+  }
+
+  &:has(.role__input:focus-visible) {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+}
+
+.role--moe {
+  --dot-a: var(--mesh-moe-pink);
+  --dot-b: var(--mesh-moe-lilac);
+  --dot-c: var(--mode-moe);
+}
+
+.role--haku {
+  --dot-a: var(--mesh-haku-blue);
+  --dot-b: var(--mode-haku);
+  --dot-c: var(--mesh-moe-lilac);
+}
+
+.role--senpai {
+  --dot-a: var(--mesh-senpai-peach);
+  --dot-b: var(--mode-senpai);
+  --dot-c: var(--color-ink);
+}
+
+// The input covers the whole tile (so a click anywhere chooses it) but is not drawn.
+.role__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.role__dots {
+  display: inline-flex;
+}
+
+.role__dot {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+
+  &:nth-child(1) {
+    background: var(--dot-a);
+  }
+
+  &:nth-child(2) {
+    margin-left: -0.5rem;
+    background: var(--dot-b);
+  }
+
+  &:nth-child(3) {
+    margin-left: -0.5rem;
+    background: var(--dot-c);
+  }
+}
+
+.role__name {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-black);
+  line-height: 1.2;
+}
+
+// On a phone the welcome goes away so the form starts at the top.
+@media (width <= 900px) {
+  .copy {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role {
+    transition: none;
+  }
+}
