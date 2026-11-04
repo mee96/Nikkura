@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -24,6 +25,8 @@ export interface FirebaseAuthApi {
   logIn(email: string, password: string): Promise<unknown>;
   signUp(email: string, password: string): Promise<unknown>;
   logInWithGoogle(): Promise<unknown>;
+  /** Sends the "choose a new password" email. */
+  resetPassword(email: string): Promise<void>;
   logOut(): Promise<void>;
 }
 
@@ -38,6 +41,7 @@ export const FIREBASE_AUTH = new InjectionToken<FirebaseAuthApi>('FIREBASE_AUTH'
       logIn: (email, password) => signInWithEmailAndPassword(auth, email, password),
       signUp: (email, password) => createUserWithEmailAndPassword(auth, email, password),
       logInWithGoogle: () => signInWithPopup(auth, new GoogleAuthProvider()),
+      resetPassword: (email) => sendPasswordResetEmail(auth, email),
       logOut: () => signOut(auth),
     };
   },

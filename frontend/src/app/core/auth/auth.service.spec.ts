@@ -23,6 +23,7 @@ describe('AuthService', () => {
       logIn: vi.fn(() => Promise.resolve()),
       signUp: vi.fn(() => Promise.resolve()),
       logInWithGoogle: vi.fn(() => Promise.resolve()),
+      resetPassword: vi.fn(() => Promise.resolve()),
       logOut: vi.fn(() => Promise.resolve()),
     };
     TestBed.configureTestingModule({ providers: [{ provide: FIREBASE_AUTH, useValue: firebase }] });
@@ -71,6 +72,11 @@ describe('AuthService', () => {
   it('logs in with Google', async () => {
     await create().logInWithGoogle();
     expect(firebase.logInWithGoogle).toHaveBeenCalledOnce();
+  });
+
+  it('asks Firebase to email a new-password link', async () => {
+    await create().resetPassword('a@b.com');
+    expect(firebase.resetPassword).toHaveBeenCalledWith('a@b.com');
   });
 
   it('logs out', async () => {

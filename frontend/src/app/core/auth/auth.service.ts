@@ -44,6 +44,11 @@ export class AuthService {
     await this.auth.logInWithGoogle();
   }
 
+  /** Emails a link to choose a new password. */
+  async resetPassword(email: string): Promise<void> {
+    await this.auth.resetPassword(email);
+  }
+
   async logOut(): Promise<void> {
     await this.auth.logOut();
   }
