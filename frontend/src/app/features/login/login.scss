@@ -1,0 +1,258 @@
+// The text colours (--on-stage*) come from the AuthLayout: light over the video, dark over the mesh.
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.stage {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: var(--space-8);
+
+  @media (width <= 900px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-6);
+  }
+}
+
+// Welcome, bottom left.
+.copy {
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-end;
+  min-width: 0;
+  animation: rise 900ms var(--easing-out) 300ms both;
+
+  @media (width <= 900px) {
+    padding-top: 6vh;
+  }
+}
+
+.copy__title {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--on-stage);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 4rem);
+  line-height: 1.12;
+  text-shadow: var(--on-stage-shadow);
+  text-wrap: pretty;
+
+  @media (width <= 640px) {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+  }
+}
+
+.copy__accent {
+  color: var(--on-stage-accent);
+}
+
+// The form card, centred on the right.
+.login {
+  flex: 0 0 min(460px, 48%);
+  align-self: center;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+  animation: settle 900ms var(--easing-out) 450ms both;
+
+  @media (width >= 480px) {
+    padding: var(--space-8) var(--space-8) var(--space-7);
+  }
+
+  @media (width <= 900px) {
+    flex: none;
+    align-self: stretch;
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+}
+
+.login__title {
+  color: var(--color-ink);
+  font-size: var(--text-2xl);
+}
+
+.login__lead {
+  margin: var(--space-2) 0 var(--space-6);
+  color: var(--color-muted);
+  line-height: var(--leading-normal);
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field__label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.field__row {
+  position: relative;
+}
+
+.field__input {
+  width: 100%;
+  height: 3.125rem;
+  padding: 0 var(--space-4);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  transition: border-color var(--duration-fast) var(--easing);
+
+  &::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+  }
+
+  &:focus {
+    border-color: var(--color-ink);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--color-primary-text);
+  }
+}
+
+.field__input--with-button {
+  padding-right: 6rem;
+}
+
+.field__toggle {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: calc(var(--radius-sm) - 4px);
+  background: var(--color-soft);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.login__forgot {
+  align-self: flex-end;
+  min-height: var(--touch-target);
+  margin-top: calc(var(--space-2) * -1);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login__message {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-soft);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.login__message--error {
+  border: var(--border-width) solid var(--color-primary-text);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3.25rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-black);
+  cursor: pointer;
+  transition: background-color var(--duration-normal) var(--easing);
+
+  &[aria-busy='true'] {
+    cursor: progress;
+    opacity: 0.8;
+  }
+}
+
+.button--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background: var(--color-ink-soft);
+  }
+}
+
+.button--outline {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+
+  &:hover {
+    background: var(--color-soft);
+  }
+}
+
+.login__or {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-top: 1.5px dashed var(--color-border-strong);
+  }
+}
+
+.login__links {
+  margin: var(--space-5) 0 0;
+  font-size: var(--text-base);
+  line-height: 2.2;
+  text-align: center;
+}
+
+.login__link {
+  font-weight: var(--font-weight-bold);
+}
+
+.login__link--small {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-regular);
+}
+
+// With reduced motion the entrance is skipped: everything is simply there.
+@media (prefers-reduced-motion: reduce) {
+  .copy,
+  .login {
+    animation: none;
+  }
+}

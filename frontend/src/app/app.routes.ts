@@ -7,6 +7,8 @@ const comingSoon = () => import('./features/coming-soon/coming-soon').then((m) =
 
 const authLayout = () => import('./layout/auth-layout/auth-layout').then((m) => m.AuthLayout);
 
+const login = () => import('./features/login/login').then((m) => m.Login);
+
 /**
  * Route `title`s are translation keys (see TranslatedTitleStrategy).
  * Stand-in pages get the same key as `titleKey`, used as their heading.
@@ -20,8 +22,7 @@ export const routes: Routes = [
       {
         path: '',
         title: 'shell.logIn',
-        loadComponent: comingSoon,
-        data: { titleKey: 'shell.logIn' },
+        loadComponent: login,
       },
     ],
   },
