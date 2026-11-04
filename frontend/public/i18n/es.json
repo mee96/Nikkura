@@ -84,12 +84,6 @@
     "usernameHint": "Se verá en tus comentarios.",
     "passwordHint": "Mínimo 8 caracteres.",
     "roleTitle": "Elige tu rol",
-    "roleHint": "El rol decide los colores de la app y lo que te recomendamos. Puedes cambiarlo en Configuración.",
-    "roleText": {
-      "moe": "Colores pastel y ventanas retro.",
-      "haku": "Azules de videoclub y cintas VHS.",
-      "senpai": "Modo oscuro y ventana de estado."
-    },
     "submit": "Crear mi cuenta",
     "submitting": "Creando tu cuenta…",
     "google": "Registrarme con Google",

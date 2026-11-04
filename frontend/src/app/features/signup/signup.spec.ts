@@ -99,15 +99,8 @@ describe('Signup', () => {
     expect(roles.map((role) => role.checked)).toEqual([true, false, false]);
     expect(text('.role--haku')).toContain('Haku Sama');
     expect(text('.role--senpai')).toContain('Senpai');
-    expect(text('.roles__about')).toContain('Shoujo · Mahou Shoujo · Romance');
+    expect(element.querySelector('.roles__about')).toBeNull();
     expect(element.querySelector('select, [type="checkbox"]')).toBeNull();
-  });
-
-  it('describes the role that is chosen', async () => {
-    await click('input[value="senpai"]');
-
-    expect(text('.roles__about')).toContain('Seinen · Slice of Life');
-    expect(text('.roles__about')).toContain('Dark mode');
   });
 
   it('links to the login and lets visitors go on without an account', () => {

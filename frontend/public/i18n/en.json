@@ -84,12 +84,6 @@
     "usernameHint": "It is shown on your comments.",
     "passwordHint": "At least 8 characters.",
     "roleTitle": "Choose your role",
-    "roleHint": "The role sets the colours of the app and what we recommend. You can change it in Settings.",
-    "roleText": {
-      "moe": "Pastel colours and retro windows.",
-      "haku": "Video-rental blues and VHS tapes.",
-      "senpai": "Dark mode and a status window."
-    },
     "submit": "Create my account",
     "submitting": "Creating your account…",
     "google": "Sign up with Google",

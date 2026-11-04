@@ -84,12 +84,6 @@
     "usernameHint": "Es veurà als teus comentaris.",
     "passwordHint": "Mínim 8 caràcters.",
     "roleTitle": "Tria el teu rol",
-    "roleHint": "El rol decideix els colors de l'app i què et recomanem. El pots canviar a Configuració.",
-    "roleText": {
-      "moe": "Colors pastel i finestres retro.",
-      "haku": "Blaus de videoclub i cintes VHS.",
-      "senpai": "Mode fosc i finestra d'estat."
-    },
     "submit": "Crear el meu compte",
     "submitting": "Creant el teu compte…",
     "google": "Registrar-me amb Google",

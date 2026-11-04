@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ROLES, Role, ThemeService } from '../../core/services/theme.service';
-import { ROLE_GENRES, RecommendedRole } from '../home/role-genres';
+import { RecommendedRole } from '../home/role-genres';
 
 export const USERNAME_MIN = 2;
 export const USERNAME_MAX = 24;
@@ -49,7 +48,7 @@ function usernameLength(control: AbstractControl<string>): { username: true } | 
 /**
  * The sign-up screen, inside the `AuthLayout` and with the same look as the login:
  * the welcome on the left and the form on the right. Username, email, password and
- * the role (the colours of the app and what is recommended), or Google. It asks for
+ * the role (the colours of the app), or Google. It asks for
  * nothing else: no age. For now the role is applied to this visit; saving it in the
  * profile comes with the user data in the backend.
  */
@@ -157,11 +156,6 @@ function usernameLength(control: AbstractControl<string>): { username: true } | 
                 </label>
               }
             </div>
-            <p class="roles__about" aria-live="polite">
-              <strong>{{ genres(chosen()) }}.</strong>
-              {{ 'signup.roleText.' + chosen() | transloco }}
-              {{ 'signup.roleHint' | transloco }}
-            </p>
           </fieldset>
 
           @if (error(); as key) {
@@ -235,17 +229,10 @@ export class Signup {
     role: new FormControl<RecommendedRole>('moe', { nonNullable: true }),
   });
 
-  protected readonly chosen = toSignal(this.form.controls.role.valueChanges, {
-    initialValue: this.form.controls.role.value,
-  });
   protected readonly showPassword = signal(false);
   protected readonly busy = signal(false);
   /** Translation key of the error being shown, if any. */
   protected readonly error = signal<string | null>(null);
-
-  protected genres(role: RecommendedRole): string {
-    return ROLE_GENRES[role].join(' · ');
-  }
 
   protected async submit(): Promise<void> {
     if (this.busy()) return;

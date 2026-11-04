@@ -28,13 +28,6 @@
   margin-top: var(--space-2);
 }
 
-.roles__about {
-  margin: var(--space-3) 0 0;
-  padding: 0 var(--space-2);
-  font-size: var(--text-sm);
-  line-height: var(--leading-normal);
-}
-
 // Each role is a solid white tile, so it reads the same over the video and the mesh.
 .role {
   --dot-a: var(--color-soft);
