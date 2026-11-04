@@ -25,6 +25,7 @@
      7. Role: Haku Sama    (data-role="haku")    blue and violet
      8. Role: Senpai       (data-role="senpai")  black and orange, dark
      9. Visitor            (data-role="guest")
+    10. Login and sign-up  (data-role="auth")     pastel mesh of the three roles
    ========================================================================== */
 
 :root {
@@ -90,6 +91,7 @@
   --duration-normal: 200ms;
   --duration-slow: 400ms; /* one-shot reactions: a pulse, a bar filling, a card entering */
   --easing: cubic-bezier(0.2, 0, 0, 1);
+  --easing-out: cubic-bezier(0.22, 1, 0.36, 1); /* long, soft landing: entrances */
 
   --z-header: 10;
   --z-overlay: 100;
@@ -393,6 +395,103 @@
   --cover-hover-shadow: none;
   --card-stat-display: none;
   --reveal-from: translateY(6px);
+}
+
+/* 10. Login and sign-up · pastel mesh that blends the three roles -----------
+   The person has no role yet, so this frame belongs to none of them: it takes
+   the soft colours of Moe Magical (pink, lilac), Haku Sama (blues) and Senpai
+   (peach) and lets them drift into each other. --mesh-* paint the background,
+   --mode-* are the identity colour of each role (logo mark and the three
+   cover cards). Every other token keeps its usual name and meaning. */
+[data-role='auth'] {
+  color-scheme: light;
+
+  --font-display: 'Mochiy Pop One', var(--font-ui);
+  --font-world-title: 'Mochiy Pop One', var(--font-ui);
+  --font-world-text: 'DotGothic16', var(--font-ui);
+
+  --radius-sm: 16px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+
+  --shadow-lg: 0 30px 70px -24px rgb(62 32 102 / 45%);
+
+  --color-bg: #fbe0ec;
+  --color-sidebar: #ffe6f0;
+  --color-surface: #fff;
+  --color-soft: #fbe0ec;
+  --color-border: #f4cfe0;
+  --color-border-strong: #b0698f;
+  --color-text: #4a2541;
+  --color-muted: #835877;
+  --color-primary: #3e2066;
+  --color-on-primary: #fff;
+  --color-primary-text: #b23469;
+  --color-hero: #e9ddfb;
+  --color-on-hero: #3e2066;
+  --color-hero-motif: #f7b6d2;
+  --color-hero-button: #3e2066;
+  --color-on-hero-button: #fff;
+  --color-cover-1: #f7c6da;
+  --color-cover-2: #d9c8f5;
+  --color-cover-3: #fbd9c4;
+  --color-cover-4: #c9e2f7;
+  --color-cover-5: #f3b6cf;
+  --color-cover-stripe: rgb(255 255 255 / 45%);
+  --color-scrim: rgb(74 37 65 / 45%);
+  --color-focus: #c83e7a;
+
+  --color-ink: #3e2066;
+  --color-ink-soft: #4f2c80;
+  --color-ink-line: #8a5cc4;
+  --color-ink-text: #ffffff;
+  --color-accent: #f7b6d2;
+  --color-accent-2: #c9f0e1;
+
+  /* Mesh: the colour of each blob and how fast it drifts (see shared/mesh-background) */
+  --mesh-moe-pink: #f7b6d2;
+  --mesh-moe-lilac: #d9c8f5;
+  --mesh-haku-blue: #bfd8f2;
+  --mesh-senpai-peach: #fbd9c4;
+  --mesh-mint: #c9f0e1;
+  --mesh-drift-slow: 52s;
+  --mesh-drift-medium: 44s;
+  --mesh-drift-fast: 38s;
+
+  /* Identity colour of each role, for the logo mark and the three cover cards */
+  --mode-moe: #c83e7a;
+  --mode-moe-cover: #f7c6da;
+  --mode-moe-text: #835877;
+  --mode-haku: #5149c4;
+  --mode-haku-cover: #c9d2f5;
+  --mode-haku-text: #5d608c;
+  --mode-senpai: #ff7a1f;
+  --mode-senpai-surface: #211915;
+  --mode-senpai-cover: #4a2a14;
+  --mode-senpai-stripe: rgb(255 122 31 / 25%);
+  --mode-senpai-text: #ffb874;
+
+  /* Over the background video: white text, a glass pill, and dark layers that keep
+     the text readable on any frame of the video (top for the header, bottom for the headline) */
+  --color-on-media: #fff;
+  --media-scrim:
+    linear-gradient(to bottom, rgb(10 10 12 / 45%), rgb(10 10 12 / 0%) 22%),
+    linear-gradient(to top, rgb(10 10 12 / 75%), rgb(10 10 12 / 35%) 50%, rgb(10 10 12 / 0%));
+  --media-text-shadow: 0 2px 24px rgb(0 0 0 / 45%);
+
+  /* Flourishes: none on this frame (section 5c) */
+  --cover-motif-color: var(--color-surface);
+  --cover-motif-opacity: 0;
+  --cover-motif-size: 0px;
+  --cover-motif-radius: 0;
+  --cover-motif-rotate: 0deg;
+  --cover-spine-width: 0px;
+  --cover-lip: 0px;
+  --cover-hover-shift: 0px;
+  --cover-hover-tilt: 0deg;
+  --cover-hover-shadow: none;
+  --card-stat-display: none;
+  --reveal-from: none;
 }
 
 /* Reduced motion: no covers lifting, tilting or entering. The ring or shadow of
