@@ -82,7 +82,7 @@ The structure is the same for every role; the personality shows in how the inter
 
 Rules for every effect:
 
-- It runs once and stops. Nothing loops, and backgrounds never compete with reading or filtering.
+- It runs once and stops. Nothing loops, and backgrounds never compete with reading or filtering. The only exception is the background of login and sign-up (below): a very slow drift that never goes behind the form's text.
 - Scanlines and tracking lines exist on the CRT screen only, never over text.
 - `prefers-reduced-motion`: animations end at their final state straight away, and covers no longer lift, tilt or slide in. The ring or shadow of hover and focus stays, so the state is still visible without movement.
 - Keyboard focus triggers the same reaction as hover.
@@ -144,7 +144,7 @@ The personal library. Folders sit on top as tabs; each one shows how many anime 
 
 ### Login and sign-up
 
-Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. There is no age option: hentai is never shown to anyone, and ecchi and erotica carry a +18 mark. (The "18 or older" note in the sign-up mockup is out of date and goes away when the screen is built in M2.)
+Both have their own look (`data-role="auth"`), because the person has no role yet: a **pastel mesh** that blends the soft colours of the three roles (pink and lilac from Moe Magical, blues from Haku Sama, peach from Senpai, plus mint). The mesh drifts very slowly (38–52 s per trip, `transform` only) and stays still with `prefers-reduced-motion`. Over it plays a silent, looping video (`AUTH_VIDEO_URL`): while it plays, a dark layer keeps the light text readable; if it cannot load, or with reduced motion, the mesh stays and the text is dark. The layout is a big welcome at the bottom left and the form on a card at the right (stacked on mobile); the header has the brand with the three-circle mark, the language switch as a pill and a white "back to exploring" pill. The login asks for email and password, or Google, and has "I forgot my password", "Create one" and "Continue without an account". Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. There is no age option: hentai is never shown to anyone, and ecchi and erotica carry a +18 mark. (The "18 or older" note in the sign-up mockup is out of date and goes away when the screen is built in M2. The screenshots below are the first notebook mockups; the built login follows the description above.)
 
 | Login · desktop | Sign-up · desktop |
 | :---: | :---: |
