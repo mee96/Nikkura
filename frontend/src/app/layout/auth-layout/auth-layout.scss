@@ -1,9 +1,11 @@
 // What the page writes in, depending on what is behind it. Screens inside the frame
-// (login, sign-up) read these three instead of checking whether the video plays.
+// (login, sign-up) read these (text, accent, shadow and the main button) instead of checking whether the video plays.
 :host {
   --on-stage: var(--color-ink);
   --on-stage-accent: var(--color-primary-text);
   --on-stage-shadow: none;
+  --on-stage-button: var(--color-primary);
+  --on-stage-button-text: var(--color-on-primary);
 
   position: relative;
   isolation: isolate;
@@ -20,6 +22,8 @@
   --on-stage: var(--color-on-media);
   --on-stage-accent: var(--color-accent);
   --on-stage-shadow: var(--media-text-shadow);
+  --on-stage-button: var(--color-accent);
+  --on-stage-button-text: var(--color-ink);
 }
 
 .auth-scrim {

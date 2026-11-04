@@ -114,6 +114,21 @@ export function authErrorKey(error: unknown): string | null {
 
           <button type="submit" class="button button--primary" [attr.aria-busy]="busy()">
             {{ (busy() ? 'login.submitting' : 'shell.logIn') | transloco }}
+            <svg
+              class="button__arrow"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
           </button>
         </form>
 

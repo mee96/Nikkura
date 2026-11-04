@@ -14,7 +14,7 @@
   @media (width <= 900px) {
     flex-direction: column;
     justify-content: flex-start;
-    gap: var(--space-6);
+    gap: var(--space-8);
   }
 }
 
@@ -50,38 +50,34 @@
   color: var(--on-stage-accent);
 }
 
-// The form card, centred on the right.
+// The form, centred on the right. No card: it writes straight on the background in the
+// colour the layout picks (--on-stage), so fields and buttons are the only solid shapes.
 .login {
-  flex: 0 0 min(460px, 48%);
+  flex: 0 0 min(430px, 48%);
   align-self: center;
-  padding: var(--space-6);
-  border-radius: var(--radius-lg);
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-lg);
+  color: var(--on-stage);
+  text-shadow: var(--on-stage-shadow);
   animation: settle 900ms var(--easing-out) 450ms both;
-
-  @media (width >= 480px) {
-    padding: var(--space-8) var(--space-8) var(--space-7);
-  }
 
   @media (width <= 900px) {
     flex: none;
     align-self: stretch;
     width: 100%;
-    max-width: 32rem;
+    max-width: 30rem;
     margin: 0 auto;
   }
 }
 
 .login__title {
-  color: var(--color-ink);
-  font-size: var(--text-2xl);
+  color: var(--on-stage);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.1;
 }
 
 .login__lead {
-  margin: var(--space-2) 0 var(--space-6);
-  color: var(--color-muted);
+  margin: var(--space-3) 0 var(--space-6);
   line-height: var(--leading-normal);
 }
 
@@ -98,24 +94,29 @@
 }
 
 .field__label {
+  padding-left: var(--space-5);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-black);
 }
 
 .field__row {
   position: relative;
 }
 
+// Solid white pills: they read the same over video, mesh and error state.
 .field__input {
   width: 100%;
-  height: 3.125rem;
-  padding: 0 var(--space-4);
-  border: 1.5px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
+  height: 3.5rem;
+  padding: 0 var(--space-6);
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
   background: var(--color-surface);
   color: var(--color-text);
   font-weight: var(--font-weight-medium);
-  transition: border-color var(--duration-fast) var(--easing);
+  text-shadow: none;
+  transition:
+    border-color var(--duration-fast) var(--easing),
+    box-shadow var(--duration-fast) var(--easing);
 
   &::placeholder {
     color: var(--color-muted);
@@ -123,7 +124,8 @@
   }
 
   &:focus {
-    border-color: var(--color-ink);
+    border-color: var(--on-stage-accent);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--on-stage-accent) 45%, transparent);
   }
 
   &[aria-invalid='true'] {
@@ -132,88 +134,120 @@
 }
 
 .field__input--with-button {
-  padding-right: 6rem;
+  padding-right: 6.5rem;
 }
 
 .field__toggle {
   position: absolute;
-  top: 3px;
-  right: 4px;
-  min-height: var(--touch-target);
-  padding: 0 var(--space-3);
+  top: 0.5rem;
+  right: 0.5rem;
+  height: 2.5rem;
+  min-width: var(--touch-target);
+  padding: 0 var(--space-4);
   border: 0;
-  border-radius: calc(var(--radius-sm) - 4px);
+  border-radius: var(--radius-pill);
   background: var(--color-soft);
-  color: var(--color-text);
+  color: var(--color-ink);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-black);
+  text-shadow: none;
   cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing);
+
+  &:hover {
+    background: var(--color-accent);
+  }
 }
 
 .login__forgot {
   align-self: flex-end;
   min-height: var(--touch-target);
   margin-top: calc(var(--space-2) * -1);
-  padding: 0;
+  padding: 0 var(--space-2);
   border: 0;
   background: none;
-  color: var(--color-primary-text);
+  color: var(--on-stage);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
   text-decoration: underline;
+  text-shadow: inherit;
   cursor: pointer;
+
+  &:hover {
+    color: var(--on-stage-accent);
+  }
 }
 
+// Messages are solid, so they stay readable on any background.
 .login__message {
   margin: 0;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
-  background: var(--color-soft);
-  color: var(--color-text);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-ink);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
+  text-shadow: none;
 }
 
 .login__message--error {
-  border: var(--border-width) solid var(--color-primary-text);
+  border: 2px solid var(--color-primary-text);
 }
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-3);
   width: 100%;
-  min-height: 3.25rem;
-  border: 1.5px solid transparent;
-  border-radius: var(--radius-sm);
+  min-height: 3.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
   font-size: var(--text-md);
   font-weight: var(--font-weight-black);
+  text-shadow: none;
   cursor: pointer;
-  transition: background-color var(--duration-normal) var(--easing);
+  transition:
+    background-color var(--duration-normal) var(--easing),
+    transform var(--duration-normal) var(--easing);
 
   &[aria-busy='true'] {
     cursor: progress;
-    opacity: 0.8;
+    opacity: 0.75;
   }
 }
 
+.button__arrow {
+  flex: none;
+  transition: transform var(--duration-normal) var(--easing);
+}
+
+// The strongest shape on the page: pink over the video, dark over the mesh.
 .button--primary {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--on-stage-button);
+  color: var(--on-stage-button-text);
 
   &:hover {
-    background: var(--color-ink-soft);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    transform: scale(1.02);
+
+    .button__arrow {
+      transform: translateX(3px);
+    }
   }
 }
 
+// See-through pill in the stage colour.
 .button--outline {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface);
-  color: var(--color-text);
+  border-color: var(--on-stage);
+  background: color-mix(in srgb, var(--on-stage) 12%, transparent);
+  color: var(--on-stage);
   font-weight: var(--font-weight-bold);
+  text-shadow: inherit;
 
   &:hover {
-    background: var(--color-soft);
+    background: color-mix(in srgb, var(--on-stage) 24%, transparent);
   }
 }
 
@@ -221,15 +255,15 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin: var(--space-4) 0;
-  color: var(--color-muted);
+  margin: var(--space-5) 0;
   font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
 
   &::before,
   &::after {
     content: '';
     flex: 1;
-    border-top: 1.5px dashed var(--color-border-strong);
+    border-top: 1px solid color-mix(in srgb, var(--on-stage) 65%, transparent);
   }
 }
 
@@ -241,12 +275,17 @@
 }
 
 .login__link {
-  font-weight: var(--font-weight-bold);
+  color: var(--on-stage);
+  font-weight: var(--font-weight-black);
+
+  &:hover {
+    color: var(--on-stage-accent);
+  }
 }
 
 .login__link--small {
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-bold);
 }
 
 // With reduced motion the entrance is skipped: everything is simply there.
@@ -254,5 +293,15 @@
   .copy,
   .login {
     animation: none;
+  }
+
+  .button,
+  .button__arrow {
+    transition: none;
+  }
+
+  .button--primary:hover,
+  .button--primary:hover .button__arrow {
+    transform: none;
   }
 }
