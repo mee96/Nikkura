@@ -5,6 +5,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 
 ## [Unreleased]
 
+### Added
+- Backend auth: `get_current_user` dependency that checks the Firebase ID token in `Authorization: Bearer` with `firebase-admin` and gives the routers a `CurrentUser` (`uid`, `email`). A missing or invalid token is a 401 without saying why, keys that cannot be fetched are a 503. Only `FIREBASE_PROJECT_ID` is needed: tokens are checked against Google's public keys, and a service account (`FIREBASE_CREDENTIALS_JSON`) is optional and never committed.
+
 ## [0.2.0] - 2026-11-08
 
 ### Added

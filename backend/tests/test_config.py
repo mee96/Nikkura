@@ -31,3 +31,10 @@ def test_empty_env_values_fall_back_to_defaults(monkeypatch) -> None:
     monkeypatch.setenv("DB_PORT", "")
 
     assert Settings().db_port == 3306
+
+
+def test_firebase_settings_default_to_empty_so_importing_the_app_needs_nothing() -> None:
+    settings = Settings()
+
+    assert settings.firebase_project_id == ""
+    assert settings.firebase_credentials_json == ""

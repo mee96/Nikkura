@@ -188,6 +188,8 @@ DB_NAME=nikkura
 DB_USER=...
 DB_PASSWORD=...
 DB_SSL_CA=./ca.pem           # certificado CA de la consola de Aiven (nunca se sube al repo)
+FIREBASE_PROJECT_ID=nikkura-d36d0   # Proyecto de Firebase cuyos tokens acepta la API
+FIREBASE_CREDENTIALS_JSON=         # JSON opcional de una cuenta de servicio (no hace falta para verificar tokens; nunca se sube al repo)
 CORS_ORIGINS=http://localhost:4200
 ```
 
