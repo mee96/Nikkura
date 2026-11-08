@@ -52,14 +52,10 @@ ROLE_GENRES: dict[Role, list[str]] = {
     "senpai": ["Seinen", "Slice of Life"],
 }
 
-# Extra genres for a role when the user has confirmed they are 18 or older.
-ROLE_GENRES_ADULT: dict[Role, list[str]] = {
-    "senpai": ["Ecchi"],
-}
-
-# Content rules for every Jikan query. Hentai is never shown, not even to adults,
-# and nothing above the R rating (17+) is listed.
-CONTENT_RULES = {
-    "default": {"sfw": True},
-    "adult": {"sfw": False, "genres_exclude": ["Hentai"], "max_rating": "r"},
-}
+# The only thing Nikkura never shows is hentai, to anyone (decisions of 22 Oct,
+# 26 Oct and 3 Nov 2026). Excluded genres are never requested or shown, for
+# visitors and users alike. Mature genres are shown with a +18 mark: ecchi and
+# erotica are not hentai. The frontend applies the same lists in
+# src/app/core/content/content-rules.ts and does not use Jikan's `sfw` filter.
+EXCLUDED_GENRES: tuple[str, ...] = ("Hentai",)
+MATURE_GENRES: tuple[str, ...] = ("Ecchi", "Erotica")

@@ -13,7 +13,7 @@ Two rules shape every screen:
 | :--- | :--- | :--- | :--- | :--- |
 | 🌸 **Moe Magical** | Shoujo · Mahou Shoujo · Romance | `#FFF2F7` `#C83E7A` `#E9DDFB` `#4A2541` | Y2K desktop: every section is a retro window (`SINOPSI.TXT`, `COMUNITAT.EXE`, `XAT_EN_DIRECTE.EXE`) | Mochiy Pop One · DotGothic16 · M PLUS Rounded 1c |
 | 📼 **Haku Sama** | Shoujo · Isekai | `#16153A` `#5149C4` `#7FE3FF` `#FF9BD2` | Video rental store: the anime is a VHS box, the user holds a member card, the chat plays on a CRT TV | Monoton · Zen Dots · M PLUS Rounded 1c |
-| 🔥 **Senpai** | Seinen · Slice of Life (+ Ecchi if 18+) | `#120C09` `#FF7A1F` `#FFB874` `#F6EADB` | Status window (dark): stat bars, guild channel, private grimoire, rune rating | Dela Gothic One · Chakra Petch · Zen Kaku Gothic New |
+| 🔥 **Senpai** | Seinen · Slice of Life | `#120C09` `#FF7A1F` `#FFB874` `#F6EADB` | Status window (dark): stat bars, guild channel, private grimoire, rune rating | Dela Gothic One · Chakra Petch · Zen Kaku Gothic New |
 | **Visitor** (no account) | Current season, all genres | `#EEF1E3` `#4E7A3E` `#E7C78E` `#2C3824` | Slice-of-life notebook: polaroid cover, hanko stamps for scores, sticky notes. Read-only, with invitations to sign up | Kiwi Maru · Klee One · Zen Kaku Gothic New |
 
 The palette is applied with CSS custom properties switched by a `data-role` attribute on `<body>` (`moe`, `haku`, `senpai`, `guest`). Components only use tokens, never raw colours.
@@ -21,6 +21,9 @@ The palette is applied with CSS custom properties switched by a `data-role` attr
 All tokens (colours, fonts, type scale, spacing, radius, shadows and motion) live in one file: [`frontend/src/styles/variables.css`](../frontend/src/styles/variables.css). The `ThemeService` sets `data-role`, and Stylelint fails the build if a component writes a raw colour. Fonts are self-hosted with Fontsource (Latin subset), so no request goes to Google Fonts.
 
 ## Content rules shown in the UI
+
+- **Hentai is never shown, to anyone.** Every Jikan search excludes the Hentai genre (found by name), and every result is filtered again in the app: anything tagged Hentai or rated Rx is hidden. An anime page for one of them is not shown. Nikkura does not use Jikan's `sfw` filter.
+- **Ecchi and erotica are shown with a +18 mark.** Jikan lists them as explicit, but they are not hentai. The mark is a small "+18" badge on the cover and the anime page, with a text that explains it.
 
 - Visitors can read everything (scores, comments, chat) but every action asks them to sign in.
 - Private notes are only visible to their author and are marked with a lock.
@@ -31,7 +34,10 @@ All tokens (colours, fonts, type scale, spacing, radius, shadows and motion) liv
 
 - **Desktop:** fixed sidebar with Inici, Explorar, Temporada, El meu Kura and Configuració, plus the user card at the bottom.
 - **Mobile:** bottom navigation with four tabs (Inici, Explorar, Temporada, Kura). The profile and settings open from the avatar in the header.
+- **Tablet:** the sidebar becomes an icon rail with a short label under each icon (Kura, Ajustos), the language switch stacked and the account buttons as icons.
 - **Login and sign-up** have no app navigation, only a link back to exploring.
+- **Side column:** on desktop each page can fill a column on the right (on the home: the role invitation for visitors, then the Kura folders and trends). Below 1200 px it is hidden and its content moves into the page.
+- **Skip link:** the first Tab shows "Skip to content", which moves focus to the main content.
 
 ## Languages (i18n)
 
@@ -58,8 +64,28 @@ The mockups are drawn at 390 px (mobile) and 1440 px (desktop).
 
 - Text contrast checked against WCAG AA on every theme, including the dark one. Placeholders use the full muted colour, never a lower opacity.
 - Touch targets of at least 44 px on mobile.
+- Borders of controls and chips (`--color-border-strong`) reach 3:1 against the surface they sit on (WCAG 1.4.11), on every theme.
 - Real `<button>`, `<a>`, `<input>` and `<label>` elements; icon-only buttons have an `aria-label`.
 - Filter chips are toggle buttons (`aria-pressed`), the role picker is a radio group inside a `<fieldset>`, and folders in the Kura are tabs.
+
+## Motion and role touches
+
+The structure is the same for every role; the personality shows in how the interface answers. Everything lives in tokens (section 5c of `variables.css`) or in a decorative component, so a screen never checks the role:
+
+| | Moe Magical | Haku Sama | Senpai |
+| :--- | :--- | :--- | :--- |
+| Banner motif | Moon and sparkles | CRT television with scanlines on its own screen | Network of nodes joined by paths |
+| Cover | Round motif, lifts 6 px | VHS spine and shelf lip, comes off the shelf (14 px, 2° tilt) | Diamond motif, ring on hover or focus |
+| Under the title | Nothing | Nothing | Score as ten segments that fill in |
+| Entering | Rises 8 px with a small scale | Slides in from the right | Bars fill in; covers stay put |
+| Saving | Four sparks, once | One ring around the button, once | One ring around the button, once |
+
+Rules for every effect:
+
+- It runs once and stops. Nothing loops, and backgrounds never compete with reading or filtering.
+- Scanlines and tracking lines exist on the CRT screen only, never over text.
+- `prefers-reduced-motion`: animations end at their final state straight away, and covers no longer lift, tilt or slide in. The ring or shadow of hover and focus stays, so the state is still visible without movement.
+- Keyboard focus triggers the same reaction as hover.
 
 ## Screens
 
@@ -70,6 +96,10 @@ The mockups are drawn at 390 px (mobile) and 1440 px (desktop).
 | ![Home, Moe Magical](screenshots/design/home-desktop-moe-magical.png) | ![Home, Haku Sama](screenshots/design/home-desktop-haku-sama.png) |
 | **Senpai** | **Visitor** |
 | ![Home, Senpai](screenshots/design/home-desktop-senpai.png) | ![Home, visitor](screenshots/design/home-desktop-visitor.png) |
+
+### Anime page · as built
+
+One layout for every theme, built only with tokens, so each role already gets its own colours, radii and fonts (`--font-world-title`, `--font-world-text`). Cover with the +18 mark, title, genre chips that open Explore filtered by them, score and facts, trailer link (it opens YouTube in a new tab, nothing is embedded), synopsis, and three reserved cards for save to Kura, score and comments. The role-specific worlds of the mockups (Y2K windows, VHS box, status window, notebook) arrive with the roles in M2 and the community in M4.
 
 ### Anime page · desktop
 
@@ -88,7 +118,9 @@ The mockups are drawn at 390 px (mobile) and 1440 px (desktop).
 
 ### Search and filters
 
-Text search plus filters by type, genre, theme, demographic and minimum score. Active filters show as removable chips above the results, and a note reminds that explicit content is never shown. On mobile the filters open in a bottom sheet. Shown in Moe Magical and Haku Sama, as these screens only change theme tokens.
+Text search plus filters by type, genre, theme, demographic and minimum score. Active filters show as removable chips above the results, and a note reminds that explicit content is never shown. On mobile and tablet the filters open in a bottom sheet.
+
+As built: the search box in the top bar searches while typing on Explore; every filter lives in the URL (`/explore?q=luna&type=tv&genres=romance,shoujo&min_score=7&sort=score&page=2`), so a search can be shared and the back button works. Genres are written by name, never by id. The minimum score uses chips (Any, 6+, 7+, 8+) on every size instead of the desktop slider, and ecchi shows its +18 mark on the chip and on the cover. Shown in Moe Magical and Haku Sama, as these screens only change theme tokens.
 
 | Desktop · Moe Magical | Desktop · Haku Sama |
 | :---: | :---: |
@@ -112,7 +144,7 @@ The personal library. Folders sit on top as tabs; each one shows how many anime 
 
 ### Login and sign-up
 
-Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. The 18+ option is off by default and explains that hentai is never shown.
+Both use the visitor look (green notebook), because the person has no role yet. Sign-up asks for the account details and the role on the same spread on desktop, and in two steps on mobile. Each role card previews its own theme, and the selected one is shown as a preview of the user's home. There is no age option: hentai is never shown to anyone, and ecchi and erotica carry a +18 mark. (The "18 or older" note in the sign-up mockup is out of date and goes away when the screen is built in M2.)
 
 | Login · desktop | Sign-up · desktop |
 | :---: | :---: |

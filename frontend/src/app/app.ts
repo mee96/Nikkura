@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ThemeService } from './core/services/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  // Created at startup so data-role is on <body> from the first render.
+  // Created at startup so data-role and <html lang> are set from the first render.
   private readonly theme = inject(ThemeService);
+  private readonly language = inject(LanguageService);
 }

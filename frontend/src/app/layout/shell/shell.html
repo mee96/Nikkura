@@ -1,0 +1,114 @@
+<a class="skip-link" href="#main" (click)="skipToContent($event)">
+  {{ 'shell.skipToContent' | transloco }}
+</a>
+
+<ng-template #tagline>
+  @if (isGuest()) {
+    {{ 'shell.guestTagline' | transloco }}
+  } @else {
+    {{ 'shell.roleTagline' | transloco: { role: ('roles.' + role() | transloco) } }}
+  }
+</ng-template>
+
+<div class="shell" [class.shell--with-aside]="hasAside()">
+  <!-- Desktop sidebar / tablet icon rail. Only one of the two <header>s is shown at a time. -->
+  <header class="sidebar">
+    <div class="brand">
+      <a class="brand__link" routerLink="/" aria-label="Nikkura">
+        <span class="brand__name">Nikkura</span>
+        <span class="brand__initial" aria-hidden="true">N</span>
+      </a>
+      <p class="brand__tagline"><ng-container [ngTemplateOutlet]="tagline" /></p>
+    </div>
+
+    <nav class="sidebar__nav" [attr.aria-label]="'nav.label' | transloco">
+      <ul class="nav-list">
+        @for (item of navItems; track item.path) {
+          <li>
+            <a
+              class="nav-link"
+              [routerLink]="item.path"
+              routerLinkActive="nav-link--active"
+              [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+              ariaCurrentWhenActive="page"
+            >
+              <app-icon [name]="item.icon" />
+              <span class="nav-link__label">{{ item.label | transloco }}</span>
+              <span class="nav-link__short">{{ item.shortLabel ?? item.label | transloco }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="sidebar__footer">
+      <app-language-switch class="sidebar__language" />
+      @if (isGuest()) {
+        <a class="account-button account-button--primary" routerLink="/signup">
+          <app-icon name="userPlus" />
+          <span class="account-button__label">{{ 'shell.signUp' | transloco }}</span>
+          <span class="account-button__short">{{ 'shell.signUpShort' | transloco }}</span>
+        </a>
+        <a class="account-button" routerLink="/login">
+          <app-icon name="logIn" />
+          <span class="account-button__label">{{ 'shell.logIn' | transloco }}</span>
+          <span class="account-button__short">{{ 'shell.logIn' | transloco }}</span>
+        </a>
+      }
+    </div>
+  </header>
+
+  <div class="shell__body">
+    <div class="topbar">
+      <!-- Mobile header: the sidebar is hidden, so the brand and account live here -->
+      <header class="topbar__mobile">
+        <div class="brand">
+          <a class="brand__link" routerLink="/"><span class="brand__name">Nikkura</span></a>
+          <p class="brand__tagline"><ng-container [ngTemplateOutlet]="tagline" /></p>
+        </div>
+        @if (isGuest()) {
+          <a class="account-button account-button--primary" routerLink="/login">
+            {{ 'shell.logIn' | transloco }}
+          </a>
+        } @else {
+          <a class="avatar" routerLink="/settings" [attr.aria-label]="'nav.settings' | transloco">
+            <app-icon name="user" />
+          </a>
+        }
+      </header>
+      <app-search-bar class="topbar__search" />
+    </div>
+
+    <main #main id="main" class="main" tabindex="-1">
+      <router-outlet />
+    </main>
+  </div>
+
+  <aside class="side-column">
+    <router-outlet
+      name="aside"
+      (activate)="hasAside.set(true)"
+      (deactivate)="hasAside.set(false)"
+    />
+  </aside>
+</div>
+
+<!-- Mobile bottom navigation -->
+<nav class="bottom-nav" [attr.aria-label]="'nav.label' | transloco">
+  <ul class="bottom-nav__list">
+    @for (item of bottomNavItems; track item.path) {
+      <li>
+        <a
+          class="tab"
+          [routerLink]="item.path"
+          routerLinkActive="tab--active"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+          ariaCurrentWhenActive="page"
+        >
+          <span class="tab__icon"><app-icon [name]="item.icon" /></span>
+          <span class="tab__label">{{ item.shortLabel ?? item.label | transloco }}</span>
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

@@ -1,0 +1,32 @@
+// Breakpoints from docs/DESIGN.md. Media queries can't read CSS variables,
+// so these are the only sizes that live outside variables.css.
+//   mobile   < 768px    bottom navigation, one column
+//   tablet   768–1199px sidebar collapsed to an icon rail
+//   desktop  ≥ 1200px   full sidebar and side column
+
+$tablet: 768px;
+$desktop: 1200px;
+
+@mixin mobile {
+  @media (width < $tablet) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (width >= $tablet) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media ($tablet <= width < $desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (width >= $desktop) {
+    @content;
+  }
+}

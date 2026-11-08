@@ -1,0 +1,115 @@
+<h1 class="visually-hidden">{{ 'nav.home' | transloco }}</h1>
+
+@switch (state().status) {
+  @case ('loading') {
+    <div class="home" aria-busy="true">
+      <p class="visually-hidden" role="status">{{ 'home.loading' | transloco }}</p>
+      <div class="hero hero--skeleton"></div>
+      <div class="shelf">
+        <div class="shelf__grid" aria-hidden="true">
+          @for (item of skeletons; track item) {
+            <div class="skeleton"></div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+  @case ('error') {
+    <section class="notice" aria-labelledby="home-error-title">
+      <h2 id="home-error-title" class="notice__title">{{ 'home.errorTitle' | transloco }}</h2>
+      <p class="notice__text">{{ 'home.errorText' | transloco }}</p>
+      <button type="button" class="notice__button" (click)="retry()">
+        {{ 'explore.retry' | transloco }}
+      </button>
+    </section>
+  }
+  @case ('empty') {
+    <section class="notice" aria-labelledby="home-empty-title">
+      <h2 id="home-empty-title" class="notice__title">{{ 'home.emptyTitle' | transloco }}</h2>
+      <p class="notice__text">{{ 'home.emptyText' | transloco }}</p>
+      <a class="notice__button" routerLink="/explore">{{ 'nav.explore' | transloco }}</a>
+    </section>
+  }
+  @default {
+    @if (featured(); as anime) {
+      <div class="home">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero__copy">
+            <p class="hero__eyebrow">
+              {{ (isGuest() ? 'home.heroSeason' : 'home.heroForYou') | transloco }}
+              @if (featuredMature()) {
+                <span class="hero__badge" [attr.title]="'content.matureNote' | transloco">
+                  <span aria-hidden="true">{{ 'content.mature' | transloco }}</span>
+                  <span class="visually-hidden">{{ 'content.matureLabel' | transloco }}</span>
+                </span>
+              }
+            </p>
+            <h2 id="hero-title" class="hero__title">{{ anime.title }}</h2>
+            @if (anime.synopsis) {
+              <p class="hero__text">{{ anime.synopsis }}</p>
+            }
+            <div class="hero__actions">
+              <a class="hero__button" [routerLink]="['/anime', anime.mal_id]">
+                {{ 'home.seeAnime' | transloco }}
+              </a>
+              @if (isGuest()) {
+                <a class="hero__ghost" routerLink="/login">
+                  <app-icon name="bookmark" />
+                  {{ 'home.logInToSave' | transloco }}
+                </a>
+              } @else {
+                <span class="hero__save">
+                  <button
+                    type="button"
+                    class="hero__ghost"
+                    [class.hero__ghost--on]="saved()"
+                    [class.hero__ghost--pulse]="reacted() && role() !== 'moe'"
+                    (click)="toggleSaved()"
+                  >
+                    <app-icon name="bookmark" />
+                    {{ (saved() ? 'home.saved' : 'home.save') | transloco }}
+                  </button>
+                  @if (reacted() && role() === 'moe') {
+                    <span class="sparkles" aria-hidden="true">
+                      <span class="sparkles__star sparkles__star--0"></span>
+                      <span class="sparkles__star sparkles__star--1"></span>
+                      <span class="sparkles__star sparkles__star--2"></span>
+                      <span class="sparkles__star sparkles__star--3"></span>
+                    </span>
+                  }
+                </span>
+              }
+            </div>
+          </div>
+          <app-hero-motif class="hero__motif" [related]="relatedTitles()" />
+        </section>
+
+        <section class="shelf" aria-labelledby="shelf-title">
+          <div class="shelf__header">
+            <h2 id="shelf-title" class="shelf__title">
+              {{ (isGuest() ? 'home.seasonTitle' : 'home.recommendedTitle') | transloco }}
+            </h2>
+            @if (!isGuest()) {
+              <ul class="shelf__genres" [attr.aria-label]="'home.genres' | transloco">
+                @for (name of genreNames(); track name) {
+                  <li class="shelf__genre">{{ genreKey(name) | transloco: { fallback: name } }}</li>
+                }
+              </ul>
+            }
+            <a class="shelf__all" [routerLink]="isGuest() ? '/season' : '/explore'">
+              {{ 'home.seeAll' | transloco }}
+              <app-icon name="arrowRight" />
+            </a>
+          </div>
+          <ul class="shelf__grid">
+            @for (item of shelf(); track item.mal_id; let index = $index) {
+              <li class="shelf__item">
+                <app-anime-card [anime]="item" [style.--i]="index" />
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    }
+  }
+}
