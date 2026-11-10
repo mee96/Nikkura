@@ -101,7 +101,7 @@ Construïda com a **monorepo**: un frontend en **Angular 21** que llegeix les da
 │   ├── app/
 │   │   ├── main.py          app de FastAPI, CORS, routers
 │   │   ├── core/config.py   configuració, gèneres per rol, regles de contingut
-│   │   ├── routers/         endpoints (de moment, health)
+│   │   ├── routers/         endpoints (health, users)
 │   │   ├── schemas/         models de Pydantic
 │   │   ├── models/          taules de la base de dades
 │   │   ├── services/        lògica de negoci
@@ -132,6 +132,13 @@ El backend creix amb cada milestone. La referència completa i sempre al dia és
 
 ### <img src="https://api.iconify.design/ph/heartbeat-fill.svg?color=%23E0A63B&height=20" height="18"> Estat
 <pre><code>GET    /health        → Estat del servei i comprovació de la base de dades (200 ok · 503 degraded)</code></pre>
+
+### <img src="https://api.iconify.design/ph/user-circle-fill.svg?color=%23FF6FA8&height=20" height="18"> Usuaris
+<pre><code>GET    /users/me      → Perfil de l'usuari amb sessió (404 si encara no en té)
+POST   /users/me      → Crea el perfil després del registre: nom d'usuari i rol (201 · 200 si ja existia)
+PATCH  /users/me      → Canvia el nom d'usuari o el rol</code></pre>
+
+> Aquestes rutes necessiten `Authorization: Bearer <ID token de Firebase>`. El rol és `moe_magical`, `haku_sama` o `senpai`.
 
 <br/>
 

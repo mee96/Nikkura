@@ -101,7 +101,7 @@ Built as a **monorepo**: an **Angular 21** frontend that reads anime data straig
 │   ├── app/
 │   │   ├── main.py          FastAPI app, CORS, routers
 │   │   ├── core/config.py   settings, role genres, content rules
-│   │   ├── routers/         endpoints (health for now)
+│   │   ├── routers/         endpoints (health, users)
 │   │   ├── schemas/         Pydantic models
 │   │   ├── models/          database tables
 │   │   ├── services/        business logic
@@ -132,6 +132,13 @@ The backend grows with each milestone. The full, always up-to-date reference is 
 
 ### <img src="https://api.iconify.design/ph/heartbeat-fill.svg?color=%23E0A63B&height=20" height="18"> Health
 <pre><code>GET    /health        → Service status and database check (200 ok · 503 degraded)</code></pre>
+
+### <img src="https://api.iconify.design/ph/user-circle-fill.svg?color=%23FF6FA8&height=20" height="18"> Users
+<pre><code>GET    /users/me      → Profile of the logged-in user (404 if there is none yet)
+POST   /users/me      → Create the profile after signing up: username and role (201 · 200 if it existed)
+PATCH  /users/me      → Change the username or the role</code></pre>
+
+> These routes need `Authorization: Bearer <Firebase ID token>`. The role is `moe_magical`, `haku_sama` or `senpai`.
 
 <br/>
 
