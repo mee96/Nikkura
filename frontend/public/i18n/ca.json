@@ -86,6 +86,7 @@
     "roleTitle": "Tria el teu rol",
     "submit": "Crear el meu compte",
     "submitting": "Creant el teu compte…",
+    "retry": "Torna-ho a provar",
     "google": "Registrar-me amb Google",
     "haveAccount": "Ja tens compte?",
     "errors": {
@@ -97,6 +98,7 @@
       "weakPassword": "Tria una contrasenya més forta.",
       "tooMany": "Massa intents. Espera una estona i torna-ho a provar.",
       "network": "Sense connexió. Revisa-la i torna-ho a provar.",
+      "profile": "El teu compte s'ha creat, però no hem pogut desar el teu perfil. Torna-ho a provar.",
       "generic": "No hem pogut crear el compte. Torna-ho a provar d'aquí una estona."
     }
   },

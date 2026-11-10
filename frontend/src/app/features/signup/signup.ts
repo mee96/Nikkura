@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
+import type { User } from 'firebase/auth';
 
 import { AuthService } from '../../core/auth/auth.service';
+import { ProfileService } from '../../core/services/profile.service';
 import { ROLES, Role, ThemeService } from '../../core/services/theme.service';
 import { RecommendedRole } from '../home/role-genres';
 
@@ -39,6 +41,19 @@ export function signupErrorKey(error: unknown): string | null {
   }
 }
 
+/**
+ * The username saved in the profile: the one typed, or else the name of the account
+ * (Google) or the part of its email before the @. Never longer than the screen allows.
+ */
+export function profileUsername(
+  typed: string,
+  user: Pick<User, 'displayName' | 'email'> | null,
+): string {
+  const clean = (value: string) => value.trim().slice(0, USERNAME_MAX).trim();
+  const candidates = [typed, user?.displayName ?? '', user?.email?.split('@')[0] ?? ''];
+  return candidates.map(clean).find((name) => name.length >= USERNAME_MIN) ?? 'user';
+}
+
 /** The username counts without the spaces around it. */
 function usernameLength(control: AbstractControl<string>): { username: true } | null {
   const length = control.value.trim().length;
@@ -49,8 +64,10 @@ function usernameLength(control: AbstractControl<string>): { username: true } | 
  * The sign-up screen, inside the `AuthLayout` and with the same look as the login:
  * the welcome on the left and the form on the right. Username, email, password and
  * the role (the colours of the app), or Google. It asks for
- * nothing else: no age. For now the role is applied to this visit; saving it in the
- * profile comes with the user data in the backend.
+ * nothing else: no age. Once the account exists in Firebase, the profile (username and
+ * role) is created in the backend and the role it answers is applied. If saving the
+ * profile fails the person stays logged in and can try again: only the profile call is
+ * repeated, never the sign-up.
  */
 @Component({
   selector: 'app-signup',
@@ -164,33 +181,46 @@ function usernameLength(control: AbstractControl<string>): { username: true } | 
             </p>
           }
 
-          <button type="submit" class="button button--primary" [attr.aria-busy]="busy()">
-            {{ (busy() ? 'signup.submitting' : 'signup.submit') | transloco }}
-            <svg
-              class="button__arrow"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
+          @if (pendingProfile()) {
+            <button
+              type="button"
+              class="button button--primary"
+              [attr.aria-busy]="busy()"
+              (click)="retry()"
             >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </button>
+              {{ (busy() ? 'signup.submitting' : 'signup.retry') | transloco }}
+            </button>
+          } @else {
+            <button type="submit" class="button button--primary" [attr.aria-busy]="busy()">
+              {{ (busy() ? 'signup.submitting' : 'signup.submit') | transloco }}
+              <svg
+                class="button__arrow"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+          }
         </form>
 
-        <div class="auth-form__or">
-          <span>{{ 'login.or' | transloco }}</span>
-        </div>
+        @if (!pendingProfile()) {
+          <div class="auth-form__or">
+            <span>{{ 'login.or' | transloco }}</span>
+          </div>
 
-        <button type="button" class="button button--outline" (click)="google()">
-          {{ 'signup.google' | transloco }}
-        </button>
+          <button type="button" class="button button--outline" (click)="google()">
+            {{ 'signup.google' | transloco }}
+          </button>
+        }
 
         <p class="auth-form__links">
           {{ 'signup.haveAccount' | transloco }}
@@ -210,6 +240,7 @@ export class Signup {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly theme = inject(ThemeService);
+  private readonly profiles = inject(ProfileService);
 
   protected readonly roles = SIGNUP_ROLES;
   protected readonly usernameMax = USERNAME_MAX;
@@ -233,6 +264,10 @@ export class Signup {
   protected readonly busy = signal(false);
   /** Translation key of the error being shown, if any. */
   protected readonly error = signal<string | null>(null);
+  /** Set while the account exists but its profile is not saved yet: the screen then offers to retry. */
+  protected readonly pendingProfile = signal<{ username: string; role: RecommendedRole } | null>(
+    null,
+  );
 
   protected async submit(): Promise<void> {
     if (this.busy()) return;
@@ -242,17 +277,24 @@ export class Signup {
       return;
     }
     const values = this.form.getRawValue();
+    const username = values.username.trim();
     const created = await this.attempt(() =>
-      this.auth.signUp(values.email.trim(), values.password, values.username.trim()),
+      this.auth.signUp(values.email.trim(), values.password, username),
     );
-    if (created) await this.enter(values.role);
+    if (created) await this.saveProfile(username, values.role);
   }
 
   protected async google(): Promise<void> {
     if (this.busy()) return;
-    if (await this.attempt(() => this.auth.logInWithGoogle())) {
-      await this.enter(this.form.controls.role.value);
-    }
+    if (!(await this.attempt(() => this.auth.logInWithGoogle()))) return;
+    const username = profileUsername(this.form.controls.username.value, this.auth.currentUser());
+    await this.saveProfile(username, this.form.controls.role.value);
+  }
+
+  /** Tries again to save the profile of an account that is already created. */
+  protected async retry(): Promise<void> {
+    const pending = this.pendingProfile();
+    if (pending && !this.busy()) await this.saveProfile(pending.username, pending.role);
   }
 
   /** The most useful message for a form that is not ready yet. */
@@ -279,6 +321,25 @@ export class Signup {
     } finally {
       this.busy.set(false);
     }
+  }
+
+  /** Creates the profile in the backend, then applies the role it answers and goes to the home. */
+  private async saveProfile(username: string, wanted: RecommendedRole): Promise<void> {
+    this.busy.set(true);
+    this.error.set(null);
+    let role: Role;
+    try {
+      ({ role } = await this.profiles.create(username, wanted));
+    } catch (error) {
+      console.error('[Signup] Could not save the profile', error);
+      this.pendingProfile.set({ username, role: wanted });
+      this.error.set('signup.errors.profile');
+      return;
+    } finally {
+      this.busy.set(false);
+    }
+    this.pendingProfile.set(null);
+    await this.enter(role);
   }
 
   private enter(role: Role): Promise<boolean> {

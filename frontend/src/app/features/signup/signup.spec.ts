@@ -4,8 +4,9 @@ import { Router, provideRouter } from '@angular/router';
 import { provideTranslocoTesting } from '../../../testing/transloco';
 import { AuthService } from '../../core/auth/auth.service';
 import { LanguageService } from '../../core/services/language.service';
+import { ProfileService } from '../../core/services/profile.service';
 import { ThemeService } from '../../core/services/theme.service';
-import { Signup, signupErrorKey } from './signup';
+import { Signup, profileUsername, signupErrorKey } from './signup';
 
 describe('signupErrorKey', () => {
   it.each([
@@ -30,10 +31,34 @@ describe('signupErrorKey', () => {
   });
 });
 
+describe('profileUsername', () => {
+  const google = { displayName: 'Ana Google', email: 'ana.g@example.com' };
+
+  it('uses the username that was typed, without the spaces around it', () => {
+    expect(profileUsername('  Ana  ', google)).toBe('Ana');
+  });
+
+  it('falls back to the name of the account, then to the start of the email', () => {
+    expect(profileUsername('', google)).toBe('Ana Google');
+    expect(profileUsername(' ', { displayName: null, email: 'ana.g@example.com' })).toBe('ana.g');
+  });
+
+  it('skips names that are too short and never goes over the limit', () => {
+    expect(profileUsername('A', google)).toBe('Ana Google');
+    expect(profileUsername('x'.repeat(40), null)).toBe('x'.repeat(24));
+  });
+
+  it('still gives a valid username when there is nothing to use', () => {
+    expect(profileUsername('', null)).toBe('user');
+    expect(profileUsername('', { displayName: null, email: null })).toBe('user');
+  });
+});
+
 describe('Signup', () => {
   let fixture: ComponentFixture<Signup>;
   let element: HTMLElement;
-  let auth: Record<'signUp' | 'logInWithGoogle', ReturnType<typeof vi.fn>>;
+  let auth: Record<'signUp' | 'logInWithGoogle' | 'currentUser', ReturnType<typeof vi.fn>>;
+  let profile: Record<'create', ReturnType<typeof vi.fn>>;
   let navigate: ReturnType<typeof vi.spyOn>;
 
   beforeEach(async () => {
@@ -41,10 +66,20 @@ describe('Signup', () => {
     auth = {
       signUp: vi.fn(() => Promise.resolve()),
       logInWithGoogle: vi.fn(() => Promise.resolve()),
+      currentUser: vi.fn(() => null),
+    };
+    profile = {
+      create: vi.fn((username: string, role: string) =>
+        Promise.resolve({ uid: 'u1', username, email: null, role }),
+      ),
     };
     TestBed.configureTestingModule({
       imports: [Signup, provideTranslocoTesting()],
-      providers: [provideRouter([]), { provide: AuthService, useValue: auth }],
+      providers: [
+        provideRouter([]),
+        { provide: AuthService, useValue: auth },
+        { provide: ProfileService, useValue: profile },
+      ],
     });
     TestBed.inject(LanguageService).setLang('en');
     navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
@@ -116,12 +151,13 @@ describe('Signup', () => {
   });
 
   describe('creating the account', () => {
-    it('signs up with the trimmed values, applies the chosen role and goes to the home', async () => {
+    it('signs up with the trimmed values, saves the profile, applies the role and goes to the home', async () => {
       await fill();
       await click('input[value="haku"]');
       await submit();
 
       expect(auth.signUp).toHaveBeenCalledWith('ana@example.com', 'secret123', 'Ana');
+      expect(profile.create).toHaveBeenCalledWith('Ana', 'haku');
       expect(TestBed.inject(ThemeService).role()).toBe('haku');
       expect(navigate).toHaveBeenCalledWith('/');
     });
@@ -169,7 +205,66 @@ describe('Signup', () => {
       await submit();
 
       expect(text('[role="alert"]')).toContain('There is already an account');
+      expect(profile.create).not.toHaveBeenCalled();
       expect(navigate).not.toHaveBeenCalled();
+    });
+
+    it('applies the role of the profile that already existed, not the one chosen', async () => {
+      profile.create.mockResolvedValue({ uid: 'u1', username: 'Ana', email: null, role: 'senpai' });
+      await fill();
+      await submit();
+
+      expect(TestBed.inject(ThemeService).role()).toBe('senpai');
+      expect(navigate).toHaveBeenCalledWith('/');
+    });
+
+    describe('when the profile cannot be saved', () => {
+      const failOnce = async () => {
+        profile.create.mockRejectedValueOnce({ status: 503 });
+        await fill();
+        await click('input[value="haku"]');
+        await submit();
+      };
+
+      beforeEach(() => vi.spyOn(console, 'error').mockImplementation(() => undefined));
+
+      it('stays on the page with an error and no role applied yet', async () => {
+        await failOnce();
+
+        expect(text('[role="alert"]')).toContain("we couldn't save your profile");
+        expect(navigate).not.toHaveBeenCalled();
+        expect(TestBed.inject(ThemeService).role()).toBe('guest');
+      });
+
+      it('offers to try again instead of creating the account twice', async () => {
+        await failOnce();
+
+        expect(element.querySelector('button[type="submit"]')).toBeNull();
+        expect(element.querySelector('.button--outline')).toBeNull();
+        expect(text('.button--primary')).toBe('Try again');
+      });
+
+      it('repeats only the profile and then goes to the home', async () => {
+        await failOnce();
+        await click('.button--primary');
+
+        expect(auth.signUp).toHaveBeenCalledOnce();
+        expect(profile.create).toHaveBeenCalledTimes(2);
+        expect(profile.create).toHaveBeenLastCalledWith('Ana', 'haku');
+        expect(TestBed.inject(ThemeService).role()).toBe('haku');
+        expect(navigate).toHaveBeenCalledWith('/');
+        expect(element.querySelector('[role="alert"]')).toBeNull();
+      });
+
+      it('keeps offering it while the backend is still down', async () => {
+        await failOnce();
+        profile.create.mockRejectedValueOnce({ status: 503 });
+        await click('.button--primary');
+
+        expect(text('[role="alert"]')).toContain("we couldn't save your profile");
+        expect(text('.button--primary')).toBe('Try again');
+        expect(navigate).not.toHaveBeenCalled();
+      });
     });
 
     it('does not send twice while it is waiting', async () => {
@@ -194,12 +289,35 @@ describe('Signup', () => {
   });
 
   describe('Google', () => {
-    it('signs up with Google and applies the chosen role', async () => {
+    it('signs up with Google, saves the profile and applies the chosen role', async () => {
+      auth.currentUser.mockReturnValue({ displayName: 'Ana Google', email: 'ana@example.com' });
       await click('input[value="senpai"]');
       await click('.button--outline');
 
       expect(auth.logInWithGoogle).toHaveBeenCalledOnce();
+      expect(profile.create).toHaveBeenCalledWith('Ana Google', 'senpai');
       expect(TestBed.inject(ThemeService).role()).toBe('senpai');
+      expect(navigate).toHaveBeenCalledWith('/');
+    });
+
+    it('prefers the username that was typed', async () => {
+      auth.currentUser.mockReturnValue({ displayName: 'Ana Google', email: 'ana@example.com' });
+      await type('signup-username', 'Anita');
+      await click('.button--outline');
+
+      expect(profile.create).toHaveBeenCalledWith('Anita', 'moe');
+    });
+
+    it('offers to try again when its profile cannot be saved', async () => {
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+      profile.create.mockRejectedValueOnce({ status: 503 });
+      await click('.button--outline');
+      expect(text('.button--primary')).toBe('Try again');
+
+      await click('.button--primary');
+
+      expect(auth.logInWithGoogle).toHaveBeenCalledOnce();
+      expect(profile.create).toHaveBeenCalledTimes(2);
       expect(navigate).toHaveBeenCalledWith('/');
     });
 
@@ -208,6 +326,7 @@ describe('Signup', () => {
       await click('.button--outline');
 
       expect(element.querySelector('[role="alert"]')).toBeNull();
+      expect(profile.create).not.toHaveBeenCalled();
       expect(navigate).not.toHaveBeenCalled();
     });
   });
