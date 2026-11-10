@@ -105,7 +105,8 @@ Construida como **monorepo**: un frontend en **Angular 21** que lee los datos de
 │   │   ├── schemas/         modelos de Pydantic
 │   │   ├── models/          tablas de la base de datos
 │   │   ├── services/        lógica de negocio
-│   │   └── utils/db.py      conexión a MySQL
+│   │   └── utils/           conexión a MySQL y migraciones
+│   ├── migrations/          archivos SQL numerados, uno por cambio en la base de datos
 │   └── tests/
 │
 ├── 🅰️ frontend/
@@ -146,10 +147,14 @@ python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
 cp .env.example .env             # Rellena las credenciales de Aiven
+python -m app.migrate            # Crea o actualiza las tablas
 uvicorn app.main:app --reload
 ```
 
 > `http://localhost:8000/health` debería responder `{"status": "ok", "database": "up"}`, y `http://localhost:8000/docs` muestra la API.
+
+> [!NOTE]
+> Cada cambio de la base de datos es un archivo SQL numerado en `backend/migrations/`. `python -m app.migrate` aplica los que faltan, en orden, y los registra en la tabla `schema_migrations`; `python -m app.migrate --dry-run` solo los lista. Para cambiar la base de datos, añade el archivo siguiente (`002_nombre_corto.sql`) en lugar de editar uno antiguo.
 
 > [!TIP]
 > En Windows, si Smart App Control o una política de empresa bloquea SQLAlchemy (`DLL load failed`), ejecútalo en Python puro:

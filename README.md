@@ -105,7 +105,8 @@ Built as a **monorepo**: an **Angular 21** frontend that reads anime data straig
 │   │   ├── schemas/         Pydantic models
 │   │   ├── models/          database tables
 │   │   ├── services/        business logic
-│   │   └── utils/db.py      MySQL connection
+│   │   └── utils/           MySQL connection and migration runner
+│   ├── migrations/          numbered SQL files, one per database change
 │   └── tests/
 │
 ├── 🅰️ frontend/
@@ -146,10 +147,14 @@ python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
 cp .env.example .env             # Fill in the Aiven credentials
+python -m app.migrate            # Create or update the tables
 uvicorn app.main:app --reload
 ```
 
 > `http://localhost:8000/health` should answer `{"status": "ok", "database": "up"}`, and `http://localhost:8000/docs` shows the API.
+
+> [!NOTE]
+> Every database change is a numbered SQL file in `backend/migrations/`. `python -m app.migrate` applies the ones that are missing, in order, and records them in the `schema_migrations` table; `python -m app.migrate --dry-run` only lists them. To change the database, add the next file (`002_short_name.sql`) instead of editing an old one.
 
 > [!TIP]
 > On Windows, if Smart App Control or a company policy blocks SQLAlchemy (`DLL load failed`), run it in pure Python:
