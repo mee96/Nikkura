@@ -101,4 +101,11 @@ describe('AuthService', () => {
       await expect(create().idToken()).resolves.toBe('fresh');
     });
   });
+
+  it('gives the current Firebase user straight away', () => {
+    const user = fakeUser();
+    current = user;
+
+    expect(create().currentUser()).toBe(user);
+  });
 });
