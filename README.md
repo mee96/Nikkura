@@ -135,7 +135,7 @@ The backend grows with each milestone. The full, always up-to-date reference is 
 
 ### <img src="https://api.iconify.design/ph/user-circle-fill.svg?color=%23FF6FA8&height=20" height="18"> Users
 <pre><code>GET    /users/me      → Profile of the logged-in user (404 if there is none yet)
-POST   /users/me      → Create the profile after signing up: username and role (201 · 200 if it existed)
+POST   /users/me      → Create the profile after signing up: username and role, plus the default folders `favorites` and `to_watch` (201 · 200 if it existed)
 PATCH  /users/me      → Change the username or the role</code></pre>
 
 > These routes need `Authorization: Bearer <Firebase ID token>`. The role is `moe_magical`, `haku_sama` or `senpai`.
