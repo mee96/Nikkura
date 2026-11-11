@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.auth import CurrentUser
-from app.models import EntityUser
+from app.models import DEFAULT_FOLDERS, EntityUser, Folder
 from app.schemas.user import UserProfileCreate, UserProfileUpdate
 
 
@@ -15,10 +15,12 @@ def get_profile(db: Session, uid: str) -> EntityUser | None:
 def create_profile(
     db: Session, user: CurrentUser, data: UserProfileCreate
 ) -> tuple[EntityUser, bool]:
-    """Create the profile of `user`, or return the one that already exists.
+    """Create the profile of `user` with its default folders, or return the one that exists.
 
-    Returns the profile and whether it was created now. Repeating the request
-    (a retry after signing up) never makes a second profile or changes the first.
+    The profile and the two default folders (`favorites`, `to_watch`) are saved in the same
+    transaction: a profile never exists without them. Returns the profile and whether it was
+    created now. Repeating the request (a retry after signing up) never makes a second
+    profile or a second pair of folders, and changes nothing.
     """
     existing = get_profile(db, user.uid)
     if existing is not None:
@@ -26,11 +28,15 @@ def create_profile(
     profile = EntityUser(
         firebase_uid=user.uid, username=data.username, email=user.email, role=data.role
     )
-    db.add(profile)
     try:
+        db.add(profile)
+        db.flush()  # the profile row first: the folders point at it
+        db.add_all(
+            Folder(user_uid=user.uid, name=name, kind=kind) for kind, name in DEFAULT_FOLDERS
+        )
         db.commit()
     except IntegrityError:
-        # Two requests at the same time: the other one created it first.
+        # Two requests at the same time: the other one created it first, folders included.
         db.rollback()
         existing = get_profile(db, user.uid)
         if existing is None:
