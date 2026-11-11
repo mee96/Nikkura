@@ -53,6 +53,11 @@ export class AuthService {
     await this.auth.logOut();
   }
 
+  /** The logged-in user right now, straight from Firebase, or `null`. */
+  currentUser(): User | null {
+    return this.auth.currentUser();
+  }
+
   /** A fresh ID token for the backend, or `null` when nobody is logged in. */
   async idToken(): Promise<string | null> {
     const user = this.auth.currentUser();

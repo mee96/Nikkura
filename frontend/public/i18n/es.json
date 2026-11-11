@@ -86,6 +86,7 @@
     "roleTitle": "Elige tu rol",
     "submit": "Crear mi cuenta",
     "submitting": "Creando tu cuenta…",
+    "retry": "Volver a intentarlo",
     "google": "Registrarme con Google",
     "haveAccount": "¿Ya tienes cuenta?",
     "errors": {
@@ -97,6 +98,7 @@
       "weakPassword": "Elige una contraseña más fuerte.",
       "tooMany": "Demasiados intentos. Espera un rato y vuelve a probar.",
       "network": "Sin conexión. Revísala y vuelve a probar.",
+      "profile": "Tu cuenta se ha creado, pero no hemos podido guardar tu perfil. Vuelve a intentarlo.",
       "generic": "No hemos podido crear la cuenta. Vuelve a probarlo en un rato."
     }
   },

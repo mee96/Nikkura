@@ -86,6 +86,7 @@
     "roleTitle": "Choose your role",
     "submit": "Create my account",
     "submitting": "Creating your account…",
+    "retry": "Try again",
     "google": "Sign up with Google",
     "haveAccount": "Already have an account?",
     "errors": {
@@ -97,6 +98,7 @@
       "weakPassword": "Choose a stronger password.",
       "tooMany": "Too many attempts. Wait a while and try again.",
       "network": "No connection. Check it and try again.",
+      "profile": "Your account was created, but we couldn't save your profile. Try again.",
       "generic": "We couldn't create your account. Try again in a moment."
     }
   },
