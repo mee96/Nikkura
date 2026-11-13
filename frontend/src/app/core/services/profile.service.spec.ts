@@ -70,4 +70,37 @@ describe('ProfileService', () => {
 
     await failed;
   });
+
+  it('reads the profile of the logged-in user', async () => {
+    const read = service.get();
+
+    const request = http.expectOne(URL);
+    expect(request.request.method).toBe('GET');
+    request.flush(apiProfile('senpai'));
+
+    expect(await read).toEqual({
+      uid: 'u1',
+      username: 'Ana',
+      email: 'ana@example.com',
+      role: 'senpai',
+    });
+  });
+
+  it('fails with a 404 when the profile does not exist yet', async () => {
+    const read = service.get();
+    const failed = expect(read).rejects.toMatchObject({ status: 404 });
+
+    http.expectOne(URL).flush('missing', { status: 404, statusText: 'Not Found' });
+
+    await failed;
+  });
+
+  it('fails when the profile has a role the app does not know', async () => {
+    const read = service.get();
+    const failed = expect(read).rejects.toThrow('Unknown role');
+
+    http.expectOne(URL).flush(apiProfile('ninja'));
+
+    await failed;
+  });
 });
