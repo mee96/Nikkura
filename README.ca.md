@@ -135,7 +135,7 @@ El backend creix amb cada milestone. La referència completa i sempre al dia és
 
 ### <img src="https://api.iconify.design/ph/user-circle-fill.svg?color=%23FF6FA8&height=20" height="18"> Usuaris
 <pre><code>GET    /users/me      → Perfil de l'usuari amb sessió (404 si encara no en té)
-POST   /users/me      → Crea el perfil després del registre: nom d'usuari i rol (201 · 200 si ja existia)
+POST   /users/me      → Crea el perfil després del registre: nom d'usuari i rol, més les carpetes per defecte `favorites` i `to_watch` (201 · 200 si ja existia)
 PATCH  /users/me      → Canvia el nom d'usuari o el rol</code></pre>
 
 > Aquestes rutes necessiten `Authorization: Bearer <ID token de Firebase>`. El rol és `moe_magical`, `haku_sama` o `senpai`.

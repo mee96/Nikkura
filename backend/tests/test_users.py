@@ -8,7 +8,8 @@ from sqlalchemy.pool import StaticPool
 
 from app.core.auth import CurrentUser, get_current_user
 from app.main import app
-from app.models import Base, EntityUser
+from app.models import Base, EntityUser, Folder
+from app.services import users as users_service
 from app.utils.db import get_db
 
 ALICE = CurrentUser(uid="uid-alice", email="alice@example.com", email_verified=True)
@@ -76,6 +77,73 @@ def test_post_twice_keeps_one_profile_and_returns_it(
     assert again.json() == first.json()
     with session_factory() as session:
         assert len(session.scalars(select(EntityUser)).all()) == 1
+
+
+def folders_of(session_factory: sessionmaker[Session], uid: str) -> list[Folder]:
+    with session_factory() as session:
+        return list(session.scalars(select(Folder).where(Folder.user_uid == uid)))
+
+
+def test_post_creates_the_two_default_folders(
+    client: TestClient, session_factory: sessionmaker[Session]
+) -> None:
+    client.post("/users/me", json={"username": "Alice", "role": "moe_magical"})
+
+    folders = folders_of(session_factory, "uid-alice")
+    assert sorted((folder.kind, folder.name) for folder in folders) == [
+        ("favorites", "Favorites"),
+        ("to_watch", "To watch"),
+    ]
+    assert not any(folder.is_deleted for folder in folders)
+    assert all(folder.is_default for folder in folders)
+
+
+def test_post_twice_does_not_duplicate_the_folders(
+    client: TestClient, session_factory: sessionmaker[Session]
+) -> None:
+    client.post("/users/me", json={"username": "Alice", "role": "moe_magical"})
+    client.post("/users/me", json={"username": "Alice", "role": "moe_magical"})
+
+    assert len(folders_of(session_factory, "uid-alice")) == 2
+
+
+def test_each_user_gets_their_own_folders(
+    client: TestClient, session_factory: sessionmaker[Session]
+) -> None:
+    client.post("/users/me", json={"username": "Alice", "role": "moe_magical"})
+    log_in_as(BOB)
+    client.post("/users/me", json={"username": "Bob", "role": "senpai"})
+
+    assert len(folders_of(session_factory, "uid-alice")) == 2
+    assert len(folders_of(session_factory, "uid-bob")) == 2
+
+
+def test_patch_and_get_do_not_touch_the_folders(
+    client: TestClient, session_factory: sessionmaker[Session]
+) -> None:
+    client.post("/users/me", json={"username": "Alice", "role": "moe_magical"})
+    client.patch("/users/me", json={"role": "senpai"})
+    client.get("/users/me")
+
+    assert len(folders_of(session_factory, "uid-alice")) == 2
+
+
+def test_no_profile_is_left_without_its_folders(
+    client: TestClient,
+    session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def broken(**_: object) -> Folder:
+        raise RuntimeError("the folders could not be created")
+
+    monkeypatch.setattr(users_service, "Folder", broken)
+
+    with pytest.raises(RuntimeError):
+        client.post("/users/me", json={"username": "Alice", "role": "moe_magical"})
+
+    with session_factory() as session:
+        assert session.scalars(select(EntityUser)).all() == []
+        assert session.scalars(select(Folder)).all() == []
 
 
 @pytest.mark.parametrize("role", ["moe", "visitor", "MOE_MAGICAL", ""])
