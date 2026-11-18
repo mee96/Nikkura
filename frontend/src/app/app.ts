@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { LanguageService } from './core/services/language.service';
+import { SessionThemeService } from './core/services/session-theme.service';
 import { ThemeService } from './core/services/theme.service';
 
 @Component({
@@ -14,5 +15,6 @@ import { ThemeService } from './core/services/theme.service';
 export class App {
   // Created at startup so data-role and <html lang> are set from the first render.
   private readonly theme = inject(ThemeService);
+  private readonly sessionTheme = inject(SessionThemeService);
   private readonly language = inject(LanguageService);
 }

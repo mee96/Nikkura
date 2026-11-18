@@ -26,10 +26,19 @@ export class ProfileService {
     const profile = await firstValueFrom(
       this.http.post<ApiUserProfile>(this.url, { username, role: toApiRole(role) }),
     );
-    const known = fromApiRole(profile.role);
-    if (!known) {
-      throw new Error(`Unknown role from the backend: ${profile.role}`);
-    }
-    return { uid: profile.uid, username: profile.username, email: profile.email, role: known };
+    return toProfile(profile);
   }
+
+  /** The profile of the logged-in user. Fails with a 404 while it has not been created yet. */
+  async get(): Promise<UserProfile> {
+    return toProfile(await firstValueFrom(this.http.get<ApiUserProfile>(this.url)));
+  }
+}
+
+function toProfile(profile: ApiUserProfile): UserProfile {
+  const known = fromApiRole(profile.role);
+  if (!known) {
+    throw new Error(`Unknown role from the backend: ${profile.role}`);
+  }
+  return { uid: profile.uid, username: profile.username, email: profile.email, role: known };
 }
